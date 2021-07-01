@@ -4,7 +4,7 @@ import { firebase } from './src/firebase/config';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { LoginScreen, HomeScreen, RegistrationScreen } from './src/screens';
-import { TouchableOpacity } from 'react-native';
+import { Button } from 'react-native';
 import { decode, encode } from 'base-64';
 if (!global.btoa) {
   global.btoa = encode;
@@ -53,7 +53,7 @@ export default function App() {
               name="Home"
               options={{
                 headerRight: () => (
-                  <TouchableOpacity
+                  <Button
                     onPress={() => {
                       firebase.auth().signOut().then(setUser(null));
                     }}
