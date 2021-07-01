@@ -28,8 +28,8 @@ export default function App() {
           .get()
           .then((document) => {
             const userData = document.data();
-            setLoading(false);
             setUser(userData);
+            setLoading(false);
           })
           .catch((error) => {
             setLoading(false);
