@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { firebase } from './src/firebase/config';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { LoginScreen, HomeScreen, RegistrationScreen } from './src/screens';
+import { LoginScreen, FridgeScreen, RegistrationScreen } from './src/screens';
 import { Button } from 'react-native';
 import { decode, encode } from 'base-64';
 if (!global.btoa) {
@@ -50,7 +50,7 @@ export default function App() {
         {user ? (
           <>
             <Stack.Screen
-              name="Home"
+              name="Fridge"
               options={{
                 headerRight: () => (
                   <Button
@@ -63,7 +63,7 @@ export default function App() {
                 ),
               }}
             >
-              {(props) => <HomeScreen {...props} extraData={user} />}
+              {(props) => <FridgeScreen {...props} extraData={user} />}
             </Stack.Screen>
           </>
         ) : (
