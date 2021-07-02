@@ -6,6 +6,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { LoginScreen, FridgeScreen, RegistrationScreen } from './src/screens';
 import { Button } from 'react-native';
 import { decode, encode } from 'base-64';
+import DummyNotification from './src/screens/ReusableComponenets/DummyNotification';
+
 if (!global.btoa) {
   global.btoa = encode;
 }
@@ -63,7 +65,7 @@ export default function App() {
                 ),
               }}
             >
-              {(props) => <FridgeScreen {...props} extraData={user} />}
+              {(props) => <DummyNotification {...props} extraData={user} />}
             </Stack.Screen>
           </>
         ) : (
