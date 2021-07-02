@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { firebase } from './src/firebase/config';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { LoginScreen, FridgeScreen, RegistrationScreen } from './src/screens';
+import { LoginScreen, FridgeScreen, RegistrationScreen, Scanner } from './src/screens';
 import { Button } from 'react-native';
 import { decode, encode } from 'base-64';
 import DummyNotification from './src/screens/ReusableComponenets/DummyNotification';
@@ -65,7 +65,7 @@ export default function App() {
                 ),
               }}
             >
-              {(props) => <DummyNotification {...props} extraData={user} />}
+              {(props) => <Scanner {...props} extraData={user} />}
             </Stack.Screen>
           </>
         ) : (
