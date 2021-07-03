@@ -2,7 +2,6 @@ import React from 'react';
 import {
   ActivityIndicator,
   Button,
-  Clipboard,
   FlatList,
   Image,
   Share,
@@ -11,9 +10,14 @@ import {
   ScrollView,
   View,
 } from 'react-native';
-import { ImagePicker, Permissions } from 'expo';
-// import { nanoid } from 'nanoid/non-secure';
-import uuid from 'uuid';
+// import { ImagePicker, Permissions } from 'expo';
+import * as MediaLibrary from 'expo-media-library';
+// import * as Permissions from 'expo-permissions';
+import { Camera } from 'expo-camera';
+import * as ImagePicker from 'expo-image-picker';
+import Clipboard from 'expo-clipboard';
+import { nanoid } from 'nanoid/non-secure';
+// import uuid from 'uuid';
 import Environment from '../../firebase/environment';
 import firebase from '../../firebase/firebase';
 
@@ -25,8 +29,11 @@ export default class Scanner extends React.Component {
   };
 
   async componentDidMount() {
-    await Permissions.askAsync(Permissions.CAMERA_ROLL);
-    await Permissions.askAsync(Permissions.CAMERA);
+    //changed Permissions.CAMERA_ROLL to Permissions.IMAGE_LIBRARY
+    // await Permissions.askAsync(Permissions.IMAGE_LIBRARY);
+    // await Permissions.askAsync(Permissions.CAMERA);
+    MediaLibrary.requestPermissionsAsync();
+    Camera.requestPermissionsAsync();
   }
 
   render() {
@@ -144,7 +151,7 @@ export default class Scanner extends React.Component {
             onLongPress={this._share}
             style={{ paddingVertical: 10, paddingHorizontal: 10 }}
           >
-            JSON.stringify(googleResponse.responses)}
+            {googleResponse.responses[0].textAnnotations[0].description}
           </Text>
         )}
       </View>
@@ -244,7 +251,8 @@ export default class Scanner extends React.Component {
         }
       );
       let responseJson = await response.json();
-      console.log(responseJson);
+      console.log('>>>>>>>>>>>HERE');
+      console.log(responseJson.responses[0].textAnnotations[0].description);
       this.setState({
         googleResponse: responseJson,
         uploading: false,
@@ -270,7 +278,11 @@ async function uploadImageAsync(uri) {
     xhr.send(null);
   });
 
-  const ref = firebase.storage().ref().child(uuid.v4());
+  const ref = firebase
+    .storage()
+    .ref()
+    // .child(uuid.v4());
+    .child(nanoid());
   const snapshot = await ref.put(blob);
 
   blob.close();
