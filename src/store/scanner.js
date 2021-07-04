@@ -17,14 +17,11 @@ const handlePickedImage = (image) => {
 };
 
 const _submitToGoogle = (response) => {
-  console.log('response in action: ', response);
   return {
     type: SUBMIT_TO_GOOGLE,
     googleResponse: response,
   };
 };
-
-// export const _keyExtractor = (item, index) => item.id;
 
 export const _renderItem = (item) => {
   <Text>response: {JSON.stringify(item)}</Text>;
@@ -75,10 +72,6 @@ export const _handleImagePicked = (pickerResult) => {
       // this.setState({ uploading: true });
 
       if (!pickerResult.cancelled) {
-        // uploadUrl = await uploadImageAsync(pickerResult.uri);
-        // console.log('HERE');
-        // dispatch(handlePickedImage(uploadUrl));
-
         const blob = await new Promise((resolve, reject) => {
           const xhr = new XMLHttpRequest();
           xhr.onload = function () {
@@ -98,8 +91,6 @@ export const _handleImagePicked = (pickerResult) => {
 
         blob.close();
         const downloadUrl = await snapshot.ref.getDownloadURL();
-        console.log('>>>>>>>>>>>download url:');
-        console.log(downloadUrl);
         dispatch(handlePickedImage(downloadUrl));
       }
     } catch (e) {
@@ -143,8 +134,6 @@ export const submitToGoogle = (image) => {
         }
       );
       let responseJson = await response.json();
-      console.log('>>>>>>>>>>>HERE');
-      console.log(responseJson.responses[0].textAnnotations[0].description);
       dispatch(
         _submitToGoogle(
           responseJson.responses[0].textAnnotations[0].description
@@ -155,36 +144,6 @@ export const submitToGoogle = (image) => {
     }
   };
 };
-
-//used in _handlePickedImage
-async function uploadImageAsync(uri) {
-  const blob = await new Promise((resolve, reject) => {
-    const xhr = new XMLHttpRequest();
-    xhr.onload = function () {
-      resolve(xhr.response);
-    };
-    xhr.onerror = function (e) {
-      console.log(e);
-      reject(new TypeError('Network request failed'));
-    };
-    xhr.responseType = 'blob';
-    xhr.open('GET', uri, true);
-    xhr.send(null);
-  });
-
-  const ref = firebase
-    .storage()
-    .ref()
-    // .child(uuid.v4());
-    .child(nanoid());
-  const snapshot = await ref.put(blob);
-
-  blob.close();
-  const downloadUrl = await snapshot.ref.getDownloadURL();
-  console.log('>>>>>>>>>>>download url:');
-  console.log(downloadUrl);
-  return downloadUrl;
-}
 
 const initialState = {
   image: null,
@@ -198,8 +157,6 @@ export default scannerReducer = (state = initialState, action) => {
     case HANDLE_PICKED_IMAGE:
       return { ...state, image: action.image };
     case SUBMIT_TO_GOOGLE:
-      console.log('!!!!!!!!!!!!!!!!!');
-      console.log(action.response);
       return { ...state, googleResponse: action.googleResponse };
     default:
       return state;
