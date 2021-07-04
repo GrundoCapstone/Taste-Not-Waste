@@ -11,7 +11,7 @@ import {
   View,
 } from 'react-native';
 // import { ImagePicker, Permissions } from 'expo';
-import {connect} from 'react-redux'
+import { connect } from 'react-redux';
 import * as MediaLibrary from 'expo-media-library';
 // import * as Permissions from 'expo-permissions';
 import { Camera } from 'expo-camera';
@@ -22,7 +22,9 @@ import { nanoid } from 'nanoid/non-secure';
 import Environment from '../../firebase/environment';
 import firebase from '../../firebase/firebase';
 
-export default class Scanner extends React.Component {
+import { _pickImage, _takePhoto, submitToGoogle } from '../../store/scanner';
+
+class Scanner extends React.Component {
   state = {
     image: null,
     uploading: false,
@@ -51,11 +53,11 @@ export default class Scanner extends React.Component {
 
           <View style={styles.helpContainer}>
             <Button
-              onPress={this._pickImage}
+              onPress={this.props.pickImage}
               title="Pick an image from camera roll"
             />
 
-            <Button onPress={this._takePhoto} title="Take a photo" />
+            <Button onPress={this.props.takePhoto} title="Take a photo" />
             {this.state.googleResponse && (
               <FlatList
                 data={this.state.googleResponse.responses[0].labelAnnotations}
@@ -65,7 +67,7 @@ export default class Scanner extends React.Component {
               />
             )}
             {this._maybeRenderImage()}
-            {this._maybeRenderUploadingOverlay()}
+            {/* {this._maybeRenderUploadingOverlay()} */}
           </View>
         </View>
       </View>
@@ -82,27 +84,29 @@ export default class Scanner extends React.Component {
     });
   };
 
-  _maybeRenderUploadingOverlay = () => {
-    if (this.state.uploading) {
-      return (
-        <View
-          style={[
-            StyleSheet.absoluteFill,
-            {
-              backgroundColor: 'rgba(0,0,0,0.4)',
-              alignItems: 'center',
-              justifyContent: 'center',
-            },
-          ]}
-        >
-          <ActivityIndicator color="#fff" animating size="large" />
-        </View>
-      );
-    }
-  };
+  // _maybeRenderUploadingOverlay = () => {
+  //   if (this.state.uploading) {
+  //     return (
+  //       <View
+  //         style={[
+  //           StyleSheet.absoluteFill,
+  //           {
+  //             backgroundColor: 'rgba(0,0,0,0.4)',
+  //             alignItems: 'center',
+  //             justifyContent: 'center',
+  //           },
+  //         ]}
+  //       >
+  //         <ActivityIndicator color="#fff" animating size="large" />
+  //       </View>
+  //     );
+  //   }
+  // };
 
   _maybeRenderImage = () => {
-    let { image, googleResponse } = this.state;
+    let { image, googleResponse } = this.props;
+    console.log('image: ', image);
+    console.log('googleRes: ', googleResponse);
     if (!image) {
       return;
     }
@@ -118,8 +122,8 @@ export default class Scanner extends React.Component {
       >
         <Button
           style={{ marginBottom: 10 }}
-          onPress={() => this.submitToGoogle()}
-          title="Analyze!"
+          onPress={() => this.props.submitToGoogle(this.props.image)}
+          title="Analyze Receipt!"
         />
 
         <View
@@ -149,14 +153,15 @@ export default class Scanner extends React.Component {
             onLongPress={this._share}
             style={{ paddingVertical: 10, paddingHorizontal: 10 }}
           >
-            {googleResponse.responses[0].textAnnotations[0].description}
+            {/* {googleResponse.responses[0].textAnnotations[0].description} */}
+            {this.props.googleResponse}
           </Text>
         )}
       </View>
     );
   };
 
-  // _keyExtractor = (item, index) => item.id;
+  _keyExtractor = (item, index) => item.id;
 
   // _renderItem = (item) => {
   //   <Text>response: {JSON.stringify(item)}</Text>;
@@ -316,13 +321,19 @@ const styles = StyleSheet.create({
 });
 
 const mapState = (state) => {
-	return{}
-}
+  // console.log('state in scanner mapState: ', state);
+  return {
+    image: state.scanner.image,
+    googleResponse: state.scanner.googleResponse,
+  };
+};
 
 const mapDispatch = (dispatch) => {
-	return{
-
-	}
-}
+  return {
+    pickImage: () => dispatch(_pickImage()),
+    takePhoto: () => dispatch(_takePhoto()),
+    submitToGoogle: (image) => dispatch(submitToGoogle(image)),
+  };
+};
 
 export default connect(mapState, mapDispatch)(Scanner);

@@ -3,10 +3,15 @@ import React, { useEffect, useState } from 'react';
 import { firebase } from './src/firebase/config';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { LoginScreen, FridgeScreen, RegistrationScreen, Scanner } from './src/screens';
-import { Button } from 'react-native';
+import { LoginScreen, FridgeScreen, RegistrationScreen, AllRecipes, Scanner } from './src/screens';
+import { Button , AppRegistry} from 'react-native';
 import { decode, encode } from 'base-64';
 import DummyNotification from './src/screens/ReusableComponenets/DummyNotification';
+import { Provider } from 'react-redux';
+import configureStore from './src/store';
+
+
+const store = configureStore();
 
 if (!global.btoa) {
   global.btoa = encode;
@@ -47,6 +52,7 @@ export default function App() {
   }
 
   return (
+    <Provider store = { store }>
     <NavigationContainer>
       <Stack.Navigator>
         {user ? (
@@ -66,6 +72,7 @@ export default function App() {
               }}
             >
               {(props) => <Scanner {...props} extraData={user} />}
+              {/* {(props) => <AllRecipes {...props} extraData={user} />} */}
             </Stack.Screen>
           </>
         ) : (
@@ -76,5 +83,9 @@ export default function App() {
         )}
       </Stack.Navigator>
     </NavigationContainer>
+    </ Provider >
   );
 }
+const appName = 'TasteNotWaste'
+
+AppRegistry.registerComponent(appName, () => RNRedux);
