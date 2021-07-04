@@ -39,7 +39,7 @@ class Scanner extends React.Component {
         >
           <View style={styles.getStartedContainer}>
             {image ? null : (
-              <Text style={styles.getStartedText}>Google Cloud Vision</Text>
+              <Text style={styles.getStartedText}>Upload a Receipt</Text>
             )}
           </View>
 
@@ -97,8 +97,6 @@ class Scanner extends React.Component {
 
   _maybeRenderImage = () => {
     let { image, googleResponse } = this.props;
-    console.log('image: ', image);
-    console.log('googleRes: ', googleResponse);
     if (!image) {
       return;
     }

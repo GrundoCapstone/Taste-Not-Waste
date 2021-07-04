@@ -7,3 +7,7 @@ export { default as RegistrationScreen } from './RegistrationScreen/Registration
 export { default as Scanner } from './Scanner/Scanner';
 
 export { default as AllRecipes } from './AllRecipes/AllRecipes';
+
+export { default as NewOrderScreen } from './NewOrderScreen/NewOrderScreen';
+
+export { default as ReviewOrder } from './ReviewOrder/ReviewOrder';
