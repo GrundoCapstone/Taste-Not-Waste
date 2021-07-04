@@ -32,7 +32,7 @@ class Scanner extends React.Component {
     let { image } = this.state;
 
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <View
           style={styles.container}
           contentContainerStyle={styles.contentContainer}
@@ -62,7 +62,7 @@ class Scanner extends React.Component {
             {/* {this._maybeRenderUploadingOverlay()} */}
           </View>
         </View>
-      </View>
+      </ScrollView>
     );
   }
 
