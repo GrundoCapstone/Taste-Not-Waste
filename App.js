@@ -65,6 +65,7 @@ export default function App() {
           {user ? (
             <>
               <Stack.Screen name="NewOrder" component={NewOrderScreen} />
+              <Stack.Screen name="AllRecipes" component={AllRecipes} />
               <Stack.Screen name="ReviewOrder" component={ReviewOrder} />
               <Stack.Screen
                 name="Scanner"

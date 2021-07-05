@@ -1,22 +1,43 @@
 //All recipes component
 
 import React from 'react'
-import {Text, View} from 'react-native'
+import {Text, View, Image, StyleSheet} from 'react-native'
 import {connect} from 'react-redux'
 import { fetchRecipes } from '../../store/allRecipes'
 
+const styles = StyleSheet.create({
+  container: {
+    paddingTop: 50,
+  },
+  tinyLogo: {
+    width: 50,
+    height: 50,
+  },
+  logo: {
+    width: 66,
+    height: 58,
+  },
+});
+
 class AllRecipes extends React.Component{
   componentDidMount(){
-    this.props.loadRecipes('chicken')
+    this.props.loadRecipes('celery')
   }
   render(){
-    // console.log('THIS IS ONE OF THE RECIPE OBJECT',this.props.recipes[0].recipe)
+    console.log('THIS IS ONE OF THE RECIPE OBJECT',this.props.recipes)
     return(
       <View>
         {this.props.recipes.map((recipe) => {return (
-           <Text key={recipe.label}>{recipe.recipe.calories}</Text>
+          <View>
+           <Text key={recipe.label}>{recipe.label}</Text>
+           <Image
+           style = {styles.tinyLogo}
+           source={{
+             uri: recipe.imageUrl,
+           }}
+         />
+         </View>
         )})}
-      <Text>Hello</Text>
       </View>
     )
   }

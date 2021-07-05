@@ -11,6 +11,10 @@ export default function NewOrderScreen({ navigation }) {
     navigation.navigate('ReviewOrder');
   };
 
+  const onAllRecipesPress = () => {
+    navigation.navigate('AllRecipes');
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Start a New Shopping Trip</Text>
@@ -22,6 +26,9 @@ export default function NewOrderScreen({ navigation }) {
       </TouchableOpacity>
       <TouchableOpacity style={styles.button} onPress={() => onNewOrderPress()}>
         <Text style={styles.buttonTitle}>Upload Items Manually</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.button} onPress={() => onAllRecipesPress()}>
+        <Text style={styles.buttonTitle}>All Recipes Test Page</Text>
       </TouchableOpacity>
     </View>
   );
