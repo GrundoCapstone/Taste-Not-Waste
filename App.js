@@ -9,6 +9,7 @@ import { decode, encode } from 'base-64';
 import DummyNotification from './src/screens/ReusableComponenets/DummyNotification';
 import { Provider } from 'react-redux';
 import configureStore from './src/store';
+import NavBar from './src/screens/ReusableComponents/Navbar'
 
 
 const store = configureStore();
@@ -73,6 +74,7 @@ export default function App() {
             >
               {(props) => <AllRecipes {...props} extraData={user} />}
             </Stack.Screen>
+              <NavBar />
           </>
         ) : (
           <>
