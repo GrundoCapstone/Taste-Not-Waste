@@ -1,8 +1,34 @@
 import React from 'react';
 import styles from './styles';
 import { Text, TouchableOpacity, View } from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import Scanner from '../Scanner/Scanner';
+import ReviewOrder from '../ReviewOrder/ReviewOrder';
+
+const Stack = createStackNavigator();
 
 export default function NewOrderScreen({ navigation }) {
+  const onUseImageReceiptPress = () => {
+    navigation.navigate('Scanner');
+  };
+
+  const onNewOrderPress = () => {
+    navigation.navigate('ReviewOrder');
+  };
+
+  return (
+    <>
+      <Stack.Navigator initialRouteName="NewOrderOptions">
+        <Stack.Screen name="NewOrderOptions" component={NewOrderOptions} />
+        <Stack.Screen name="Scanner" component={Scanner} />
+        <Stack.Screen name="ReviewOrder" component={ReviewOrder} />
+      </Stack.Navigator>
+    </>
+  );
+}
+
+function NewOrderOptions({ navigation }) {
   const onUseImageReceiptPress = () => {
     navigation.navigate('Scanner');
   };
