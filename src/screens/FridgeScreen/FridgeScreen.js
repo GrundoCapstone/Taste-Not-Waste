@@ -17,7 +17,7 @@ class FridgeScreen extends React.Component {
             <View>
                <Text>
                     {this.props.allFoodsFridge.map((food, index) => {
-                        return <Text>{index + 1}. {food} </Text>
+                        return <Text> {food} </Text>
                     })}
                 </Text> 
             </View>
