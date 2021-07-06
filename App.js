@@ -18,6 +18,8 @@ import DummyNotification from './src/screens/ReusableComponenets/DummyNotificati
 import { Provider } from 'react-redux';
 import configureStore from './src/store';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 const store = configureStore();
 
@@ -66,14 +68,27 @@ export default function App() {
         <Tab.Navigator
           initialRouteName="Home"
           activeColor="#020202"
-          inactiveColor="#757575"
+          inactiveColor="#61A393"
           barStyle={{ backgroundColor: '#6ED8BE' }}
           shifting={false}
         >
           {user ? (
             <>
               {/* <Tab.Screen name="NewOrder" component={NewOrderScreen} /> */}
-              <Tab.Screen name="Fridge" component={FridgeScreen} />
+              <Tab.Screen
+                name="Fridge"
+                component={FridgeScreen}
+                options={{
+                  tabBarLabel: 'Fridge',
+                  tabBarIcon: ({ color }) => (
+                    <MaterialCommunityIcons
+                      name="fridge"
+                      color={color}
+                      size={26}
+                    />
+                  ),
+                }}
+              />
               <Tab.Screen
                 name="New Order"
                 options={{
@@ -86,12 +101,33 @@ export default function App() {
                       color="black"
                     />
                   ),
+                  tabBarLabel: 'New Order',
+                  tabBarIcon: ({ color }) => (
+                    <FontAwesome5
+                      name="shopping-basket"
+                      color={color}
+                      size={20}
+                    />
+                  ),
                 }}
               >
                 {(props) => <NewOrderScreen {...props} extraData={user} />}
                 {/* {(props) => <AllRecipes {...props} extraData={user} />} */}
               </Tab.Screen>
-              <Tab.Screen name="All Recipes" component={AllRecipes} />
+              <Tab.Screen
+                name="All Recipes"
+                component={AllRecipes}
+                options={{
+                  tabBarLabel: 'All Recipes',
+                  tabBarIcon: ({ color }) => (
+                    <MaterialCommunityIcons
+                      name="food-variant"
+                      color={color}
+                      size={26}
+                    />
+                  ),
+                }}
+              />
             </>
           ) : (
             <>
