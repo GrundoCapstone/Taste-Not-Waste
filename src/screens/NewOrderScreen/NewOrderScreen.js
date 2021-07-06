@@ -17,6 +17,10 @@ export default function NewOrderScreen({ navigation }) {
     navigation.navigate('ReviewOrder');
   };
 
+  const onAllRecipesPress = () => {
+    navigation.navigate('AllRecipes');
+  };
+
   return (
     <>
       <Stack.Navigator initialRouteName="NewOrderOptions">
@@ -48,6 +52,9 @@ function NewOrderOptions({ navigation }) {
       </TouchableOpacity>
       <TouchableOpacity style={styles.button} onPress={() => onNewOrderPress()}>
         <Text style={styles.buttonTitle}>Upload Items Manually</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.button} onPress={() => onAllRecipesPress()}>
+        <Text style={styles.buttonTitle}>All Recipes Test Page</Text>
       </TouchableOpacity>
     </View>
   );

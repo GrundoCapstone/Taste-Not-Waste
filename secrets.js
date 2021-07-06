@@ -5,6 +5,7 @@ export const FIREBASE_MESSAGING_SENDER_ID = '627998400917'
 export const FIREBASE_AUTH_DOMAIN = 'tastenotwaste-318419.firebaseapp.com'
 export const FIREBASE_STORAGE_BUCKET = 'tastenotwaste-318419.appspot.com'
 export const GOOGLE_CLOUD_VISION_API_KEY = 'AIzaSyCMbfgqFoUCMybo7_LQITqioBYVCCmQ5co'
+export const EDAMAM_API_KEY = '8716292620msh428ca8ed3a3272bp18c28ajsnda5e9cb4ebc4'
 
 // const firebaseConfig = {
 //     apiKey: FIREBASE_API_KEY,

@@ -74,7 +74,7 @@ export default function App() {
         >
           {user ? (
             <>
-              {/* <Tab.Screen name="NewOrder" component={NewOrderScreen} /> */}
+
               <Tab.Screen
                 name="Fridge"
                 component={FridgeScreen}
@@ -112,7 +112,6 @@ export default function App() {
                 }}
               >
                 {(props) => <NewOrderScreen {...props} extraData={user} />}
-                {/* {(props) => <AllRecipes {...props} extraData={user} />} */}
               </Tab.Screen>
               <Tab.Screen
                 name="All Recipes"

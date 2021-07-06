@@ -1,23 +1,31 @@
 //All recipes component
 
 import React from 'react'
-import {Text, View} from 'react-native'
+import {Text, View, Image, ScrollView} from 'react-native'
 import {connect} from 'react-redux'
 import { fetchRecipes } from '../../store/allRecipes'
+import styles from './styles'
 
 class AllRecipes extends React.Component{
   componentDidMount(){
-    this.props.loadRecipes('chicken')
+    this.props.loadRecipes('celery')
   }
   render(){
-    // console.log('THIS IS ONE OF THE RECIPE OBJECT',this.props.recipes[0].recipe)
+    // console.log('THIS IS ONE OF THE RECIPE OBJECT',this.props.recipes)
     return(
-      <View>
+      <ScrollView >
         {this.props.recipes.map((recipe) => {return (
-           <Text key={recipe.label}>{recipe.recipe.calories}</Text>
+          <View key={recipe.label} style = {styles.container}>
+           <Image
+           style = {styles.tinyLogo}
+           source={{
+             uri: recipe.imageUrl,
+           }}
+         />
+        <Text style = {styles.text}>{recipe.label}</Text>
+         </View>
         )})}
-      <Text>Hello</Text>
-      </View>
+      </ScrollView>
     )
   }
 }
