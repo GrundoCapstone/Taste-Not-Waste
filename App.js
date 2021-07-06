@@ -17,6 +17,7 @@ import { decode, encode } from 'base-64';
 import DummyNotification from './src/screens/ReusableComponenets/DummyNotification';
 import { Provider } from 'react-redux';
 import configureStore from './src/store';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
 const store = configureStore();
 
@@ -27,7 +28,8 @@ if (!global.atob) {
   global.atob = decode;
 }
 
-const Stack = createStackNavigator();
+// const Stack = createStackNavigator();
+const Tab = createMaterialBottomTabNavigator();
 
 export default function App() {
   const [loading, setLoading] = useState(true);
@@ -61,13 +63,19 @@ export default function App() {
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <Stack.Navigator>
+        <Tab.Navigator initialRouteName="Home"
+  activeColor="#f0edf6"
+  inactiveColor="#3e2465"
+  barStyle={{ backgroundColor: '#694fad' }}
+  shifting={false}
+  >
           {user ? (
             <>
-              <Stack.Screen name="NewOrder" component={NewOrderScreen} />
-              <Stack.Screen name="ReviewOrder" component={ReviewOrder} />
-              <Stack.Screen
-                name="Scanner"
+              {/* <Tab.Screen name="NewOrder" component={NewOrderScreen} /> */}
+              <Tab.Screen name="ReviewOrder" component={ReviewOrder} />
+              <Tab.Screen name="AllRecipes" component={AllRecipes} />
+              <Tab.Screen
+                name="NewOrder"
                 options={{
                   headerRight: () => (
                     <Button
@@ -81,20 +89,20 @@ export default function App() {
                 }}
                 
               >
-                {(props) => <Scanner {...props} extraData={user} />}
+                {(props) => <NewOrderScreen {...props} extraData={user} />}
                 {/* {(props) => <AllRecipes {...props} extraData={user} />} */}
-              </Stack.Screen>
+              </Tab.Screen>
             </>
           ) : (
             <>
-              <Stack.Screen name="Login" component={LoginScreen} />
-              <Stack.Screen
+              <Tab.Screen name="Login" component={LoginScreen} />
+              <Tab.Screen
                 name="Registration"
                 component={RegistrationScreen}
               />
             </>
           )}
-        </Stack.Navigator>
+        </Tab.Navigator>
       </NavigationContainer>
     </Provider>
   );

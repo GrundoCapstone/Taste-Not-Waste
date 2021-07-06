@@ -1,8 +1,32 @@
 import React from 'react';
 import styles from './styles';
 import { Text, TouchableOpacity, View } from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import Scanner from '../Scanner/Scanner'
+
+const Stack = createStackNavigator();
 
 export default function NewOrderScreen({ navigation }) {
+  const onUseImageReceiptPress = () => {
+    navigation.navigate('Scanner');
+  };
+
+  const onNewOrderPress = () => {
+    navigation.navigate('ReviewOrder');
+  };
+
+  return (
+    <>
+      <Stack.Navigator initialRouteName="NewOrderOptions">
+        <Stack.Screen name="NewOrderOptions" component={NewOrderOptions} />
+        <Stack.Screen name="Scanner" component={Scanner} />
+      </Stack.Navigator>
+        </>
+  );
+}
+
+function NewOrderOptions ({navigation}) {
   const onUseImageReceiptPress = () => {
     navigation.navigate('Scanner');
   };
@@ -24,5 +48,5 @@ export default function NewOrderScreen({ navigation }) {
         <Text style={styles.buttonTitle}>Upload Items Manually</Text>
       </TouchableOpacity>
     </View>
-  );
+  )
 }
