@@ -12,10 +12,14 @@ class FridgeScreen extends React.Component {
     }
 
     render() {
-        console.log(this.props)
+        // console.log("AllFoodsFridge from FridgeScreen : ", this.props.allFoodsFridge)
         return (
             <View>
-               <Text>Hello World!</Text> 
+               <Text>
+                    {this.props.allFoodsFridge.map((food, index) => {
+                        return <Text>{index + 1}. {food} </Text>
+                    })}
+                </Text> 
             </View>
         )
     } 

@@ -10,7 +10,7 @@ import allFoodReducer from './allFood';
 const reducer = combineReducers({
   allRecipes: allRecipeReducer,
   scanner: scannerReducer,
-  allFood: allFoodReducer
+  allFoods: allFoodReducer
 });
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))

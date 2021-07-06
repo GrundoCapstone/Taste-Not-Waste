@@ -29,7 +29,7 @@ export const fetchRecipes = (ingredient) => {
           'x-rapidapi-key': '8716292620msh428ca8ed3a3272bp18c28ajsnda5e9cb4ebc4',
          'x-rapidapi-host': 'edamam-recipe-search.p.rapidapi.com'}
       }
-      const res  = await axios.request(options);
+      const res = await axios.request(options);
       dispatch(getRecipes(res.data.hits))
     } catch (error) {
 

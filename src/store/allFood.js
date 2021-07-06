@@ -8,8 +8,6 @@ add multiple food items, then click confirm to change state
 */
 import { firebase } from '../firebase/config'
 
-const fridgeRef = firebase.firestore().collection('users').doc('kl6fbgMwLm1H7aVFTIHk').collection('fridge');
-
 // const foodRef = db.foodRef('/users/kl6fbgMwLm1H7aVFTIHk/fridge/rS5ddoASjLzVVRbs1EDU')
 
 // Action Types
@@ -27,9 +25,18 @@ const getAllFoods = (foods) => {
 export const fetchAllFoods = () => {
     return async (dispatch) => {
         try {
-            const doc = await fridgeRef.get();
-            console.log('Document data:', doc.data());
-            dispatch(getAllFoods(doc.data()))
+            const fridgeRef = firebase.firestore().collection('/users/kl6fbgMwLm1H7aVFTIHk/fridge')
+            const snapshot = await fridgeRef.get();
+            const resultArr = []
+            snapshot.forEach(doc => {
+                console.log(doc.id, '=>', doc.data());
+                const daysLeft = (new Date() - doc.data().expiration.seconds) / 86400
+                const expiration = new Date(doc.data().expiration.seconds * 1000).toLocaleString()
+                resultArr.push(doc.data().name, (expiration))
+                console.log(resultArr)
+              });
+            console.log('Document data:', resultArr);
+            dispatch(getAllFoods(resultArr))
         } catch (err) {
             console.log('No such document!');
         }
