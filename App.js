@@ -17,6 +17,9 @@ import { decode, encode } from 'base-64';
 import DummyNotification from './src/screens/ReusableComponenets/DummyNotification';
 import { Provider } from 'react-redux';
 import configureStore from './src/store';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 const store = configureStore();
 
@@ -27,7 +30,8 @@ if (!global.atob) {
   global.atob = decode;
 }
 
-const Stack = createStackNavigator();
+// const Stack = createStackNavigator();
+const Tab = createMaterialBottomTabNavigator();
 
 export default function App() {
   const [loading, setLoading] = useState(true);
@@ -61,14 +65,32 @@ export default function App() {
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <Stack.Navigator>
+        <Tab.Navigator
+          initialRouteName="Home"
+          activeColor="#020202"
+          inactiveColor="#61A393"
+          barStyle={{ backgroundColor: '#6ED8BE' }}
+          shifting={false}
+        >
           {user ? (
             <>
-              <Stack.Screen name="NewOrder" component={NewOrderScreen} />
-              <Stack.Screen name="AllRecipes" component={AllRecipes} />
-              <Stack.Screen name="ReviewOrder" component={ReviewOrder} />
-              <Stack.Screen
-                name="Scanner"
+
+              <Tab.Screen
+                name="Fridge"
+                component={FridgeScreen}
+                options={{
+                  tabBarLabel: 'Fridge',
+                  tabBarIcon: ({ color }) => (
+                    <MaterialCommunityIcons
+                      name="fridge"
+                      color={color}
+                      size={26}
+                    />
+                  ),
+                }}
+              />
+              <Tab.Screen
+                name="New Order"
                 options={{
                   headerRight: () => (
                     <Button
@@ -79,22 +101,40 @@ export default function App() {
                       color="black"
                     />
                   ),
+                  tabBarLabel: 'New Order',
+                  tabBarIcon: ({ color }) => (
+                    <FontAwesome5
+                      name="shopping-basket"
+                      color={color}
+                      size={20}
+                    />
+                  ),
                 }}
               >
-                {(props) => <Scanner {...props} extraData={user} />}
-                {/* {(props) => <AllRecipes {...props} extraData={user} />} */}
-              </Stack.Screen>
+                {(props) => <NewOrderScreen {...props} extraData={user} />}
+              </Tab.Screen>
+              <Tab.Screen
+                name="All Recipes"
+                component={AllRecipes}
+                options={{
+                  tabBarLabel: 'All Recipes',
+                  tabBarIcon: ({ color }) => (
+                    <MaterialCommunityIcons
+                      name="food-variant"
+                      color={color}
+                      size={26}
+                    />
+                  ),
+                }}
+              />
             </>
           ) : (
             <>
-              <Stack.Screen name="Login" component={LoginScreen} />
-              <Stack.Screen
-                name="Registration"
-                component={RegistrationScreen}
-              />
+              <Tab.Screen name="Login" component={LoginScreen} />
+              <Tab.Screen name="Registration" component={RegistrationScreen} />
             </>
           )}
-        </Stack.Navigator>
+        </Tab.Navigator>
       </NavigationContainer>
     </Provider>
   );
