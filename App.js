@@ -74,7 +74,6 @@ export default function App() {
         >
           {user ? (
             <>
-
               <Tab.Screen
                 name="Fridge"
                 component={FridgeScreen}

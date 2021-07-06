@@ -9,17 +9,6 @@ import ReviewOrder from '../ReviewOrder/ReviewOrder';
 const Stack = createStackNavigator();
 
 export default function NewOrderScreen({ navigation }) {
-  const onUseImageReceiptPress = () => {
-    navigation.navigate('Scanner');
-  };
-
-  const onNewOrderPress = () => {
-    navigation.navigate('ReviewOrder');
-  };
-
-  const onAllRecipesPress = () => {
-    navigation.navigate('AllRecipes');
-  };
 
   return (
     <>
