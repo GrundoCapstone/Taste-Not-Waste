@@ -1,46 +1,49 @@
-import React, { useEffect, useState } from 'react'
-import { connect } from 'react-redux'
-import { FlatList, Keyboard, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import {
+  FlatList,
+  Keyboard,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import styles from './styles';
-import { firebase } from '../../firebase/config'
-import { fetchAllFoods } from '../../store/allFood'
+import { firebase } from '../../firebase/config';
+import { fetchAllFoods } from '../../store/allFood';
 
 class FridgeScreen extends React.Component {
+  componentDidMount() {
+    this.props.loadAllFoods();
+  }
 
-    componentDidMount() {
-        this.props.loadAllFoods()
-    }
-
-    render() {
-        // console.log("AllFoodsFridge from FridgeScreen : ", this.props.allFoodsFridge)
-        return (
-            <View>
-               <Text>
-                    {this.props.allFoodsFridge.map((food, index) => {
-                        return <Text> {food} </Text>
-                    })}
-                </Text> 
-            </View>
-        )
-    } 
+  render() {
+    // console.log("AllFoodsFridge from FridgeScreen : ", this.props.allFoodsFridge)
+    return (
+      <View>
+        <Text style={styles.text}>
+          {this.props.allFoodsFridge.map((food, index) => {
+            return <Text key={index}> {food} </Text>;
+          })}
+        </Text>
+      </View>
+    );
+  }
 }
 
 const mapState = (state) => {
-    return {
-        allFoodsFridge: state.allFoods
-    }
-}
+  return {
+    allFoodsFridge: state.allFoods,
+  };
+};
 
 const mapDispatch = (dispatch) => {
-    return {
-        loadAllFoods: () => dispatch(fetchAllFoods())
-    }
-}
+  return {
+    loadAllFoods: () => dispatch(fetchAllFoods()),
+  };
+};
 
-export default connect(mapState, mapDispatch)(FridgeScreen)
-
-
-
+export default connect(mapState, mapDispatch)(FridgeScreen);
 
 // export default function FridgeScreen(props) {
 
