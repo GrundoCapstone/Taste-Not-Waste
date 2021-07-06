@@ -63,19 +63,19 @@ export default function App() {
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <Tab.Navigator initialRouteName="Home"
-  activeColor="#f0edf6"
-  inactiveColor="#3e2465"
-  barStyle={{ backgroundColor: '#694fad' }}
-  shifting={false}
-  >
+        <Tab.Navigator
+          initialRouteName="Home"
+          activeColor="#020202"
+          inactiveColor="#757575"
+          barStyle={{ backgroundColor: '#6ED8BE' }}
+          shifting={false}
+        >
           {user ? (
             <>
               {/* <Tab.Screen name="NewOrder" component={NewOrderScreen} /> */}
-              <Tab.Screen name="ReviewOrder" component={ReviewOrder} />
-              <Tab.Screen name="AllRecipes" component={AllRecipes} />
+              <Tab.Screen name="Fridge" component={FridgeScreen} />
               <Tab.Screen
-                name="NewOrder"
+                name="New Order"
                 options={{
                   headerRight: () => (
                     <Button
@@ -87,19 +87,16 @@ export default function App() {
                     />
                   ),
                 }}
-                
               >
                 {(props) => <NewOrderScreen {...props} extraData={user} />}
                 {/* {(props) => <AllRecipes {...props} extraData={user} />} */}
               </Tab.Screen>
+              <Tab.Screen name="All Recipes" component={AllRecipes} />
             </>
           ) : (
             <>
               <Tab.Screen name="Login" component={LoginScreen} />
-              <Tab.Screen
-                name="Registration"
-                component={RegistrationScreen}
-              />
+              <Tab.Screen name="Registration" component={RegistrationScreen} />
             </>
           )}
         </Tab.Navigator>
