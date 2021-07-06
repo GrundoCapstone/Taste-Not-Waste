@@ -8,7 +8,7 @@ export default function NewOrderScreen({ navigation }) {
   };
 
   const onNewOrderPress = () => {
-    navigation.navigate('ReviewOrder');
+    navigation.navigate('FridgeScreen');
   };
 
   return (
