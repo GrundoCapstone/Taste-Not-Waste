@@ -29,13 +29,11 @@ export const fetchAllFoods = () => {
             const snapshot = await fridgeRef.get();
             const resultArr = []
             snapshot.forEach(doc => {
-                console.log(doc.id, '=>', doc.data());
-                const daysLeft = (new Date() - doc.data().expiration.seconds) / 86400
-                const expiration = new Date(doc.data().expiration.seconds * 1000).toLocaleString()
-                resultArr.push(doc.data().name, (expiration))
-                console.log(resultArr)
+                const expiration = new Date(doc.data().expiration.seconds * 1000).getTime()
+                const currentDate = new Date().getTime()
+                const difference = Math.round((expiration - currentDate) / (1000 * 3600 * 24));
+                resultArr.push({name: doc.data().name, expiration: difference})
               });
-            console.log('Document data:', resultArr);
             dispatch(getAllFoods(resultArr))
         } catch (err) {
             console.log('No such document!');
@@ -56,3 +54,8 @@ const allFoodReducer = (state=initialState, action) => {
 }
 
 export default allFoodReducer;
+
+// const daysLeft = (new Date() - doc.data().expiration.seconds) / 86400
+// const expiration = new Date(doc.data().expiration.seconds * 1000).toLocaleString()
+// resultArr.push(doc.data().name, (expiration))
+// console.log(resultArr)

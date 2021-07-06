@@ -12,17 +12,18 @@ class FridgeScreen extends React.Component {
     }
 
     render() {
-        // console.log("AllFoodsFridge from FridgeScreen : ", this.props.allFoodsFridge)
+        console.log("AllFoodsFridge from FridgeScreen : ", this.props.allFoodsFridge)
         return (
             <View>
-               <Text>
                     {this.props.allFoodsFridge.map((food, index) => {
-                        return <Text> {food} </Text>
+                        return <View key = {food.name}>
+                            <Text style = {styles.entityText}> {food.name} </Text>
+                            <Text style = {styles.entityText}> This food expires in {food.expiration} days</Text>
+                            </View>
                     })}
-                </Text> 
             </View>
         )
-    } 
+    }
 }
 
 const mapState = (state) => {
