@@ -134,6 +134,8 @@ export const submitToGoogle = (image) => {
         }
       );
       let responseJson = await response.json();
+      console.log('>>>>>>>>>>>>RESPONSE FROM GOOGLE OCR<<<<<<<<<<<<<<');
+      console.log(responseJson);
       dispatch(
         _submitToGoogle(
           responseJson.responses[0].textAnnotations[0].description

@@ -1,47 +1,58 @@
-import React, { useEffect, useState } from 'react'
-import { connect } from 'react-redux'
-import { FlatList, Keyboard, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import {
+  FlatList,
+  Keyboard,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import styles from './styles';
-import { firebase } from '../../firebase/config'
-import { fetchAllFoods } from '../../store/allFood'
+import { firebase } from '../../firebase/config';
+import { fetchAllFoods } from '../../store/allFood';
 
 class FridgeScreen extends React.Component {
+  componentDidMount() {
+    this.props.loadAllFoods();
+  }
 
-    componentDidMount() {
-        this.props.loadAllFoods()
-    }
-
-    render() {
-        console.log("AllFoodsFridge from FridgeScreen : ", this.props.allFoodsFridge)
-        return (
-            <View>
-                    {this.props.allFoodsFridge.map((food, index) => {
-                        return <View key = {food.name}>
-                            <Text style = {styles.entityText}> {food.name} </Text>
-                            <Text style = {styles.entityText}> This food expires in {food.expiration} days</Text>
-                            </View>
-                    })}
+  render() {
+    console.log(
+      'AllFoodsFridge from FridgeScreen : ',
+      this.props.allFoodsFridge
+    );
+    return (
+      <View>
+        {this.props.allFoodsFridge.map((food, index) => {
+          return (
+            <View key={food.name}>
+              <Text style={styles.entityText}> {food.name} </Text>
+              <Text style={styles.entityText}>
+                {' '}
+                This food expires in {food.expiration} days
+              </Text>
             </View>
-        )
-    }
+          );
+        })}
+      </View>
+    );
+  }
 }
 
 const mapState = (state) => {
-    return {
-        allFoodsFridge: state.allFoods
-    }
-}
+  return {
+    allFoodsFridge: state.allFoods,
+  };
+};
 
 const mapDispatch = (dispatch) => {
-    return {
-        loadAllFoods: () => dispatch(fetchAllFoods())
-    }
-}
+  return {
+    loadAllFoods: () => dispatch(fetchAllFoods()),
+  };
+};
 
-export default connect(mapState, mapDispatch)(FridgeScreen)
-
-
-
+export default connect(mapState, mapDispatch)(FridgeScreen);
 
 // export default function FridgeScreen(props) {
 
