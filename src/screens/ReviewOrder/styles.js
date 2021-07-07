@@ -43,6 +43,16 @@ export default StyleSheet.create({
     fontSize: 16,
     fontWeight: 'normal',
   },
+  smallButton: {
+    backgroundColor: '#A9EBDB',
+    height: 20,
+    borderRadius: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 1,
+    width: 75,
+    marginLeft: 12,
+  },
   modalView: {
     margin: 20,
     backgroundColor: 'white',
@@ -80,5 +90,31 @@ export default StyleSheet.create({
     marginLeft: 30,
     marginRight: 30,
     paddingLeft: 16,
+  },
+  orderDate: {
+    fontSize: 16,
+    flexDirection: 'row',
+  },
+  totalList: {
+    flexDirection: 'column',
+    width: 350,
+  },
+  tableHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 10,
+    marginBottom: 5,
+    borderBottomColor: 'black',
+    borderBottomWidth: 2,
+  },
+  itemColumn: {
+    flexDirection: 'column',
+  },
+  expirationColumn: {
+    flexDirection: 'column',
+  },
+  datePickerStyle: {
+    width: 200,
+    marginTop: 20,
   },
 });
