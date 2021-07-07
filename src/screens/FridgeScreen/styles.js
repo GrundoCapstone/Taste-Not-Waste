@@ -3,7 +3,8 @@ import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
+    flexDirection: 'row',
+    margin: 10
   },
   formContainer: {
     flexDirection: 'row',
@@ -52,6 +53,7 @@ export default StyleSheet.create({
   entityText: {
     fontSize: 20,
     color: '#333333',
+    marginTop: 50,
   },
   text: {
     color: 'black',
