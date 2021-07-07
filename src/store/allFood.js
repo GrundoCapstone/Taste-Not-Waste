@@ -23,8 +23,7 @@ const getAllFoods = (foods) => {
 export const fetchAllFoods = () => {
     return async (dispatch) => {
         try { 
-            const userId = firebase.auth().currentUser.uid
-            // console.log('userId : ', userId) 
+            const userId = firebase.auth().currentUser.uid 
             const fridgeRef = firebase.firestore().collection(`/users/${userId}/fridge`)
             const snapshot = await fridgeRef.get();
             const resultArr = []
