@@ -11,6 +11,7 @@ import {
   Scanner,
   NewOrderScreen,
   ReviewOrder,
+  SingleFood
 } from './src/screens';
 import { Button, AppRegistry } from 'react-native';
 import { decode, encode } from 'base-64';

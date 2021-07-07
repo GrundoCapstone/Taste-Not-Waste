@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styles from './styles';
-import DateTimePicker from '@react-native-community/datetimepicker';
 import {
   Text,
   TouchableOpacity,
@@ -11,21 +10,29 @@ import {
   TextInput,
 } from 'react-native';
 import { connect } from 'react-redux';
+import { addFoodItem } from '../../store/singleFood'
 
 class ReviewOrder extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      food: [
-        { name: 'carrot', expiration: 'July 25, 2021' },
-        { name: 'tomato', expiration: 'July 17, 2021' },
-      ],
+      food: [],
+      newFood: '',
       modalVisible: false,
       orderDate: new Date(),
     };
     this.onSubmit = this.onSubmit.bind(this);
     this.onAddItem = this.onAddItem.bind(this);
     this.maybeRenderModal = this.maybeRenderModal.bind(this);
+  }
+
+  componentDidUpdate(prevProps){
+    if(this.props.singleFoodFridge !== prevProps.singleFoodFridge){
+      const newFood = this.props.singleFoodFridge
+      const updatedFoods = [...this.state.food, newFood]
+      this.setState({food: updatedFoods})
+
+    }
   }
 
   onSubmit = () => {
@@ -72,7 +79,7 @@ class ReviewOrder extends React.Component {
                     newDate[index].expiration = text;
                     this.setState({ ...this.state, food: newDate });
                   }}
-                ></TextInput>
+                </TextInput>
               </View>
             );
           })}
@@ -120,7 +127,9 @@ class ReviewOrder extends React.Component {
             style={styles.input}
             placeholder="Food Item"
             placeholderTextColor="#aaaaaa"
-            onChangeText={(text) => setFoodItem(text)}
+            onChangeText={(text) => {
+              this.setState({newFood: text})
+            }}
             // value={text}
             underlineColorAndroid="transparent"
             autoCapitalize="none"
@@ -136,11 +145,13 @@ class ReviewOrder extends React.Component {
           /> */}
           <Pressable
             style={[styles.button, styles.buttonClose]}
-            onPress={() =>
+            onPress={() => {
+              this.props.loadSingleFood(this.state.newFood)
               this.setState({
                 ...this.state,
                 modalVisible: !this.state.modalVisible,
-              })
+              }) 
+              }
             }
           >
             <Text style={styles.textStyle}>Submit</Text>
@@ -150,13 +161,19 @@ class ReviewOrder extends React.Component {
     );
   };
 }
-const mapDispatchToProps = (dispatch) => {
+const mapState = (state) => {
+  console.log("MAPSTATE>>", state.singleFood)
   return {
-    createFoodItem: (foodItem) => dispatch(addFoodItem(foodItem)),
-  };
-};
+      singleFoodFridge: state.singleFood
+  }
+}
 
-export default connect(null, mapDispatchToProps)(ReviewOrder);
+const mapDispatch = (dispatch) => {
+  return {
+      loadSingleFood: (food) => dispatch(addFoodItem(food))
+  }
+}
+export default connect(mapState, mapDispatch)(ReviewOrder);
 
 //ReviewOrder.js contains modal.
 //enter food item into modal, update state on Review Order
