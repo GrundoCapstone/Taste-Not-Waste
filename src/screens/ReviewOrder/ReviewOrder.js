@@ -20,9 +20,9 @@ export default class ReviewOrder extends React.Component {
       ],
       modalVisible: false,
     };
-    this.setModalVisible = this.setModalVisible.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.onAddItem = this.onAddItem.bind(this);
+    this.maybeRenderModal = this.maybeRenderModal.bind(this);
   }
 
   onSubmit = () => {
@@ -30,7 +30,7 @@ export default class ReviewOrder extends React.Component {
   };
 
   onAddItem = () => {
-    setModalVisible(!modalVisible);
+    this.setState = { ...this.state, modalVisible: !this.state.modalVisible };
   };
 
   render() {
@@ -55,7 +55,7 @@ export default class ReviewOrder extends React.Component {
         <TouchableOpacity style={styles.button} onPress={() => onAddItem()}>
           <Text style={styles.buttonTitle}>AddItem</Text>
         </TouchableOpacity>
-        {maybeRenderModal()}
+        {this.maybeRenderModal()}
       </View>
     );
   }
@@ -66,10 +66,13 @@ export default class ReviewOrder extends React.Component {
       <Modal
         animationType="none"
         transparent={true}
-        visible={modalVisible}
+        visible={this.state.modalVisible}
         onRequestClose={() => {
           Alert.alert('Modal has been closed.');
-          setModalVisible(!modalVisible);
+          this.setState = {
+            ...this.state,
+            modalVisible: !visible,
+          };
         }}
       >
         <View style={styles.modalView}>
@@ -94,7 +97,12 @@ export default class ReviewOrder extends React.Component {
           />
           <Pressable
             style={[styles.button, styles.buttonClose]}
-            onPress={() => setModalVisible(!modalVisible)}
+            onPress={() =>
+              (this.setState = {
+                ...this.state,
+                modalVisible: !this.state.modalVisible,
+              })
+            }
           >
             <Text style={styles.textStyle}>Hide Modal</Text>
           </Pressable>
@@ -103,69 +111,3 @@ export default class ReviewOrder extends React.Component {
     );
   };
 }
-
-//functional component
-
-// export default function ReviewOrder({ navigation }) {
-//   //set modal visibility
-//   const [modalVisible, setModalVisible] = useState(false);
-
-//   const onSubmit = () => {
-//     navigation.navigate('Scanner');
-//   };
-
-//   const onAddItem = () => {
-//     setModalVisible(!modalVisible);
-//   };
-//   const maybeRenderModal = () => {
-//     return (
-//       <Modal
-//         animationType="none"
-//         transparent={true}
-//         visible={modalVisible}
-//         onRequestClose={() => {
-//           Alert.alert('Modal has been closed.');
-//           setModalVisible(!modalVisible);
-//         }}
-//       >
-//         <View style={styles.modalView}>
-//           <Text style={styles.modalText}>Add an Item</Text>
-//           <TextInput
-//             style={styles.input}
-//             placeholder="Food"
-//             placeholderTextColor="#aaaaaa"
-//             // onChangeText={(text) => setFood(text)}
-//             // value={email}
-//             underlineColorAndroid="transparent"
-//             autoCapitalize="none"
-//           />
-//           <TextInput
-//             style={styles.input}
-//             placeholder="Expiration Date"
-//             placeholderTextColor="#aaaaaa"
-//             // onChangeText={(text) => setExpiration(text)}
-//             // value={email}
-//             underlineColorAndroid="transparent"
-//             autoCapitalize="none"
-//           />
-//           <Pressable
-//             style={[styles.button, styles.buttonClose]}
-//             onPress={() => setModalVisible(!modalVisible)}
-//           >
-//             <Text style={styles.textStyle}>Hide Modal</Text>
-//           </Pressable>
-//         </View>
-//       </Modal>
-//     );
-//   };
-
-//   return (
-//     <View style={styles.container}>
-//       <Text style={styles.title}>Review Your Order</Text>
-//       <TouchableOpacity style={styles.button} onPress={() => onAddItem()}>
-//         <Text style={styles.buttonTitle}>AddItem</Text>
-//       </TouchableOpacity>
-//       {maybeRenderModal()}
-//     </View>
-//   );
-// }
