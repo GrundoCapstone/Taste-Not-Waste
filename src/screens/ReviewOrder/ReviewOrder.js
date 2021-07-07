@@ -29,7 +29,6 @@ export default class ReviewOrder extends React.Component {
   }
 
   onSubmit = () => {
-    navigation.navigate('Scanner');
   };
 
   onAddItem = () => {
@@ -66,6 +65,7 @@ export default class ReviewOrder extends React.Component {
                 </TextInput>
                 <TextInput
                   style={styles.editDate}
+                  autoFocus={true}
                   onChangeText={(text) => {
                     const newFood = this.state.food;
                     newFood[index].expiration = text;
