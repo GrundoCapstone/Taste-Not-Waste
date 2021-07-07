@@ -91,6 +91,17 @@ export default StyleSheet.create({
     marginRight: 30,
     paddingLeft: 16,
   },
+  editName: {
+    borderRadius: 5,
+    backgroundColor: 'white',
+    padding: 5,
+    width: 100,
+  },
+  editDate: {
+    borderRadius: 5,
+    backgroundColor: 'white',
+    padding: 5,
+  },
   orderDate: {
     fontSize: 16,
     flexDirection: 'row',
@@ -107,6 +118,12 @@ export default StyleSheet.create({
     borderBottomColor: 'black',
     borderBottomWidth: 2,
   },
+  tableRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 10,
+    marginBottom: 5,
+  },
   itemColumn: {
     flexDirection: 'column',
   },
@@ -116,5 +133,13 @@ export default StyleSheet.create({
   datePickerStyle: {
     width: 200,
     marginTop: 20,
+  },
+  addItemButton: {
+    backgroundColor: '#A9EBDB',
+    borderRadius: 5,
+    padding: 5,
+    width: 100,
+    marginTop: 5,
+    alignItems: 'center',
   },
 });

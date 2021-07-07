@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from './styles';
-import DatePicker from 'react-native-datepicker';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import {
   Text,
   TouchableOpacity,
@@ -16,18 +16,15 @@ export default class ReviewOrder extends React.Component {
     super(props);
     this.state = {
       food: [
-        { name: 'carrot', expiration: new Date() },
-        { name: 'tomato', expiration: new Date() },
+        { name: 'carrot', expiration: new Date('July 25, 2021') },
+        { name: 'tomato', expiration: new Date('July 17, 2021') },
       ],
       modalVisible: false,
       orderDate: new Date(),
-      renderPicker: false,
     };
     this.onSubmit = this.onSubmit.bind(this);
     this.onAddItem = this.onAddItem.bind(this);
     this.maybeRenderModal = this.maybeRenderModal.bind(this);
-    this.renderOrderDatePicker = this.renderOrderDatePicker.bind(this);
-    this.onDateChange = this.onDateChange.bind(this);
   }
 
   onSubmit = () => {
@@ -38,86 +35,69 @@ export default class ReviewOrder extends React.Component {
     this.setState({ ...this.state, modalVisible: true });
   };
 
-  onDateChange = () => {
-    console.log('ON DATE CHANGE');
-    this.setState({ ...this.state, renderPicker: true });
-  };
-
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.title}>Review Your Order</Text>
         <View style={styles.orderDate}>
           <Text>
-            Order Date: {this.state.orderDate.toString().slice(0, 16)}
+            Order Date: {this.state.orderDate.toString().slice(4, 15)}
           </Text>
-          <TouchableOpacity
-            style={styles.smallButton}
-            onPress={() => this.onDateChange()}
-          >
-            <Text>Change</Text>
-          </TouchableOpacity>
-          {this.renderOrderDatePicker()}
         </View>
         <View style={styles.totalList}>
           <View style={styles.tableHeader}>
             <Text style={styles.itemColumn}>Item</Text>
             <Text style={styles.expirationColumn}>Expiration</Text>
           </View>
-          {this.state.food.map((item) => {
+          {this.state.food.map((item, index) => {
             return (
-              <View key={item.name}>
-                <Text style={styles.itemColumn}>{item.name}</Text>
+              <View key={item.name} style={styles.tableRow}>
+                <TextInput
+                  style={styles.editName}
+                  autoFocus={true}
+                  onChangeText={(text) => {
+                    const newFood = this.state.food;
+                    newFood[index].name = text;
+                    this.setState({ ...this.state, food: newFood });
+                  }}
+                >
+                  {item.name}
+                </TextInput>
+                <TextInput
+                  style={styles.editDate}
+                  onChangeText={(text) => {
+                    const newFood = this.state.food;
+                    newFood[index].expiration = text;
+                    this.setState({ ...this.state, food: newFood });
+                  }}
+                >
+                  {item.expiration.toString().slice(4, 15)}
+                </TextInput>
               </View>
             );
           })}
+          <TouchableOpacity
+            style={styles.addItemButton}
+            onPress={() => this.onAddItem()}
+          >
+            <Text style={styles.buttonTitle}>Add Item</Text>
+          </TouchableOpacity>
         </View>
         <TouchableOpacity
           style={styles.button}
           onPress={() => this.onAddItem()}
         >
-          <Text style={styles.buttonTitle}>AddItem</Text>
+          <Text
+            style={styles.buttonTitle}
+            onPress={() => console.log(this.state.food)}
+          >
+            Confirm Order
+          </Text>
         </TouchableOpacity>
         {this.maybeRenderModal()}
       </View>
     );
   }
-
-  renderOrderDatePicker = () => {
-    if (this.state.renderPicker) {
-      const date = this.state.orderDate;
-      return (
-        <View>
-          <DatePicker
-            style={styles.datePickerStyle}
-            date={date} // Initial date from state
-            mode="date" // The enum of date, datetime and time
-            placeholder="select date"
-            format="DD-MM-YYYY"
-            minDate="01-01-2016"
-            maxDate="01-01-2019"
-            confirmBtnText="Confirm"
-            cancelBtnText="Cancel"
-            customStyles={{
-              dateIcon: {
-                //display: 'none',
-                position: 'absolute',
-                left: 0,
-                top: 4,
-                marginLeft: 0,
-              },
-              dateInput: {
-                marginLeft: 36,
-              },
-            }}
-            onDateChange={(date) => {
-              this.setState({ ...this.state, orderDate: date });
-            }}
-          />
-        </View>
-      );
-    }
-  };
 
   //modal component
   maybeRenderModal = () => {
