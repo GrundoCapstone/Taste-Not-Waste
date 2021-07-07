@@ -26,4 +26,29 @@ export default StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap'
   },
+  input: {
+    height: 48,
+    borderRadius: 5,
+    overflow: 'hidden',
+    backgroundColor: 'white',
+    marginTop: 50,
+    marginBottom: 10,
+    marginLeft: 30,
+    marginRight: 30,
+    paddingLeft: 16
+},
+button: {
+  backgroundColor: '#788eec',
+  marginLeft: 30,
+  marginRight: 30,
+  marginTop: 20,
+  height: 48,
+  borderRadius: 5,
+  alignItems: "center",
+  justifyContent: 'center'
+},
+searchContainer: {
+  flex: 1,
+  flexDirection: 'row'
+}
 });
