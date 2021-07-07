@@ -11,3 +11,5 @@ export { default as AllRecipes } from './AllRecipes/AllRecipes';
 export { default as NewOrderScreen } from './NewOrderScreen/NewOrderScreen';
 
 export { default as ReviewOrder } from './ReviewOrder/ReviewOrder';
+
+export {default as SingleFood} from './SingleFood/SingleFood';
