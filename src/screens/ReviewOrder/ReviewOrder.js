@@ -11,54 +11,91 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 
-//PLACEHOLDER COMPONENT
-
 class ReviewOrder extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       food: [
-        { name: 'carrot', expiration: new Date() },
-        { name: 'tomato', expiration: new Date() },
+        { name: 'carrot', expiration: new Date('July 25, 2021') },
+        { name: 'tomato', expiration: new Date('July 17, 2021') },
       ],
       modalVisible: false,
+      orderDate: new Date(),
     };
-    this.setModalVisible = this.setModalVisible.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.onAddItem = this.onAddItem.bind(this);
+    this.maybeRenderModal = this.maybeRenderModal.bind(this);
   }
 
   onSubmit = () => {
-    navigation.navigate('Scanner');
+    console.log('onSubmit');
   };
 
   onAddItem = () => {
-    setModalVisible(!modalVisible);
+    this.setState({ ...this.state, modalVisible: true });
   };
 
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.title}>Review Your Order</Text>
-        <Text style={styles.title}>Order Date: {new Date()}</Text>
-        <table>
-          <tr>
-            <th>Item</th>
-            <th>Expiration</th>
-          </tr>
-          {this.state.food.map((item) => {
+        <View style={styles.orderDate}>
+          <Text>
+            Order Date: {this.state.orderDate.toString().slice(4, 15)}
+          </Text>
+        </View>
+        <View style={styles.totalList}>
+          <View style={styles.tableHeader}>
+            <Text style={styles.itemColumn}>Item</Text>
+            <Text style={styles.expirationColumn}>Expiration</Text>
+          </View>
+          {this.state.food.map((item, index) => {
             return (
-              <tr key={item.name}>
-                <td>{item.name}</td>
-                <td>{item.expiration}</td>
-              </tr>
+              <View key={item.name} style={styles.tableRow}>
+                <TextInput
+                  style={styles.editName}
+                  autoFocus={true}
+                  onChangeText={(text) => {
+                    const newFood = this.state.food;
+                    newFood[index].name = text;
+                    this.setState({ ...this.state, food: newFood });
+                  }}
+                >
+                  {item.name}
+                </TextInput>
+                <TextInput
+                  style={styles.editDate}
+                  autoFocus={true}
+                  onChangeText={(text) => {
+                    const newFood = this.state.food;
+                    newFood[index].expiration = text;
+                    this.setState({ ...this.state, food: newFood });
+                  }}
+                >
+                  {item.expiration.toString().slice(4, 15)}
+                </TextInput>
+              </View>
             );
           })}
-        </table>
-        <TouchableOpacity style={styles.button} onPress={() => onAddItem()}>
-          <Text style={styles.buttonTitle}>AddItem</Text>
+          <TouchableOpacity
+            style={styles.addItemButton}
+            onPress={() => this.onAddItem()}
+          >
+            <Text style={styles.buttonTitle}>Add Item</Text>
+          </TouchableOpacity>
+        </View>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => this.onAddItem()}
+        >
+          <Text
+            style={styles.buttonTitle}
+            onPress={() => console.log(this.state.food)}
+          >
+            Confirm Order
+          </Text>
         </TouchableOpacity>
-        {maybeRenderModal()}
+        {this.maybeRenderModal()}
       </View>
     );
   }
@@ -67,26 +104,29 @@ class ReviewOrder extends React.Component {
   maybeRenderModal = () => {
     return (
       <Modal
-        animationType="none"
+        animationType="fade"
         transparent={true}
-        visible={modalVisible}
+        visible={this.state.modalVisible}
         onRequestClose={() => {
           Alert.alert('Modal has been closed.');
-          setModalVisible(!modalVisible);
+          this.setState({
+            ...this.state,
+            modalVisible: !visible,
+          });
         }}
       >
         <View style={styles.modalView}>
           <Text style={styles.modalText}>Add an Item</Text>
           <TextInput
             style={styles.input}
-            placeholder="Food"
+            placeholder="Food Item"
             placeholderTextColor="#aaaaaa"
-            // onChangeText={(text) => setFood(text)}
-            // value={email}
+            onChangeText={(text) => setFoodItem(text)}
+            // value={text}
             underlineColorAndroid="transparent"
             autoCapitalize="none"
           />
-          <TextInput
+          {/* <TextInput
             style={styles.input}
             placeholder="Expiration Date"
             placeholderTextColor="#aaaaaa"
@@ -94,92 +134,30 @@ class ReviewOrder extends React.Component {
             // value={email}
             underlineColorAndroid="transparent"
             autoCapitalize="none"
-          />
+          /> */}
           <Pressable
             style={[styles.button, styles.buttonClose]}
-            onPress={() => setModalVisible(!modalVisible)}
+            onPress={() =>
+              this.setState({
+                ...this.state,
+                modalVisible: !this.state.modalVisible,
+              })
+            }
           >
-            <Text style={styles.textStyle}>Hide Modal</Text>
+            <Text style={styles.textStyle}>Submit</Text>
           </Pressable>
         </View>
       </Modal>
     );
   };
 }
-
-// function ReviewOrder({ navigation }) {
-//   //set modal visibility
-//   const [modalVisible, setModalVisible] = useState(false);
-
-//   const [foodItem, setFoodItem] = useState('');
-
-//   const onSubmit = () => {
-//     navigation.navigate('Scanner');
-//   };
-
-//   const onAddItem = () => {
-//     setModalVisible(!modalVisible);
-//     setFoodItem(foodItem + '')
-//   };
-//   const maybeRenderModal = () => {
-//     return (
-//       <Modal
-//         animationType="fade"
-//         transparent={true}
-//         visible={modalVisible}
-//         onRequestClose={() => {
-//           Alert.alert('Modal has been closed.');
-//           setModalVisible(!modalVisible);
-//         }}
-//       >
-//         <View style={styles.modalView}>
-//           <Text style={styles.modalText}>Add an Item</Text>
-//           <TextInput
-//             style={styles.input}
-//             placeholder="Food Item"
-//             placeholderTextColor="#aaaaaa"
-//             onChangeText={(text) => setFoodItem(text)}
-//             // value={text}
-//             underlineColorAndroid="transparent"
-//             autoCapitalize="none"
-//           />
-//           {/* <TextInput
-//             style={styles.input}
-//             placeholder="Expiration Date"
-//             placeholderTextColor="#aaaaaa"
-//             // onChangeText={(text) => setExpiration(text)}
-//             // value={email}
-//             underlineColorAndroid="transparent"
-//             autoCapitalize="none"
-//           /> */}
-//           <Pressable
-//             style={[styles.button, styles.buttonClose]}
-//             onPress={() => setModalVisible(!modalVisible)}
-//           >
-//             <Text style={styles.textStyle}>Submit</Text>
-//           </Pressable>
-//         </View>
-//       </Modal>
-//     );
-//   };
-
-//   return (
-//     <View style={styles.container}>
-//       <Text style={styles.title}>Review Your Order</Text>
-//       <TouchableOpacity style={styles.button} onPress={() => onAddItem()}>
-//         <Text style={styles.buttonTitle}>Add Item</Text>
-//       </TouchableOpacity>
-//       {maybeRenderModal()}
-//     </View>
-//   );
-// }
 const mapDispatchToProps = (dispatch) => {
   return {
-    createFoodItem: (foodItem) => dispatch(addFoodItem(foodItem))
-  }
-}
+    createFoodItem: (foodItem) => dispatch(addFoodItem(foodItem)),
+  };
+};
 
 export default connect(null, mapDispatchToProps)(ReviewOrder);
 
-//ReviewOrder.js contains modal. 
+//ReviewOrder.js contains modal.
 //enter food item into modal, update state on Review Order
