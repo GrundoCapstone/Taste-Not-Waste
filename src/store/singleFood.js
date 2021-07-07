@@ -5,7 +5,6 @@ get food name and expiration
 */
 
 import { firebase } from '../firebase/config'
-
 //Action Type
 const POST_SINGLE_FOOD = "POST_SINGLE_FOOD";
 
@@ -18,13 +17,19 @@ const postSingleFood = (foodItem) => {
 }
 
 //Thunk
-export const addFoodItem = () => {
+export const addFoodItem = (food) => {
+    //takes in food parameter?
     return async (dispatch) => {
         try {
             //laura@test.com 112233
-            const fridgeRef = firebase.firestore().collection('/users/OMwhAWYLFtYWOnJiecFQ9bNm9Fj1/fridge');
-            const postFood = await fridgeRef.post();
-            dispatch(postSingleFood(postFood));
+            // const foodRef = firebase.firestore().collection('/food');
+            // //map over each food, check if the name entered matches any food from db
+            // //inputted string includes
+            // // if(food)
+            // const getFood = await foodRef.get();
+            // console.log("get all the food", getFood)
+            // const postFood = await foodRef.post();
+            // dispatch(postSingleFood(postFood));
         } catch (error) {
             console.log(error, "Can't add food item!")
         }
@@ -41,3 +46,4 @@ const singleFoodReducer = (state=initialState, action) => {
             return state
     }
 }
+export default singleFoodReducer
