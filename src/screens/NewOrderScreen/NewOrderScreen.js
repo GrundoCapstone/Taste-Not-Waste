@@ -42,9 +42,6 @@ function NewOrderOptions({ navigation }) {
       <TouchableOpacity style={styles.button} onPress={() => onNewOrderPress()}>
         <Text style={styles.buttonTitle}>Upload Items Manually</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={() => onAllRecipesPress()}>
-        <Text style={styles.buttonTitle}>All Recipes Test Page</Text>
-      </TouchableOpacity>
     </View>
   );
 }
