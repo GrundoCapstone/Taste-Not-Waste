@@ -1,10 +1,11 @@
 //All recipes component
 
 import React from 'react'
-import {Text, View, Image, ScrollView, TextInput, TouchableOpacity, KeyboardAwareScrollView} from 'react-native'
+import {Text, View, Image, ScrollView, TextInput, TouchableOpacity} from 'react-native'
 import {connect} from 'react-redux'
 import { fetchRecipes } from '../../store/allRecipes'
 import styles from './styles'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 class AllRecipes extends React.Component{
   constructor(){
@@ -13,14 +14,13 @@ class AllRecipes extends React.Component{
       ingredient: ''
     }
   }
-  // componentDidMount(){
-  //   this.props.loadRecipes('celery')
-  // }
   render(){
-    // console.log('THIS IS ONE OF THE RECIPE OBJECT',this.props.recipes)
-    console.log('STATE IN ALL RECIPES', this.state.ingredient)
     return(
-      <View>
+      <View style = {styles.screenContainer}>
+        <KeyboardAwareScrollView
+        style={{ flex: 1, width: '100%' }}
+        keyboardShouldPersistTaps="always"
+      >
         <View>
         <TextInput
           style={styles.input}
@@ -35,7 +35,7 @@ class AllRecipes extends React.Component{
         style={styles.button}
         onPress={()=>this.props.loadRecipes(this.state.ingredient)}>
           <Text>Search</Text>
-          </TouchableOpacity>
+        </TouchableOpacity>
         </View>
       {this.props.recipes.length ? <ScrollView >
         {this.props.recipes.map((recipe) => {return (
@@ -47,12 +47,17 @@ class AllRecipes extends React.Component{
            }}
          />
         <Text style = {styles.text}>{recipe.label}</Text>
+        <TouchableOpacity
+          onPress ={() => console.log(recipe.label)}>
+          <Text style = {styles.detailButton}>Details</Text>
+        </TouchableOpacity>
          </View>
         )})}
       </ScrollView> :
       <View>
         <Text>Search for recipes by ingredient!</Text>
         </View>}
+        </KeyboardAwareScrollView>
       </View>
     )
   }

@@ -50,5 +50,15 @@ button: {
 searchContainer: {
   flex: 1,
   flexDirection: 'row'
+},
+screenContainer: {
+  flex: 1,
+  alignItems: 'center'
+},
+detailButton: {
+  marginRight: 30,
+  borderWidth: 2,
+  padding: 5,
+  backgroundColor: 'pink'
 }
 });
