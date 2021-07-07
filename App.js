@@ -76,7 +76,7 @@ export default function App() {
             <>
               <Tab.Screen
                 name="Fridge"
-                component={SingleFood}
+                component={FridgeScreen}
                 options={{
                   tabBarLabel: 'Fridge',
                   tabBarIcon: ({ color }) => (
