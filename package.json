@@ -19,6 +19,7 @@
     "expo-camera": "~11.0.2",
     "expo-clipboard": "~1.0.2",
     "expo-image-picker": "~10.1.4",
+    "expo-linking": "^2.3.1",
     "expo-media-library": "~12.0.2",
     "expo-notifications": "~0.11.6",
     "expo-permissions": "~12.0.1",

@@ -6,6 +6,7 @@ import {connect} from 'react-redux'
 import { fetchRecipes } from '../../store/allRecipes'
 import styles from './styles'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import * as Linking from 'expo-linking';
 
 class AllRecipes extends React.Component{
   constructor(){
@@ -13,6 +14,10 @@ class AllRecipes extends React.Component{
     this.state = {
       ingredient: ''
     }
+    this.handlePress = this.handlePress.bind(this)
+  }
+  handlePress(item){
+    Linking.openURL(item);
   }
   render(){
     return(
@@ -39,7 +44,7 @@ class AllRecipes extends React.Component{
         </View>
       {this.props.recipes.length ? <ScrollView >
         {this.props.recipes.map((recipe) => {return (
-          <View key={recipe.label} style = {styles.container}>
+          <View key={recipe.website} style = {styles.container}>
            <Image
            style = {styles.tinyLogo}
            source={{
@@ -48,7 +53,7 @@ class AllRecipes extends React.Component{
          />
         <Text style = {styles.text}>{recipe.label}</Text>
         <TouchableOpacity
-          onPress ={() => console.log(recipe.label)}>
+          onPress ={() => this.handlePress(recipe.website)}>
           <Text style = {styles.detailButton}>Details</Text>
         </TouchableOpacity>
          </View>
