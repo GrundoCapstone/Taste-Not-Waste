@@ -3,9 +3,7 @@ edit food item (quantity and delete)
 
 get food name and expiration
 */
-
 import { firebase } from '../firebase/config'
-
 //Action Type
 const POST_SINGLE_FOOD = "POST_SINGLE_FOOD";
 
@@ -18,26 +16,37 @@ const postSingleFood = (foodItem) => {
 }
 
 //Thunk
-export const addFoodItem = () => {
+export const addFoodItem = (food) => {
+    //takes in food parameter?
     return async (dispatch) => {
         try {
-            //laura@test.com 112233
-            const fridgeRef = firebase.firestore().collection('/users/OMwhAWYLFtYWOnJiecFQ9bNm9Fj1/fridge');
-            const postFood = await fridgeRef.post();
-            dispatch(postSingleFood(postFood));
+            const foodResult = {name: food, expiration: ''}
+            const foodRef = firebase.firestore().collection('/food');
+            const snapshot = await foodRef.get();
+            snapshot.forEach(doc => {
+                if(doc.data().name === food){
+                    console.log("FOUND MATCH", doc.data().duration)
+                    foodResult['expiration'] = doc.data().duration
+                    console.log("THUNK FOOD RESULT", foodResult)
+                }
+            })
+            dispatch(postSingleFood(foodResult));
         } catch (error) {
             console.log(error, "Can't add food item!")
         }
     }
 }
 
-const initialState = []
+// const test = await fridgeRef.doc().set(testData);
+
+const initialState = {}
 //Reducer
 const singleFoodReducer = (state=initialState, action) => {
     switch(action.type){
         case POST_SINGLE_FOOD:
-            return [...state, action.foodItem]
+            return action.foodItem
         default:
             return state
     }
 }
+export default singleFoodReducer
