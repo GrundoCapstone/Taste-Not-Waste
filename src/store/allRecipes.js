@@ -36,6 +36,8 @@ export const fetchRecipes = (ingredient) => {
         resultArr.push({
           label: element.recipe.label,
           imageUrl: element.recipe.image,
+          website: element.recipe.url,
+
         })
       });
 
