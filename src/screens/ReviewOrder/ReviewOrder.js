@@ -10,6 +10,7 @@ import {
   Pressable,
   TextInput,
 } from 'react-native';
+import { connect } from 'react-redux';
 
 export default class ReviewOrder extends React.Component {
   constructor(props) {
@@ -103,7 +104,7 @@ export default class ReviewOrder extends React.Component {
   maybeRenderModal = () => {
     return (
       <Modal
-        animationType="none"
+        animationType="fade"
         transparent={true}
         visible={this.state.modalVisible}
         onRequestClose={() => {
@@ -118,14 +119,14 @@ export default class ReviewOrder extends React.Component {
           <Text style={styles.modalText}>Add an Item</Text>
           <TextInput
             style={styles.input}
-            placeholder="Food"
+            placeholder="Food Item"
             placeholderTextColor="#aaaaaa"
-            // onChangeText={(text) => setFood(text)}
-            // value={email}
+            onChangeText={(text) => setFoodItem(text)}
+            // value={text}
             underlineColorAndroid="transparent"
             autoCapitalize="none"
           />
-          <TextInput
+          {/* <TextInput
             style={styles.input}
             placeholder="Expiration Date"
             placeholderTextColor="#aaaaaa"
@@ -133,7 +134,7 @@ export default class ReviewOrder extends React.Component {
             // value={email}
             underlineColorAndroid="transparent"
             autoCapitalize="none"
-          />
+          /> */}
           <Pressable
             style={[styles.button, styles.buttonClose]}
             onPress={() =>
@@ -143,10 +144,20 @@ export default class ReviewOrder extends React.Component {
               })
             }
           >
-            <Text style={styles.textStyle}>Hide Modal</Text>
+            <Text style={styles.textStyle}>Submit</Text>
           </Pressable>
         </View>
       </Modal>
     );
   };
 }
+const mapDispatchToProps = (dispatch) => {
+  return {
+    createFoodItem: (foodItem) => dispatch(addFoodItem(foodItem))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(ReviewOrder);
+
+//ReviewOrder.js contains modal.
+//enter food item into modal, update state on Review Order
