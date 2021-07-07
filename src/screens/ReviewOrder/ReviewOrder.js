@@ -9,12 +9,15 @@ import {
   Pressable,
   TextInput,
 } from 'react-native';
+import { connect } from 'react-redux';
 
 //PLACEHOLDER COMPONENT
 
-export default function ReviewOrder({ navigation }) {
+function ReviewOrder({ navigation }) {
   //set modal visibility
   const [modalVisible, setModalVisible] = useState(false);
+
+  const [foodItem, setFoodItem] = useState('');
 
   const onSubmit = () => {
     navigation.navigate('Scanner');
@@ -22,11 +25,12 @@ export default function ReviewOrder({ navigation }) {
 
   const onAddItem = () => {
     setModalVisible(!modalVisible);
+    setFoodItem(foodItem + '')
   };
   const maybeRenderModal = () => {
     return (
       <Modal
-        animationType="none"
+        animationType="fade"
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
@@ -38,14 +42,14 @@ export default function ReviewOrder({ navigation }) {
           <Text style={styles.modalText}>Add an Item</Text>
           <TextInput
             style={styles.input}
-            placeholder="Food"
+            placeholder="Food Item"
             placeholderTextColor="#aaaaaa"
-            // onChangeText={(text) => setFood(text)}
-            // value={email}
+            onChangeText={(text) => setFoodItem(text)}
+            // value={text}
             underlineColorAndroid="transparent"
             autoCapitalize="none"
           />
-          <TextInput
+          {/* <TextInput
             style={styles.input}
             placeholder="Expiration Date"
             placeholderTextColor="#aaaaaa"
@@ -53,12 +57,12 @@ export default function ReviewOrder({ navigation }) {
             // value={email}
             underlineColorAndroid="transparent"
             autoCapitalize="none"
-          />
+          /> */}
           <Pressable
             style={[styles.button, styles.buttonClose]}
             onPress={() => setModalVisible(!modalVisible)}
           >
-            <Text style={styles.textStyle}>Hide Modal</Text>
+            <Text style={styles.textStyle}>Submit</Text>
           </Pressable>
         </View>
       </Modal>
@@ -69,9 +73,19 @@ export default function ReviewOrder({ navigation }) {
     <View style={styles.container}>
       <Text style={styles.title}>Review Your Order</Text>
       <TouchableOpacity style={styles.button} onPress={() => onAddItem()}>
-        <Text style={styles.buttonTitle}>AddItem</Text>
+        <Text style={styles.buttonTitle}>Add Item</Text>
       </TouchableOpacity>
       {maybeRenderModal()}
     </View>
   );
 }
+const mapDispatchToProps = (dispatch) => {
+  return {
+    createFoodItem: (foodItem) => dispatch(addFoodItem(foodItem))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(ReviewOrder);
+
+//ReviewOrder.js contains modal. 
+//enter food item into modal, update state on Review Order

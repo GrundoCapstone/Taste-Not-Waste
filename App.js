@@ -15,12 +15,12 @@ import {
 import { Button, AppRegistry } from 'react-native';
 import { decode, encode } from 'base-64';
 import { Provider } from 'react-redux';
-import configureStore from './src/store';
+import store from './src/store';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
-const store = configureStore();
+// const store = configureStore();
 
 if (!global.btoa) {
   global.btoa = encode;
