@@ -11,6 +11,7 @@ import {
   Scanner,
   NewOrderScreen,
   ReviewOrder,
+  SingleFood
 } from './src/screens';
 import { Button, AppRegistry } from 'react-native';
 import { decode, encode } from 'base-64';
@@ -75,7 +76,7 @@ export default function App() {
             <>
               <Tab.Screen
                 name="Fridge"
-                component={FridgeScreen}
+                component={SingleFood}
                 options={{
                   tabBarLabel: 'Fridge',
                   tabBarIcon: ({ color }) => (

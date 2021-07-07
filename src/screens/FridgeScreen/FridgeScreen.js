@@ -21,6 +21,7 @@ class FridgeScreen extends React.Component {
                             <Text style = {styles.entityText}> This food expires in {food.expiration} days</Text>
                             </View>
                     })}
+
             </View>
         )
     }

@@ -5,33 +5,30 @@ import { connect } from 'react-redux'
 import { FlatList, Keyboard, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { firebase } from '../../firebase/config'
 import { addFoodItem } from '../../store/singleFood'
+import styles from '../FridgeScreen/styles'
 
 class SingleFood extends React.Component {
 
-    // componentDidMount() {
-    //     this.props.loadSingleFood()
-    // }
+    componentDidMount() {
+        this.props.loadSingleFood()
+    }
 
     render() {
-        // console.log("AllFoodsFridge from FridgeScreen : ", this.props.allFoodsFridge)
+        console.log("single food fridge props", this.props.singleFoodFridge)
         return (
             <View>
-                    {this.props.singleFoodFridge.map((food, index) => {
-                        return <View key = {food.name}>
-                            <Text style = {styles.entityText}> {food.name} </Text>
-                            <Text style = {styles.entityText}> This food expires in {food.expiration} days</Text>
-                            </View>
-                    })}
+                    <Text style={styles.entityText}>{this.props.singleFoodFridge[0].name}</Text>
+                    <Text style={styles.entityText}>This food expires in {this.props.singleFoodFridge[0].expiration} days</Text>
             </View>
         )
     }
 }
 
-// const mapState = (state) => {
-//     return {
-//         singleFoodFridge: state.singleFood
-//     }
-// }
+const mapState = (state) => {
+    return {
+        singleFoodFridge: state.singleFood
+    }
+}
 
 const mapDispatch = (dispatch) => {
     return {
@@ -39,6 +36,6 @@ const mapDispatch = (dispatch) => {
     }
 }
 
-export default connect(null, mapDispatch)(SingleFood)
+export default connect(mapState, mapDispatch)(SingleFood)
 
 
