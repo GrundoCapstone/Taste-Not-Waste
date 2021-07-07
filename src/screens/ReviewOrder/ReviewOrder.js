@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 
-export default class ReviewOrder extends React.Component {
+class ReviewOrder extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -29,6 +29,7 @@ export default class ReviewOrder extends React.Component {
   }
 
   onSubmit = () => {
+    console.log('onSubmit');
   };
 
   onAddItem = () => {
@@ -153,9 +154,9 @@ export default class ReviewOrder extends React.Component {
 }
 const mapDispatchToProps = (dispatch) => {
   return {
-    createFoodItem: (foodItem) => dispatch(addFoodItem(foodItem))
-  }
-}
+    createFoodItem: (foodItem) => dispatch(addFoodItem(foodItem)),
+  };
+};
 
 export default connect(null, mapDispatchToProps)(ReviewOrder);
 
