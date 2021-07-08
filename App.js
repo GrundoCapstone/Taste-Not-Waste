@@ -11,7 +11,8 @@ import {
   Scanner,
   NewOrderScreen,
   ReviewOrder,
-  SingleFood
+  SingleFood,
+  UserProfile
 } from './src/screens';
 import { Button, AppRegistry } from 'react-native';
 import { decode, encode } from 'base-64';
@@ -20,6 +21,7 @@ import store from './src/store';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import Ionicons from 'react-native-vector-icons/Ionicons'
 
 // const store = configureStore();
 
@@ -120,6 +122,20 @@ export default function App() {
                   tabBarIcon: ({ color }) => (
                     <MaterialCommunityIcons
                       name="food-variant"
+                      color={color}
+                      size={26}
+                    />
+                  ),
+                }}
+              />
+              <Tab.Screen
+                name="UserProfile"
+                component={UserProfile}
+                options={{
+                  tabBarLabel: 'Profile',
+                  tabBarIcon: ({ color }) => (
+                    <Ionicons
+                      name="person-sharp"
                       color={color}
                       size={26}
                     />
