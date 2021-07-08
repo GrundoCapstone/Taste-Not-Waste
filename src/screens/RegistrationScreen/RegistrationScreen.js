@@ -41,7 +41,7 @@ class RegistrationScreen extends React.Component {
             placeholder="Full Name"
             placeholderTextColor="#aaaaaa"
             onChangeText={(text) => this.setState({ fullName: text })}
-            value={fullName}
+            value={this.state.fullName}
             underlineColorAndroid="transparent"
             autoCapitalize="none"
           />
@@ -50,7 +50,7 @@ class RegistrationScreen extends React.Component {
             placeholder="E-mail"
             placeholderTextColor="#aaaaaa"
             onChangeText={(text) => this.setState({ email: text })}
-            value={email}
+            value={this.state.email}
             underlineColorAndroid="transparent"
             autoCapitalize="none"
           />
@@ -60,7 +60,7 @@ class RegistrationScreen extends React.Component {
             secureTextEntry
             placeholder="Password"
             onChangeText={(text) => this.setState({ password: text })}
-            value={password}
+            value={this.state.password}
             underlineColorAndroid="transparent"
             autoCapitalize="none"
           />
@@ -70,7 +70,7 @@ class RegistrationScreen extends React.Component {
             secureTextEntry
             placeholder="Confirm Password"
             onChangeText={(text) => this.setState({ confirmPassword: text })}
-            value={confirmPassword}
+            value={this.state.confirmPassword}
             underlineColorAndroid="transparent"
             autoCapitalize="none"
           />

@@ -83,7 +83,6 @@ export const signup = (fullName, email, password) => {
           .catch((error) => {
             alert(error);
           });
-        usersRef.document(uid).addCollection('fridge');
         dispatch(_signup(usersRef));
       })
       .catch((error) => {
