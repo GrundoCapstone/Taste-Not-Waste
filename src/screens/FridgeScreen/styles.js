@@ -4,7 +4,7 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',
-    margin: 5
+    margin: 5,
   },
   formContainer: {
     flexDirection: 'row',
@@ -47,20 +47,60 @@ export default StyleSheet.create({
     marginTop: 20,
     padding: 20,
   },
-  entityContainer: {
-    marginTop: 16,
-    borderBottomColor: '#cccccc',
-    borderBottomWidth: 1,
-    paddingBottom: 16,
-  },
-  entityText: {
-    fontSize: 20,
-    color: '#333333',
-    marginTop: 40,
-    marginBottom: 10
-  },
   text: {
     color: 'black',
     marginTop: 500,
+  },
+  title: {
+    textAlign: 'center',
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
+  totalList: {
+    flexDirection: 'column',
+    width: 345,
+  },
+  tableHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 10,
+    marginBottom: 15,
+    borderBottomColor: 'black',
+    borderBottomWidth: 2,
+  },
+  itemColumnName: {
+    fontSize: 20,
+  },
+  expiresColumnName: {
+    fontSize: 20,
+  },
+  infoColumnName: {
+    fontSize: 20,
+  },
+  tableRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 16,
+  },
+  foodName: {
+    fontSize: 20,
+    color: '#333333',
+    width: '35%',
+  },
+  foodExpiration: {
+    fontSize: 20,
+    color: '#333333',
+    width: '33%',
+  },
+  foodDetails: {
+    fontSize: 20,
+    color: '#333333',
+  },
+  detailsButton: {
+    borderColor: 'black',
+    padding: 2,
+    borderRadius: 3,
+    backgroundColor: '#FFBABE',
+    borderWidth: 0.5,
   },
 });
