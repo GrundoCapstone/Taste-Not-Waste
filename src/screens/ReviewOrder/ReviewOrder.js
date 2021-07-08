@@ -39,7 +39,7 @@ class ReviewOrder extends React.Component {
 
   onSubmit = () => {
     this.props.loadFridge(this.state.food)
-    this.props.navigation.goBack()
+    this.props.navigation.navigate('Fridge')
   };
 
   onAddItem = () => {
