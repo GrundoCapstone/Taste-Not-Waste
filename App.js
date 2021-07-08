@@ -12,7 +12,8 @@ import {
   NewOrderScreen,
   ReviewOrder,
   SingleFood,
-  UserProfile
+  UserProfile,
+  LogoutScreen,
 } from './src/screens';
 import { Button, AppRegistry } from 'react-native';
 import { decode, encode } from 'base-64';
@@ -55,6 +56,7 @@ export default function App() {
             setLoading(false);
           });
       } else {
+        setUser(null);
         setLoading(false);
       }
     });
@@ -128,20 +130,7 @@ export default function App() {
                   ),
                 }}
               />
-              <Tab.Screen
-                name="UserProfile"
-                component={UserProfile}
-                options={{
-                  tabBarLabel: 'Profile',
-                  tabBarIcon: ({ color }) => (
-                    <Ionicons
-                      name="person-sharp"
-                      color={color}
-                      size={26}
-                    />
-                  ),
-                }}
-              />
+              <Tab.Screen name="Logout" component={LogoutScreen} />
             </>
           ) : (
             <>
