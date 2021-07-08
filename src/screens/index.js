@@ -12,4 +12,6 @@ export { default as NewOrderScreen } from './NewOrderScreen/NewOrderScreen';
 
 export { default as ReviewOrder } from './ReviewOrder/ReviewOrder';
 
-export {default as SingleFood} from './SingleFood/SingleFood';
+export { default as SingleFood } from './SingleFood/SingleFood';
+
+export { default as LogoutScreen } from './LogoutScreen/LogoutScreen';
