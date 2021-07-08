@@ -11,6 +11,8 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { addFoodItem } from '../../store/singleFood'
+import { addAllFoods } from '../../store/allFood';
+import { FridgeScreen } from '../FridgeScreen/FridgeScreen'
 
 class ReviewOrder extends React.Component {
   constructor(props) {
@@ -36,7 +38,8 @@ class ReviewOrder extends React.Component {
   }
 
   onSubmit = () => {
-    console.log('onSubmit');
+    this.props.loadFridge(this.state.food)
+    this.props.navigation.goBack()
   };
 
   onAddItem = () => {
@@ -92,11 +95,10 @@ class ReviewOrder extends React.Component {
         </View>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => this.onAddItem()}
+          onPress={this.onSubmit}
         >
           <Text
             style={styles.buttonTitle}
-            onPress={() => console.log(this.state.food)}
           >
             Confirm Order
           </Text>
@@ -156,6 +158,17 @@ class ReviewOrder extends React.Component {
           >
             <Text style={styles.textStyle}>Submit</Text>
           </Pressable>
+          <Pressable
+            style={[styles.button, styles.buttonClose]}
+            onPress={() => {
+              this.setState({
+                ...this.state,
+                modalVisible: !this.state.modalVisible,
+              });
+            }}
+          >
+            <Text style={styles.textStyle}>Cancel</Text>
+          </Pressable>
         </View>
       </Modal>
     );
@@ -170,7 +183,8 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-      loadSingleFood: (food) => dispatch(addFoodItem(food))
+      loadSingleFood: (food) => dispatch(addFoodItem(food)),
+      loadFridge: (foods) => dispatch(addAllFoods(foods))
   }
 }
 export default connect(mapState, mapDispatch)(ReviewOrder);
