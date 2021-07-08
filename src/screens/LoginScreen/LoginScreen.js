@@ -47,7 +47,6 @@ class LoginScreen extends React.Component {
             onChangeText={(text) => this.setState({ password: text })}
             value={this.state.password}
             underlineColorAndroid="transparent"
-            autoCapitalize="none"
           />
           <TouchableOpacity
             style={styles.button}
@@ -62,7 +61,6 @@ class LoginScreen extends React.Component {
     );
   }
 }
-const mapState = (state) => {};
 
 const mapDispatch = (dispatch) => {
   return {

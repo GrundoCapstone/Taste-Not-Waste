@@ -11,7 +11,8 @@ import {
   Scanner,
   NewOrderScreen,
   ReviewOrder,
-  SingleFood
+  SingleFood,
+  LogoutScreen,
 } from './src/screens';
 import { Button, AppRegistry } from 'react-native';
 import { decode, encode } from 'base-64';
@@ -126,6 +127,7 @@ export default function App() {
                   ),
                 }}
               />
+              <Tab.Screen name="Logout" component={LogoutScreen} />
             </>
           ) : (
             <>
