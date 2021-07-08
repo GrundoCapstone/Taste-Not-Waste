@@ -8,8 +8,6 @@ add multiple food items, then click confirm to change state
 */
 import { firebase } from '../firebase/config'
 
-// const foodRef = db.foodRef('/users/kl6fbgMwLm1H7aVFTIHk/fridge/rS5ddoASjLzVVRbs1EDU')
-
 // Action Types
 const GET_ALL_FOODS = 'GET_ALL_FOODS'
 
@@ -24,8 +22,9 @@ const getAllFoods = (foods) => {
 // Thunk
 export const fetchAllFoods = () => {
     return async (dispatch) => {
-        try {
-            const fridgeRef = firebase.firestore().collection('/users/kl6fbgMwLm1H7aVFTIHk/fridge')
+        try { 
+            const userId = firebase.auth().currentUser.uid 
+            const fridgeRef = firebase.firestore().collection(`/users/${userId}/fridge`)
             const snapshot = await fridgeRef.get();
             const resultArr = []
             snapshot.forEach(doc => {
@@ -59,3 +58,5 @@ export default allFoodReducer;
 // const expiration = new Date(doc.data().expiration.seconds * 1000).toLocaleString()
 // resultArr.push(doc.data().name, (expiration))
 // console.log(resultArr)
+
+    

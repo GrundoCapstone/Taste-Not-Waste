@@ -6,7 +6,9 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  ScrollView,
   View,
+  SafeAreaView,
 } from 'react-native';
 import styles from './styles';
 import { firebase } from '../../firebase/config';
@@ -23,11 +25,12 @@ class FridgeScreen extends React.Component {
       this.props.allFoodsFridge
     );
     return (
-      <View>
+      <SafeAreaView style={styles.container}>
+      <ScrollView style={styles.scrollView}>
         {this.props.allFoodsFridge.map((food, index) => {
           return (
             <View key={food.name}>
-              <Text style={styles.entityText}> {food.name} </Text>
+              <Text style={styles.entityText}> {index + 1}. {food.name} </Text>
               <Text style={styles.entityText}>
                 {' '}
                 This food expires in {food.expiration} days
@@ -35,7 +38,8 @@ class FridgeScreen extends React.Component {
             </View>
           );
         })}
-      </View>
+      </ScrollView>
+      </SafeAreaView>
     );
   }
 }

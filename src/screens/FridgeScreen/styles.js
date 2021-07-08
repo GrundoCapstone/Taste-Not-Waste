@@ -4,7 +4,7 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',
-    margin: 10
+    margin: 5
   },
   formContainer: {
     flexDirection: 'row',
@@ -18,6 +18,9 @@ export default StyleSheet.create({
     paddingRight: 30,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  scrollView: {
+    marginHorizontal: 10,
   },
   input: {
     height: 48,
@@ -53,7 +56,8 @@ export default StyleSheet.create({
   entityText: {
     fontSize: 20,
     color: '#333333',
-    marginTop: 50,
+    marginTop: 40,
+    marginBottom: 10
   },
   text: {
     color: 'black',

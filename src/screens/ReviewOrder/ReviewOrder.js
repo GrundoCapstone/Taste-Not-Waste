@@ -79,7 +79,7 @@ class ReviewOrder extends React.Component {
                     newDate[index].expiration = text;
                     this.setState({ ...this.state, food: newDate });
                   }}
-                </TextInput>
+                ></TextInput>
               </View>
             );
           })}

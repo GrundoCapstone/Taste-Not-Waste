@@ -24,7 +24,7 @@ export const addFoodItem = (food) => {
             const foodRef = firebase.firestore().collection('/food');
             const snapshot = await foodRef.get();
             snapshot.forEach(doc => {
-                if(doc.data().name === food){
+                if(doc.data().name == food){
                     console.log("FOUND MATCH", doc.data().duration)
                     foodResult['expiration'] = doc.data().duration
                     console.log("THUNK FOOD RESULT", foodResult)
