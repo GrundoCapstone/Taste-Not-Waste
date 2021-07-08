@@ -4,6 +4,12 @@ edit food item (quantity and delete)
 get food name and expiration
 */
 import { firebase } from '../firebase/config'
+
+Date.prototype.addDays = function (days) {
+    let date = new Date(this.valueOf());
+    date.setDate(date.getDate() + days);
+    return date;
+  }
 //Action Type
 const POST_SINGLE_FOOD = "POST_SINGLE_FOOD";
 
@@ -25,9 +31,14 @@ export const addFoodItem = (food) => {
             const snapshot = await foodRef.get();
             snapshot.forEach(doc => {
                 if(doc.data().name == food){
-                    console.log("FOUND MATCH", doc.data().duration)
-                    foodResult['expiration'] = doc.data().duration
-                    console.log("THUNK FOOD RESULT", foodResult)
+                    let currentDate = new Date()
+                    const duration = parseInt((doc.data().duration), 0)
+                    // console.log("FOUND MATCH", duration)
+                    const expiration = currentDate.addDays(duration)
+                    // console.log("EXPIRATION ", expiration.toString().slice(4, 15))
+                    foodResult['expiration'] = expiration.toString().slice(4, 15)
+                    // console.log("CURRENT DATE", date)
+                    // console.log("EXPIRATION DATE", date.addDays(duration))
                 }
             })
             dispatch(postSingleFood(foodResult));
@@ -36,8 +47,6 @@ export const addFoodItem = (food) => {
         }
     }
 }
-
-// const test = await fridgeRef.doc().set(testData);
 
 const initialState = {}
 //Reducer
