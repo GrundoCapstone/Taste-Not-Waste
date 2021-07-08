@@ -40,7 +40,6 @@ class FridgeScreen extends React.Component {
             <View style={styles.tableHeader}>
               <Text style={styles.itemColumnName}>Item</Text>
               <Text style={styles.expiresColumnName}>Expires In</Text>
-              <Text style={styles.infoColumnName}>Info</Text>
             </View>
             {foods.map((food, index) => {
               return (
@@ -49,9 +48,6 @@ class FridgeScreen extends React.Component {
                   <Text style={styles.foodExpiration}>
                     {food.expiration} Days
                   </Text>
-                  <TouchableOpacity style={styles.detailsButton}>
-                    <Text style={styles.foodDetails}>Details</Text>
-                  </TouchableOpacity>
                 </View>
               );
             })}

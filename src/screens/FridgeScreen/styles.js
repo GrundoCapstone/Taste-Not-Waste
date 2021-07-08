@@ -80,27 +80,25 @@ export default StyleSheet.create({
   tableRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 16,
+    marginBottom: 10,
+    borderColor: 'black',
+    padding: 5,
+    borderRadius: 3,
+    backgroundColor: 'rgba(255, 186, 190, .85)',
+    borderWidth: 0.5,
   },
   foodName: {
     fontSize: 20,
     color: '#333333',
-    width: '35%',
+    fontWeight: '500',
   },
   foodExpiration: {
     fontSize: 20,
     color: '#333333',
-    width: '33%',
+    fontWeight: '200',
   },
   foodDetails: {
     fontSize: 20,
     color: '#333333',
-  },
-  detailsButton: {
-    borderColor: 'black',
-    padding: 2,
-    borderRadius: 3,
-    backgroundColor: '#FFBABE',
-    borderWidth: 0.5,
   },
 });
