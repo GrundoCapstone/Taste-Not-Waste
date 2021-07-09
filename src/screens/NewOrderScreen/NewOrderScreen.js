@@ -13,12 +13,12 @@ const Stack = createStackNavigator();
 function NewOrderScreen({ navigation })
 {
 
-  const [expoPushToken, setExpoPushToken] = useState('');
+  // const [expoPushToken, setExpoPushToken] = useState('');
 
-  useEffect(() => {
-    const token = registerForPushNotificationsAsync();setExpoPushToken(token);
-    this.props.loadToken(token)
-  })
+  // useEffect(() => {
+  //   const token = registerForPushNotificationsAsync();setExpoPushToken(token);
+  //   this.props.loadToken(token)
+  // })
   return (
     <>
       <Stack.Navigator initialRouteName="NewOrderOptions">
