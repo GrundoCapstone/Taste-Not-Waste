@@ -11,15 +11,21 @@ class UserProfile extends React.Component{
 
     componentDidMount(){
         this.props.loadUserInfo()
-
     }
+    
     render(){
         console.log("USER PROFILE THIS PROPS =====", this.props.userInfo)
+        let userName = "" 
+        let userEmail = ""
+        if(this.props.userInfo !== null){
+            userName = this.props.userInfo.fullName
+            userEmail = this.props.userInfo.email
+        }
         return (
             <SafeAreaView style={styles.container}>
                 <Text style={styles.title}>My Profile</Text>
-                <Text>{this.props.userInfo.fullName}</Text>
-                <Text>{this.props.userInfo.email}</Text>
+                <Text>{userName}</Text>
+                <Text>{userEmail}</Text>
                 <LogoutScreen />
             </SafeAreaView>
         )

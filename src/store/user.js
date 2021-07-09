@@ -108,25 +108,28 @@ export const logout = () => {
   };
 };
 
-// export const accessUserInfo = (user) => {
-//   return async (dispatch) => {
-//     const userId = firebase.auth().currentUser.uid
-//     const userRef = await firebase.firestore().collection(`users`).doc(user).get()
-//     dispatch(_getUserInfo(userRef))
-//     // console.log("USER INFO >>",getRef)
-//   }
-// }
 export const gettingUserInfo = () => {
   return async(dispatch) => {
-    const userId = firebase.auth().currentUser
-    // const userRef = firebase.firestore().collection('users')
-    // const snapshot = await userRef.get(userId)
-    // // const snapshot = await userId.get()
-    // console.log("SNAPSHOT=+=+", userRef)
-    // dispatch(_getUserInfo(userRef))
-    const signedInUser = firebase.firestore().collection('users').doc(`${userId}`)
-    console.log("SIGNED IN USER", signedInUser)
-    console.log("USER ID ID ID", userId)
+    const userId = await firebase.auth().currentUser.uid
+
+    // const signedInUser = firebase.firestore().collection('users').doc(`${userId}`)
+    // dispatch(_getUserInfo(signedInUser))
+    // console.log("SIGNED IN USER", signedInUser)
+    // console.log("USER ID ID ID", userId)
+    const usersRef = firebase.firestore().collection('users')
+    console.log("USERS REF", usersRef)
+    usersRef
+      .doc(userId)
+      .get()
+      .then((firestoreDocument) => {
+        if (!firestoreDocument.exists) {
+          alert('User does not exist anymore.');
+          return;
+        }
+      const user = firestoreDocument.data();
+      console.log("USER>>>>", user)
+      dispatch(_getUserInfo(user));
+          })
   }
 }
 
@@ -144,7 +147,7 @@ const userReducer = (state = initialState, action) => {
     case LOGOUT:
       return action.user;
     case GET_USER_INFO:
-      return {...state, user: action.user};
+      return action.user;
     default:
       return state;
   }
