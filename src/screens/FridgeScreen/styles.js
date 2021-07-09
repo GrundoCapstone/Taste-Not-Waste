@@ -4,7 +4,8 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',
-    margin: 5,
+    // margin: 5,
+    backgroundColor: '#FFBABE',
   },
   formContainer: {
     flexDirection: 'row',
@@ -55,10 +56,14 @@ export default StyleSheet.create({
     textAlign: 'center',
     fontSize: 24,
     fontWeight: 'bold',
+    marginBottom: 15,
+    marginTop: 10,
   },
   totalList: {
-    flexDirection: 'column',
-    width: 345,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    width: '100%',
+    justifyContent: 'space-evenly',
   },
   tableHeader: {
     flexDirection: 'row',
@@ -91,14 +96,37 @@ export default StyleSheet.create({
     fontSize: 20,
     color: '#333333',
     fontWeight: '500',
+    textAlign: 'center',
   },
   foodExpiration: {
     fontSize: 20,
     color: '#333333',
     fontWeight: '200',
+    textAlign: 'center',
   },
   foodDetails: {
     fontSize: 20,
     color: '#333333',
+  },
+  foodTile: {
+    width: 150,
+    height: 150,
+    borderColor: 'black',
+    borderWidth: 1,
+    borderRadius: 5,
+    margin: 10,
+    flexDirection: 'column',
+    alignItems: 'center',
+    backgroundColor: '#6ED8BE',
+  },
+  tileContent: {
+    height: 50,
+    marginTop: 50,
+    marginBottom: 50,
+  },
+  expired: {
+    color: 'red',
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
 });
