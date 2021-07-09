@@ -33,7 +33,6 @@ if (!global.atob) {
   global.atob = decode;
 }
 
-// const Stack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
 export default function App() {
@@ -130,7 +129,20 @@ export default function App() {
                   ),
                 }}
               />
-              <Tab.Screen name="Logout" component={LogoutScreen} />
+              <Tab.Screen
+                name="User Profile"
+                component={UserProfile}
+                options={{
+                  tabBarLabel: 'Profile',
+                  tabBarIcon: ({ color }) => (
+                    <Ionicons
+                      name="person-sharp"
+                      color={color}
+                      size={26}
+                    />
+                  ),
+                }}
+              />
             </>
           ) : (
             <>

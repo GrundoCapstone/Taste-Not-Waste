@@ -7,12 +7,14 @@ import allRecipeReducer from './allRecipes'
 import scannerReducer from './scanner'
 import allFoodReducer from './allFood';
 import singleFoodReducer from "./singleFood";
+import userReducer from "./user";
 
 const reducer = combineReducers({
   allRecipes: allRecipeReducer,
   scanner: scannerReducer,
   allFoods: allFoodReducer,
-  singleFood: singleFoodReducer
+  singleFood: singleFoodReducer,
+  userInfo: userReducer
 });
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, 

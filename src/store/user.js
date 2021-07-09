@@ -1,3 +1,4 @@
+import { USER_FACING_NOTIFICATIONS } from 'expo-permissions';
 import { firebase } from '../firebase/config';
 /*
 get user info
@@ -11,6 +12,8 @@ adding recipe favorites
 const LOGIN = 'LOGIN';
 const SIGN_UP = 'SIGN_UP';
 const LOGOUT = 'LOGOUT';
+
+const GET_USER_INFO = 'GET_USER_INFO'
 
 //action creator
 const _login = (user) => {
@@ -33,6 +36,13 @@ const _logout = (user) => {
     user: user,
   };
 };
+
+const _getUserInfo = (user) => {
+  return {
+    type: GET_USER_INFO,
+    user: user
+  }
+}
 
 //thunk creators
 export const login = (email, password) => {
@@ -98,6 +108,30 @@ export const logout = () => {
   };
 };
 
+// export const accessUserInfo = (user) => {
+//   return async (dispatch) => {
+//     const userId = firebase.auth().currentUser.uid
+//     const userRef = await firebase.firestore().collection(`users`).doc(user).get()
+//     dispatch(_getUserInfo(userRef))
+//     // console.log("USER INFO >>",getRef)
+//   }
+// }
+export const gettingUserInfo = () => {
+  return async(dispatch) => {
+    const userId = firebase.auth().currentUser
+    // const userRef = firebase.firestore().collection('users')
+    // const snapshot = await userRef.get(userId)
+    // // const snapshot = await userId.get()
+    // console.log("SNAPSHOT=+=+", userRef)
+    // dispatch(_getUserInfo(userRef))
+    const signedInUser = firebase.firestore().collection('users').doc(`${userId}`)
+    console.log("SIGNED IN USER", signedInUser)
+    console.log("USER ID ID ID", userId)
+  }
+}
+
+
+
 //reducer
 const initialState = {};
 
@@ -105,10 +139,12 @@ const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN:
       return action.user;
-    case SIGNUP:
+    case SIGN_UP:
       return action.user;
     case LOGOUT:
       return action.user;
+    case GET_USER_INFO:
+      return {...state, user: action.user};
     default:
       return state;
   }
