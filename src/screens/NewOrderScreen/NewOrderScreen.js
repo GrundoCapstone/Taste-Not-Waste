@@ -57,7 +57,7 @@ function NewOrderOptions({ navigation }) {
 
 const mapDispatch = (dispatch) => {
   return {
-    loadToken: (token) => setToken(token)
+    loadToken: (token) => dispatch(setToken(token))
   }
 }
 

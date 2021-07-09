@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   ScrollView,
   View,
-  SafeAreaView,
+  SafeAreaView,gi
 } from 'react-native';
 import styles from './styles';
 import { firebase } from '../../firebase/config';
