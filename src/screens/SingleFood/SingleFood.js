@@ -5,7 +5,7 @@ import {View, Text} from 'react-native'
 class SingleFood extends React.Component{
   render(){
     return(
-      <View>
+      <View style = {{margin:50}}>
         <Text>This is single food</Text>
       </View>
     )

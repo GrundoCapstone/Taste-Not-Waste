@@ -19,22 +19,6 @@ import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import SingleFood from '../SingleFood/SingleFood'
 import AllRecipes from '../AllRecipes/AllRecipes'
 
-const Stack = createStackNavigator();
-
-
-export function FridgeNavigator({ navigation })
-{
-
-  return (
-    <>
-      <Stack.Navigator initialRouteName="Fridge">
-        <Stack.Screen name="Fridge" component={FridgeScreen} />
-        <Stack.Screen name="SingleFood"
-        >{(props) => <SingleFood {...props} />}</Stack.Screen>
-      </Stack.Navigator>
-    </>
-  );
-}
 
 class FridgeScreen extends React.Component {
   constructor(props){

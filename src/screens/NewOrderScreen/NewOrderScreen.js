@@ -21,7 +21,9 @@ function NewOrderScreen({ navigation })
   // })
   return (
     <>
-      <Stack.Navigator initialRouteName="NewOrderOptions">
+      <Stack.Navigator initialRouteName="NewOrderOptions" screenOptions={{
+    headerShown: false
+  }}>
         <Stack.Screen name="NewOrderOptions" component={NewOrderOptions} />
         <Stack.Screen name="Scanner" component={Scanner} />
         <Stack.Screen name="ReviewOrder" component={ReviewOrder} />

@@ -29,6 +29,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import DummyNotification from './src/screens/ReusableComponents/DummyNotification';
 import Constants from 'expo-constants';
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import  FridgeNavigator  from './src/screens/FridgeScreen/FridgeNavigator';
 
 // const store = configureStore();
 
@@ -87,7 +88,7 @@ export default function App() {
         >
           {user ? (
             <>
-              <Tab.Screen
+              {/* <Tab.Screen
                 name="Fridge"
                 component={FridgeScreen}
                 options={{
@@ -100,19 +101,25 @@ export default function App() {
                     />
                   ),
                 }}
-              />
+              /> */}
+              <Tab.Screen
+                name="FridgeNavigator"
+                options={{
+                  tabBarLabel: 'Fridge',
+                  tabBarIcon: ({ color }) => (
+                    <MaterialCommunityIcons
+                      name="fridge"
+                      color={color}
+                      size={26}
+                    />
+                  ),
+                }}
+              >
+                {(props) => <FridgeNavigator {...props} extraData={user} />}
+              </Tab.Screen>
               <Tab.Screen
                 name="New Order"
                 options={{
-                  headerRight: () => (
-                    <Button
-                      onPress={() => {
-                        firebase.auth().signOut().then(setUser(null));
-                      }}
-                      title="Logout"
-                      color="black"
-                    />
-                  ),
                   tabBarLabel: 'New Order',
                   tabBarIcon: ({ color }) => (
                     <FontAwesome5
