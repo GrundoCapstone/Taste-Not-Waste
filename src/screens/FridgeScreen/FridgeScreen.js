@@ -13,10 +13,36 @@ import {
 import styles from './styles';
 import { firebase } from '../../firebase/config';
 import { fetchAllFoods } from '../../store/allFood';
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import SingleFood from '../SingleFood/SingleFood'
+
+const Stack = createStackNavigator();
+
+
+export function FridgeNavigator({ navigation })
+{
+
+  return (
+    <>
+      <Stack.Navigator initialRouteName="Fridge">
+        <Stack.Screen name="Fridge" component={FridgeScreen} />
+        <Stack.Screen name="SingleFood" component={SingleFood} />
+      </Stack.Navigator>
+    </>
+  );
+}
 
 class FridgeScreen extends React.Component {
+  constructor(props){
+    super(props)
+    this.onNavigationPress = this.onNavigationPress.bind(this);
+  }
   componentDidMount() {
     this.props.loadAllFoods();
+  }
+  onNavigationPress () {
+    this.props.navigation.navigate('SingleFood')
   }
 
   render() {
@@ -43,12 +69,14 @@ class FridgeScreen extends React.Component {
             </View>
             {foods.map((food, index) => {
               return (
-                <View key={food.name} style={styles.tableRow}>
+                <TouchableOpacity key={food.name} onPress = {this.onNavigationPress}>
+                <View  style={styles.tableRow}>
                   <Text style={styles.foodName}>{food.name}</Text>
                   <Text style={styles.foodExpiration}>
                     {food.expiration} Days
                   </Text>
                 </View>
+                </TouchableOpacity>
               );
             })}
           </View>
