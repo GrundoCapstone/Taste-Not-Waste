@@ -9,6 +9,13 @@ import {
   RegistrationScreen,
   AllRecipes,
   NewOrderScreen,
+<<<<<<< HEAD
+=======
+  ReviewOrder,
+  SingleFood,
+  UserProfile,
+  LogoutScreen,
+>>>>>>> 8149de36e89d9bae0b6b82ee3d8f605f732b56dd
 } from './src/screens';
 import { Button, AppRegistry, Platform } from 'react-native';
 import { decode, encode } from 'base-64';
@@ -17,8 +24,14 @@ import store from './src/store';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+<<<<<<< HEAD
 import DummyNotification from './src/screens/ReusableComponents/DummyNotification';
 import Constants from 'expo-constants';
+=======
+import Ionicons from 'react-native-vector-icons/Ionicons'
+
+// const store = configureStore();
+>>>>>>> 8149de36e89d9bae0b6b82ee3d8f605f732b56dd
 
 if (!global.btoa) {
   global.btoa = encode;
@@ -27,9 +40,12 @@ if (!global.atob) {
   global.atob = decode;
 }
 
+<<<<<<< HEAD
 //before boarding -> added register for notification function to bottom of App.js
 //added useState for push tokens into App.js
 // const Stack = createStackNavigator();
+=======
+>>>>>>> 8149de36e89d9bae0b6b82ee3d8f605f732b56dd
 const Tab = createMaterialBottomTabNavigator();
 
 export default function App() {
@@ -126,7 +142,24 @@ export default function App() {
                   ),
                 }}
               />
+<<<<<<< HEAD
               <Tab.Screen name="Logout" component={DummyNotification} />
+=======
+              <Tab.Screen
+                name="User Profile"
+                component={UserProfile}
+                options={{
+                  tabBarLabel: 'Profile',
+                  tabBarIcon: ({ color }) => (
+                    <Ionicons
+                      name="person-sharp"
+                      color={color}
+                      size={26}
+                    />
+                  ),
+                }}
+              />
+>>>>>>> 8149de36e89d9bae0b6b82ee3d8f605f732b56dd
             </>
           ) : (
             <>

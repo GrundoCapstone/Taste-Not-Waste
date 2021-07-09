@@ -70,7 +70,9 @@ class FridgeScreen extends React.Component {
             </View> */}
             {foods.map((food, index) => {
               return (
-                <TouchableOpacity key={`${food.name}${index}`}>
+                <TouchableOpacity
+                onPress = {this.onNavigationPress}
+                key={`${food.name}${index}`}>
                   <View style={styles.foodTile}>
                     <View style={styles.tileContent}>
                       <Text style={styles.foodName}>{food.name}</Text>
