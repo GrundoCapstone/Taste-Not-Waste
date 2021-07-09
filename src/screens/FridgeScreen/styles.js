@@ -58,7 +58,7 @@ export default StyleSheet.create({
   },
   totalList: {
     flexDirection: 'column',
-    width: 345,
+    width: '100%',
   },
   tableHeader: {
     flexDirection: 'row',
