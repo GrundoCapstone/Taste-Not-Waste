@@ -38,21 +38,19 @@ const _logout = (user) => {
   };
 };
 
-<<<<<<< HEAD
 const setNotificationToken = (user) => {
   return {
     type: NOTIFICATION_AUTH,
     user: user,
   };
 };
-=======
+
 const _getUserInfo = (user) => {
   return {
     type: GET_USER_INFO,
     user: user
   }
 }
->>>>>>> 8149de36e89d9bae0b6b82ee3d8f605f732b56dd
 
 //thunk creators
 export const login = (email, password) => {
@@ -118,7 +116,6 @@ export const logout = () => {
   };
 };
 
-<<<<<<< HEAD
 export const setToken = (token) => {
   return async (dispatch) => {
     const usersRef = firebase.firestore().collection('users');
@@ -136,7 +133,7 @@ export const setToken = (token) => {
       });
   };
 };
-=======
+
 export const gettingUserInfo = () => {
   return async(dispatch) => {
     const userId = await firebase.auth().currentUser.uid
@@ -163,8 +160,6 @@ export const gettingUserInfo = () => {
 }
 
 
->>>>>>> 8149de36e89d9bae0b6b82ee3d8f605f732b56dd
-
 //reducer
 const initialState = {};
 
@@ -176,11 +171,12 @@ const userReducer = (state = initialState, action) => {
       return action.user;
     case LOGOUT:
       return action.user;
-<<<<<<< HEAD
     case NOTIFICATION_AUTH:
-=======
+      return action.user;
     case GET_USER_INFO:
->>>>>>> 8149de36e89d9bae0b6b82ee3d8f605f732b56dd
+    case NOTIFICATION_AUTH:
+      return action.user;
+    case GET_USER_INFO:
       return action.user;
     default:
       return state;
