@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import styles from './styles';
 import {
@@ -11,9 +10,9 @@ import {
   TextInput,
 } from 'react-native';
 import { connect } from 'react-redux';
-import { addFoodItem } from '../../store/singleFood'
+import { addFoodItem } from '../../store/singleFood';
 import { addAllFoods } from '../../store/allFood';
-import { FridgeScreen } from '../FridgeScreen/FridgeScreen'
+import { FridgeScreen } from '../FridgeScreen/FridgeScreen';
 
 class ReviewOrder extends React.Component {
   constructor(props) {
@@ -29,18 +28,17 @@ class ReviewOrder extends React.Component {
     this.maybeRenderModal = this.maybeRenderModal.bind(this);
   }
 
-  componentDidUpdate(prevProps){
-    if(this.props.singleFoodFridge !== prevProps.singleFoodFridge){
-      const newFood = this.props.singleFoodFridge
-      const updatedFoods = [...this.state.food, newFood]
-      this.setState({food: updatedFoods})
-
+  componentDidUpdate(prevProps) {
+    if (this.props.singleFoodFridge !== prevProps.singleFoodFridge) {
+      const newFood = this.props.singleFoodFridge;
+      const updatedFoods = [...this.state.food, newFood];
+      this.setState({ food: updatedFoods });
     }
   }
 
   onSubmit = () => {
     this.props.loadFridge(this.state.food);
-    this.setState({food:[]})
+    this.setState({ food: [] });
     this.props.navigation.navigate('Fridge');
   };
 
@@ -64,29 +62,31 @@ class ReviewOrder extends React.Component {
             <Text style={styles.expirationColumn}>Expiration</Text>
           </View>
           {this.state.food.map((item, index) => {
-            return (
-              <View key={item.name} style={styles.tableRow}>
-                <TextInput
-                  style={styles.editName}
-                  autoFocus={true}
-                  value={item.name}
-                  onChangeText={(text) => {
-                    const newFood = [...this.state.food];
-                    newFood[index].name = text;
-                    this.setState({ ...this.state, food: newFood });
-                  }}
-                ></TextInput>
-                <TextInput
-                  style={styles.editDate}
-                  value={item.expiration}
-                  onChangeText={(text) => {
-                    const newDate = [...this.state.food];
-                    newDate[index].expiration = text;
-                    this.setState({ ...this.state, food: newDate });
-                  }}
-                ></TextInput>
-              </View>
-            );
+            if (item.name.length || item.expiration.length) {
+              return (
+                <View key={item.name} style={styles.tableRow}>
+                  <TextInput
+                    style={styles.editName}
+                    autoFocus={true}
+                    value={item.name}
+                    onChangeText={(text) => {
+                      const newFood = [...this.state.food];
+                      newFood[index].name = text;
+                      this.setState({ ...this.state, food: newFood });
+                    }}
+                  ></TextInput>
+                  <TextInput
+                    style={styles.editDate}
+                    value={item.expiration}
+                    onChangeText={(text) => {
+                      const newDate = [...this.state.food];
+                      newDate[index].expiration = text;
+                      this.setState({ ...this.state, food: newDate });
+                    }}
+                  ></TextInput>
+                </View>
+              );
+            }
           })}
           <TouchableOpacity
             style={styles.addItemButton}
@@ -95,15 +95,8 @@ class ReviewOrder extends React.Component {
             <Text style={styles.buttonTitle}>Add Item</Text>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={this.onSubmit}
-        >
-          <Text
-            style={styles.buttonTitle}
-          >
-            Confirm Order
-          </Text>
+        <TouchableOpacity style={styles.button} onPress={this.onSubmit}>
+          <Text style={styles.buttonTitle}>Confirm Order</Text>
         </TouchableOpacity>
         {this.maybeRenderModal()}
       </View>
@@ -132,7 +125,7 @@ class ReviewOrder extends React.Component {
             placeholder="Food Item"
             placeholderTextColor="#aaaaaa"
             onChangeText={(text) => {
-              this.setState({newFood: text})
+              this.setState({ newFood: text });
             }}
             // value={text}
             underlineColorAndroid="transparent"
@@ -150,13 +143,12 @@ class ReviewOrder extends React.Component {
           <Pressable
             style={[styles.button, styles.buttonClose]}
             onPress={() => {
-              this.props.loadSingleFood(this.state.newFood)
+              this.props.loadSingleFood(this.state.newFood);
               this.setState({
                 ...this.state,
                 modalVisible: !this.state.modalVisible,
-              })
-              }
-            }
+              });
+            }}
           >
             <Text style={styles.textStyle}>Submit</Text>
           </Pressable>
@@ -177,18 +169,18 @@ class ReviewOrder extends React.Component {
   };
 }
 const mapState = (state) => {
-  console.log("MAPSTATE>>", state.singleFood)
+  console.log('MAPSTATE>>', state.singleFood);
   return {
-      singleFoodFridge: state.singleFood
-  }
-}
+    singleFoodFridge: state.singleFood,
+  };
+};
 
 const mapDispatch = (dispatch) => {
   return {
-      loadSingleFood: (food) => dispatch(addFoodItem(food)),
-      loadFridge: (foods) => dispatch(addAllFoods(foods))
-  }
-}
+    loadSingleFood: (food) => dispatch(addFoodItem(food)),
+    loadFridge: (foods) => dispatch(addAllFoods(foods)),
+  };
+};
 export default connect(mapState, mapDispatch)(ReviewOrder);
 
 //ReviewOrder.js contains modal.
