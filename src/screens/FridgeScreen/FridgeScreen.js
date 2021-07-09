@@ -9,15 +9,27 @@ import {
   TouchableOpacity,
   ScrollView,
   View,
-  SafeAreaView,
+  SafeAreaView,gi
 } from 'react-native';
 import styles from './styles';
 import { firebase } from '../../firebase/config';
 import { fetchAllFoods } from '../../store/allFood';
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import SingleFood from '../SingleFood/SingleFood'
+import AllRecipes from '../AllRecipes/AllRecipes'
+
 
 class FridgeScreen extends React.Component {
+  constructor(props){
+    super(props)
+    this.onNavigationPress = this.onNavigationPress.bind(this);
+  }
   componentDidMount() {
     this.props.loadAllFoods();
+  }
+  onNavigationPress () {
+    this.props.navigation.navigate('SingleFood')
   }
 
   render() {
@@ -44,7 +56,9 @@ class FridgeScreen extends React.Component {
             </View> */}
             {foods.map((food, index) => {
               return (
-                <TouchableOpacity key={`${food.name}${index}`}>
+                <TouchableOpacity
+                onPress = {this.onNavigationPress}
+                key={`${food.name}${index}`}>
                   <View style={styles.foodTile}>
                     <View style={styles.tileContent}>
                       <Text style={styles.foodName}>{food.name}</Text>

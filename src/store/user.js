@@ -44,6 +44,7 @@ const setNotificationToken = (user) => {
     user: user,
   };
 };
+
 const _getUserInfo = (user) => {
   return {
     type: GET_USER_INFO,
@@ -132,6 +133,7 @@ export const setToken = (token) => {
       });
   };
 };
+
 export const gettingUserInfo = () => {
   return async(dispatch) => {
     const userId = await firebase.auth().currentUser.uid
@@ -158,7 +160,6 @@ export const gettingUserInfo = () => {
 }
 
 
-
 //reducer
 const initialState = {};
 
@@ -170,6 +171,9 @@ const userReducer = (state = initialState, action) => {
       return action.user;
     case LOGOUT:
       return action.user;
+    case NOTIFICATION_AUTH:
+      return action.user;
+    case GET_USER_INFO:
     case NOTIFICATION_AUTH:
       return action.user;
     case GET_USER_INFO:

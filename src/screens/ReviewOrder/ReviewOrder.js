@@ -39,8 +39,9 @@ class ReviewOrder extends React.Component {
   }
 
   onSubmit = () => {
-    this.props.loadFridge(this.state.food)
-    this.props.navigation.navigate('Fridge')
+    this.props.loadFridge(this.state.food);
+    this.setState({food:[]})
+    this.props.navigation.navigate('Fridge');
   };
 
   onAddItem = () => {
@@ -48,7 +49,7 @@ class ReviewOrder extends React.Component {
   };
 
   render() {
-    console.log('state: ', this.state);
+    // console.log('state: ', this.state);
     return (
       <View style={styles.container}>
         <Text style={styles.title}>Review Your Order</Text>
@@ -153,7 +154,7 @@ class ReviewOrder extends React.Component {
               this.setState({
                 ...this.state,
                 modalVisible: !this.state.modalVisible,
-              }) 
+              })
               }
             }
           >
