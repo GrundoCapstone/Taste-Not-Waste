@@ -142,5 +142,9 @@ export default StyleSheet.create({
       marginTop: 5,
       alignItems: 'center',
     },
+    iconLogo: {
+        resizeMode: "contain",
+        height: 100
+    }
   });
   

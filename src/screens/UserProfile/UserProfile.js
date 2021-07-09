@@ -1,5 +1,5 @@
 //user profile component
-import { View, SafeAreaView, Text, Button } from 'react-native';
+import { View, SafeAreaView, Text, Button, Image } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { firebase } from '../../firebase/config'
 import styles from './styles'
@@ -24,6 +24,7 @@ class UserProfile extends React.Component{
         return (
             <SafeAreaView style={styles.container}>
                 <Text style={styles.title}>My Profile</Text>
+                <Image source={require("../../../assets/avoIcon.png")} style={styles.iconLogo}/>
                 <Text>{userName}</Text>
                 <Text>{userEmail}</Text>
                 <LogoutScreen />
