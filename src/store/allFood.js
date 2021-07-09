@@ -6,11 +6,13 @@ food name and expiration date
 add multiple food items, then click confirm to change state
 
 */
+import * as Notifications from 'expo-notifications';
 import { firebase } from '../firebase/config'
 
 // Action Types
 const GET_ALL_FOODS = 'GET_ALL_FOODS'
 const ADD_ALL_FOODS = 'ADD_ALL_FOODS'
+const SET_FOOD_NOTIFICATIONS = 'SET_FOOD_NOTIFICATIONS'
 
 // ACTION CREATOR
 const getAllFoods = (foods) => {
@@ -27,11 +29,17 @@ const _addAllFoods = (foods) => {
     }
 }
 
+const setFoodNotifications = (foods) => {
+    return {
+        type: SET_FOOD_NOTIFICATIONS,
+        foods
+    }
+}
 // Thunk
 export const fetchAllFoods = () => {
     return async (dispatch) => {
-        try { 
-            const userId = firebase.auth().currentUser.uid 
+        try {
+            const userId = firebase.auth().currentUser.uid
             const fridgeRef = firebase.firestore().collection(`/users/${userId}/fridge`)
             const snapshot = await fridgeRef.get();
             const resultArr = []
@@ -51,7 +59,7 @@ export const fetchAllFoods = () => {
 export const addAllFoods = (foods) => {
     return async (dispatch) => {
         try {
-            const userId = firebase.auth().currentUser.uid 
+            const userId = firebase.auth().currentUser.uid
             const fridgeRef = firebase.firestore().collection(`/users/${userId}/fridge`)
             foods.forEach((food) => {
                 food.expiration = new Date(food.expiration)
@@ -72,6 +80,27 @@ export const addAllFoods = (foods) => {
     }
 }
 
+export const setNotifications = (foods) => {
+    return async (dispatch) => {
+        // const userId = firebase.auth().currentUser.uid
+            // const fridgeRef = firebase.firestore().collection(`/users/${userId}/fridge`)
+            foods.forEach(async (food) => {
+                food.expiration = new Date(food.expiration)
+                //do the math to get 3 days prior, set that to the trigger time
+                // fridgeRef.doc().set(food);
+                await Notifications.scheduleNotificationAsync({
+                    content: {
+                      title: "You've got mail! 📬",
+                      body: 'Here is the notification body',
+                      data: { data: 'goes here' },
+                    },
+                    trigger: { seconds: 5 },
+                  });
+                  dispatch(foods)
+            })
+    }
+}
+
 const initialState = []
 
 // Reducer
@@ -80,6 +109,8 @@ const allFoodReducer = (state=initialState, action) => {
         case GET_ALL_FOODS:
             return action.foods
         case ADD_ALL_FOODS:
+            return action.foods
+        case SET_FOOD_NOTIFICATIONS:
             return action.foods
         default:
             return state
@@ -93,4 +124,4 @@ export default allFoodReducer;
 // resultArr.push(doc.data().name, (expiration))
 // console.log(resultArr)
 
-    
+
