@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import {
   FlatList,
+  TouchableHighlight,
   Keyboard,
   Text,
   TextInput,
@@ -37,18 +38,26 @@ class FridgeScreen extends React.Component {
         <ScrollView style={styles.scrollView}>
           <Text style={styles.title}>Fridge</Text>
           <View style={styles.totalList}>
-            <View style={styles.tableHeader}>
+            {/* <View style={styles.tableHeader}>
               <Text style={styles.itemColumnName}>Item</Text>
               <Text style={styles.expiresColumnName}>Expires In</Text>
-            </View>
+            </View> */}
             {foods.map((food, index) => {
               return (
-                <View key={food.name} style={styles.tableRow}>
-                  <Text style={styles.foodName}>{food.name}</Text>
-                  <Text style={styles.foodExpiration}>
-                    {food.expiration} Days
-                  </Text>
-                </View>
+                <TouchableOpacity key={`${food.name}${index}`}>
+                  <View style={styles.foodTile}>
+                    <View style={styles.tileContent}>
+                      <Text style={styles.foodName}>{food.name}</Text>
+                      {parseInt(food.expiration) > 0 ? (
+                        <Text style={styles.foodExpiration}>
+                          {food.expiration} Days Left
+                        </Text>
+                      ) : (
+                        <Text style={styles.expired}>EXPIRED</Text>
+                      )}
+                    </View>
+                  </View>
+                </TouchableOpacity>
               );
             })}
           </View>
