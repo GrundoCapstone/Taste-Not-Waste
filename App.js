@@ -15,13 +15,15 @@ import {
   UserProfile,
   LogoutScreen,
 } from './src/screens';
-import { Button, AppRegistry } from 'react-native';
+import { Button, AppRegistry, Platform } from 'react-native';
 import { decode, encode } from 'base-64';
 import { Provider } from 'react-redux';
 import store from './src/store';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import DummyNotification from './src/screens/ReusableComponents/DummyNotification';
+import Constants from 'expo-constants';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
 // const store = configureStore();
@@ -33,11 +35,16 @@ if (!global.atob) {
   global.atob = decode;
 }
 
+//before boarding -> added register for notification function to bottom of App.js
+//added useState for push tokens into App.js
+// const Stack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
 export default function App() {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
+  // const [expoPushToken, setExpoPushToken] = useState('');
+
 
   useEffect(() => {
     const usersRef = firebase.firestore().collection('users');
@@ -61,6 +68,9 @@ export default function App() {
     });
   }, []);
 
+  // useEffect(() => {
+  //   registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
+  // })
   if (loading) {
     return <></>;
   }
@@ -156,5 +166,36 @@ export default function App() {
   );
 }
 const appName = 'TasteNotWaste';
+
+// async function registerForPushNotificationsAsync() {
+//   let token;
+//   if (Constants.isDevice) {
+//     const { status: existingStatus } = await Notifications.getPermissionsAsync();
+//     let finalStatus = existingStatus;
+//     if (existingStatus !== 'granted') {
+//       const { status } = await Notifications.requestPermissionsAsync();
+//       finalStatus = status;
+//     }
+//     if (finalStatus !== 'granted') {
+//       alert('Failed to get push token for push notification!');
+//       return;
+//     }
+//     token = (await Notifications.getExpoPushTokenAsync()).data;
+//     console.log(token);
+//   } else {
+//     alert('Must use physical device for Push Notifications');
+//   }
+
+//   if (Platform.OS === 'android') {
+//     Notifications.setNotificationChannelAsync('default', {
+//       name: 'default',
+//       importance: Notifications.AndroidImportance.MAX,
+//       vibrationPattern: [0, 250, 250, 250],
+//       lightColor: '#FF231F7C',
+//     });
+//   }
+
+//   return token;
+// }
 
 AppRegistry.registerComponent(appName, () => RNRedux);

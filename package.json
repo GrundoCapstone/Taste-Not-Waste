@@ -10,6 +10,7 @@
   "dependencies": {
     "@expo-google-fonts/inter": "^0.2.0",
     "@expo-google-fonts/kalam": "^0.2.0",
+    "@expo/ngrok": "^2.5.0",
     "@google-cloud/storage": "^5.8.5",
     "@react-native-community/datetimepicker": "3.2.0",
     "@react-native-community/masked-view": "0.1.10",

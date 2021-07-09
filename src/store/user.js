@@ -12,6 +12,7 @@ adding recipe favorites
 const LOGIN = 'LOGIN';
 const SIGN_UP = 'SIGN_UP';
 const LOGOUT = 'LOGOUT';
+const NOTIFICATION_AUTH = 'NOTIFICATION_AUTH';
 
 const GET_USER_INFO = 'GET_USER_INFO'
 
@@ -37,6 +38,12 @@ const _logout = (user) => {
   };
 };
 
+const setNotificationToken = (user) => {
+  return {
+    type: NOTIFICATION_AUTH,
+    user: user,
+  };
+};
 const _getUserInfo = (user) => {
   return {
     type: GET_USER_INFO,
@@ -108,6 +115,23 @@ export const logout = () => {
   };
 };
 
+export const setToken = (token) => {
+  return async (dispatch) => {
+    const usersRef = firebase.firestore().collection('users');
+    usersRef
+    .doc(user.uid)
+    .get()
+    .then((document) => {
+      const userData = document.data();
+      document.update({
+        "pushToken": token,
+    })
+    })
+      .catch((error) => {
+        alert(error);
+      });
+  };
+};
 export const gettingUserInfo = () => {
   return async(dispatch) => {
     const userId = await firebase.auth().currentUser.uid
@@ -145,6 +169,8 @@ const userReducer = (state = initialState, action) => {
     case SIGN_UP:
       return action.user;
     case LOGOUT:
+      return action.user;
+    case NOTIFICATION_AUTH:
       return action.user;
     case GET_USER_INFO:
       return action.user;
