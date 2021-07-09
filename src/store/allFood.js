@@ -12,7 +12,6 @@ import { firebase } from '../firebase/config'
 // Action Types
 const GET_ALL_FOODS = 'GET_ALL_FOODS'
 const ADD_ALL_FOODS = 'ADD_ALL_FOODS'
-const SET_FOOD_NOTIFICATIONS = 'SET_FOOD_NOTIFICATIONS'
 
 // ACTION CREATOR
 const getAllFoods = (foods) => {
@@ -29,12 +28,6 @@ const _addAllFoods = (foods) => {
     }
 }
 
-const setFoodNotifications = (foods) => {
-    return {
-        type: SET_FOOD_NOTIFICATIONS,
-        foods
-    }
-}
 // Thunk
 export const fetchAllFoods = () => {
     return async (dispatch) => {
@@ -61,11 +54,21 @@ export const addAllFoods = (foods) => {
         try {
             const userId = firebase.auth().currentUser.uid
             const fridgeRef = firebase.firestore().collection(`/users/${userId}/fridge`)
-            foods.forEach((food) => {
+            foods.forEach(async (food) => {
                 food.expiration = new Date(food.expiration)
                 fridgeRef.doc().set(food);
+            //this is to add the notifications
+            await Notifications.scheduleNotificationAsync({
+                content: {
+                  title: "You've got mail! 📬",
+                  body: 'Here is the notification body',
+                  data: { data: 'goes here' },
+                },
+                trigger: { seconds: 5 },
+              });
             })
             const snapshot = await fridgeRef.get();
+
             const resultArr = []
             snapshot.forEach(doc => {
                 const expiration = new Date(doc.data().expiration.seconds * 1000).getTime()
@@ -80,27 +83,6 @@ export const addAllFoods = (foods) => {
     }
 }
 
-export const setNotifications = (foods) => {
-    return async (dispatch) => {
-        // const userId = firebase.auth().currentUser.uid
-            // const fridgeRef = firebase.firestore().collection(`/users/${userId}/fridge`)
-            foods.forEach(async (food) => {
-                food.expiration = new Date(food.expiration)
-                //do the math to get 3 days prior, set that to the trigger time
-                // fridgeRef.doc().set(food);
-                await Notifications.scheduleNotificationAsync({
-                    content: {
-                      title: "You've got mail! 📬",
-                      body: 'Here is the notification body',
-                      data: { data: 'goes here' },
-                    },
-                    trigger: { seconds: 5 },
-                  });
-                  dispatch(foods)
-            })
-    }
-}
-
 const initialState = []
 
 // Reducer
@@ -109,8 +91,6 @@ const allFoodReducer = (state=initialState, action) => {
         case GET_ALL_FOODS:
             return action.foods
         case ADD_ALL_FOODS:
-            return action.foods
-        case SET_FOOD_NOTIFICATIONS:
             return action.foods
         default:
             return state
