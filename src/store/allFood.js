@@ -10,11 +10,19 @@ import { firebase } from '../firebase/config'
 
 // Action Types
 const GET_ALL_FOODS = 'GET_ALL_FOODS'
+const ADD_ALL_FOODS = 'ADD_ALL_FOODS'
 
 // ACTION CREATOR
 const getAllFoods = (foods) => {
     return {
         type: GET_ALL_FOODS,
+        foods
+    }
+}
+
+const _addAllFoods = (foods) => {
+    return {
+        type: ADD_ALL_FOODS,
         foods
     }
 }
@@ -40,12 +48,38 @@ export const fetchAllFoods = () => {
     }
 }
 
+export const addAllFoods = (foods) => {
+    return async (dispatch) => {
+        try {
+            const userId = firebase.auth().currentUser.uid 
+            const fridgeRef = firebase.firestore().collection(`/users/${userId}/fridge`)
+            foods.forEach((food) => {
+                food.expiration = new Date(food.expiration)
+                fridgeRef.doc().set(food);
+            })
+            const snapshot = await fridgeRef.get();
+            const resultArr = []
+            snapshot.forEach(doc => {
+                const expiration = new Date(doc.data().expiration.seconds * 1000).getTime()
+                const currentDate = new Date().getTime()
+                const difference = Math.round((expiration - currentDate) / (1000 * 3600 * 24));
+                resultArr.push({name: doc.data().name, expiration: difference})
+              });
+            dispatch(_addAllFoods(resultArr))
+        } catch (err) {
+            console.log('Can\'t add foods to fridge!')
+        }
+    }
+}
+
 const initialState = []
 
 // Reducer
 const allFoodReducer = (state=initialState, action) => {
     switch(action.type){
         case GET_ALL_FOODS:
+            return action.foods
+        case ADD_ALL_FOODS:
             return action.foods
         default:
             return state
