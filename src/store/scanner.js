@@ -110,8 +110,8 @@ export const submitToGoogle = (image) => {
         requests: [
           {
             features: [
-              { type: 'TEXT_DETECTION', maxResults: 5 },
-              { type: 'DOCUMENT_TEXT_DETECTION', maxResults: 5 },
+              { type: 'TEXT_DETECTION' },
+              // { type: 'DOCUMENT_TEXT_DETECTION', maxResults: 5 },
             ],
             image: {
               source: {
@@ -134,13 +134,20 @@ export const submitToGoogle = (image) => {
         }
       );
       let responseJson = await response.json();
+      let responseText = responseJson.responses[0].fullTextAnnotation.text;
+      responseText = responseText.split('\n');
+      responseText = responseText.filter((line) => {
+        return (
+          !line.includes('$') &&
+          !line.toLowerCase().includes('subtotal') &&
+          !line.toLowerCase().includes('total') &&
+          !line.toLowerCase().includes('amount')
+        );
+      });
+      // responseText = responseText.filter((text) => !text.includes('$'));
       console.log('>>>>>>>>>>>>RESPONSE FROM GOOGLE OCR<<<<<<<<<<<<<<');
-      console.log(responseJson);
-      dispatch(
-        _submitToGoogle(
-          responseJson.responses[0].textAnnotations[0].description
-        )
-      );
+      console.log(responseText);
+      dispatch(_submitToGoogle(responseText));
     } catch (error) {
       console.log(error);
     }
