@@ -12,6 +12,7 @@ import {
   NewOrderScreen,
   ReviewOrder,
   SingleFood,
+  UserProfile,
   LogoutScreen,
 } from './src/screens';
 import { Button, AppRegistry } from 'react-native';
@@ -21,6 +22,7 @@ import store from './src/store';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import Ionicons from 'react-native-vector-icons/Ionicons'
 
 // const store = configureStore();
 
@@ -31,7 +33,6 @@ if (!global.atob) {
   global.atob = decode;
 }
 
-// const Stack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
 export default function App() {
@@ -128,7 +129,20 @@ export default function App() {
                   ),
                 }}
               />
-              <Tab.Screen name="Logout" component={LogoutScreen} />
+              <Tab.Screen
+                name="User Profile"
+                component={UserProfile}
+                options={{
+                  tabBarLabel: 'Profile',
+                  tabBarIcon: ({ color }) => (
+                    <Ionicons
+                      name="person-sharp"
+                      color={color}
+                      size={26}
+                    />
+                  ),
+                }}
+              />
             </>
           ) : (
             <>
