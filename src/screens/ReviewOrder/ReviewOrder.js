@@ -11,8 +11,6 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { addFoodItem } from '../../store/singleFood'
-import { addAllFoods } from '../../store/allFood';
-import { FridgeScreen } from '../FridgeScreen/FridgeScreen'
 
 class ReviewOrder extends React.Component {
   constructor(props) {
@@ -47,6 +45,7 @@ class ReviewOrder extends React.Component {
   };
 
   render() {
+    console.log('state: ', this.state);
     return (
       <View style={styles.container}>
         <Text style={styles.title}>Review Your Order</Text>
@@ -66,25 +65,22 @@ class ReviewOrder extends React.Component {
                 <TextInput
                   style={styles.editName}
                   autoFocus={true}
+                  value={item.name}
                   onChangeText={(text) => {
-                    const newFood = this.state.food;
+                    const newFood = [...this.state.food];
                     newFood[index].name = text;
                     this.setState({ ...this.state, food: newFood });
                   }}
-                >
-                  {item.name}
-                </TextInput>
+                ></TextInput>
                 <TextInput
                   style={styles.editDate}
-                  autoFocus={true}
+                  value={item.expiration}
                   onChangeText={(text) => {
-                    const newFood = this.state.food;
-                    newFood[index].expiration = text;
-                    this.setState({ ...this.state, food: newFood });
+                    const newDate = [...this.state.food];
+                    newDate[index].expiration = text;
+                    this.setState({ ...this.state, food: newDate });
                   }}
-                >
-                  {item.expiration}
-                </TextInput>
+                ></TextInput>
               </View>
             );
           })}
@@ -177,6 +173,7 @@ class ReviewOrder extends React.Component {
   };
 }
 const mapState = (state) => {
+  console.log("MAPSTATE>>", state.singleFood)
   return {
       singleFoodFridge: state.singleFood
   }
