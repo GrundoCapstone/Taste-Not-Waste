@@ -12,6 +12,7 @@ import {
   NewOrderScreen,
   ReviewOrder,
   SingleFood,
+  UserProfile,
   LogoutScreen,
 } from './src/screens';
 import { Button, AppRegistry, Platform } from 'react-native';
@@ -23,6 +24,9 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import DummyNotification from './src/screens/ReusableComponents/DummyNotification';
 import Constants from 'expo-constants';
+import Ionicons from 'react-native-vector-icons/Ionicons'
+
+// const store = configureStore();
 
 if (!global.btoa) {
   global.btoa = encode;
@@ -135,7 +139,20 @@ export default function App() {
                   ),
                 }}
               />
-              <Tab.Screen name="Logout" component={DummyNotification} />
+              <Tab.Screen
+                name="User Profile"
+                component={UserProfile}
+                options={{
+                  tabBarLabel: 'Profile',
+                  tabBarIcon: ({ color }) => (
+                    <Ionicons
+                      name="person-sharp"
+                      color={color}
+                      size={26}
+                    />
+                  ),
+                }}
+              />
             </>
           ) : (
             <>

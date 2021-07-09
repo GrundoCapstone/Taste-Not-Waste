@@ -1,3 +1,4 @@
+import { USER_FACING_NOTIFICATIONS } from 'expo-permissions';
 import { firebase } from '../firebase/config';
 /*
 get user info
@@ -12,6 +13,8 @@ const LOGIN = 'LOGIN';
 const SIGN_UP = 'SIGN_UP';
 const LOGOUT = 'LOGOUT';
 const NOTIFICATION_AUTH = 'NOTIFICATION_AUTH';
+
+const GET_USER_INFO = 'GET_USER_INFO'
 
 //action creator
 const _login = (user) => {
@@ -41,6 +44,12 @@ const setNotificationToken = (user) => {
     user: user,
   };
 };
+const _getUserInfo = (user) => {
+  return {
+    type: GET_USER_INFO,
+    user: user
+  }
+}
 
 //thunk creators
 export const login = (email, password) => {
@@ -123,6 +132,32 @@ export const setToken = (token) => {
       });
   };
 };
+export const gettingUserInfo = () => {
+  return async(dispatch) => {
+    const userId = await firebase.auth().currentUser.uid
+
+    // const signedInUser = firebase.firestore().collection('users').doc(`${userId}`)
+    // dispatch(_getUserInfo(signedInUser))
+    // console.log("SIGNED IN USER", signedInUser)
+    // console.log("USER ID ID ID", userId)
+    const usersRef = firebase.firestore().collection('users')
+    console.log("USERS REF", usersRef)
+    usersRef
+      .doc(userId)
+      .get()
+      .then((firestoreDocument) => {
+        if (!firestoreDocument.exists) {
+          alert('User does not exist anymore.');
+          return;
+        }
+      const user = firestoreDocument.data();
+      console.log("USER>>>>", user)
+      dispatch(_getUserInfo(user));
+          })
+  }
+}
+
+
 
 //reducer
 const initialState = {};
@@ -131,11 +166,13 @@ const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN:
       return action.user;
-    case SIGNUP:
+    case SIGN_UP:
       return action.user;
     case LOGOUT:
       return action.user;
     case NOTIFICATION_AUTH:
+      return action.user;
+    case GET_USER_INFO:
       return action.user;
     default:
       return state;
