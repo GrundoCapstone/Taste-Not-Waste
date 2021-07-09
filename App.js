@@ -14,7 +14,7 @@ import {
   SingleFood,
   LogoutScreen,
 } from './src/screens';
-import { Button, AppRegistry } from 'react-native';
+import { Button, AppRegistry, Platform } from 'react-native';
 import { decode, encode } from 'base-64';
 import { Provider } from 'react-redux';
 import store from './src/store';
@@ -22,8 +22,7 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import DummyNotification from './src/screens/ReusableComponents/DummyNotification';
-
-// const store = configureStore();
+import Constants from 'expo-constants';
 
 if (!global.btoa) {
   global.btoa = encode;
