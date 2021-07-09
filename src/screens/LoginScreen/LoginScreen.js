@@ -28,7 +28,7 @@ class LoginScreen extends React.Component {
         >
           <Image
             style={styles.logo}
-            source={require('../../../assets/icon.png')}
+            source={require('../../../assets/avoIcon.png')}
           />
           <TextInput
             style={styles.input}
