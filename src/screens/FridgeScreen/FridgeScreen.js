@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import {
   FlatList,
+  TouchableHighlight,
   Keyboard,
   Text,
   TextInput,
@@ -43,18 +44,20 @@ class FridgeScreen extends React.Component {
             </View> */}
             {foods.map((food, index) => {
               return (
-                <View key={food.name} style={styles.foodTile}>
-                  <View style={styles.tileContent}>
-                    <Text style={styles.foodName}>{food.name}</Text>
-                    {parseInt(food.expiration) > 0 ? (
-                      <Text style={styles.foodExpiration}>
-                        {food.expiration} Days Left
-                      </Text>
-                    ) : (
-                      <Text style={styles.expired}>EXPIRED</Text>
-                    )}
+                <TouchableOpacity key={`${food.name}${index}`}>
+                  <View style={styles.foodTile}>
+                    <View style={styles.tileContent}>
+                      <Text style={styles.foodName}>{food.name}</Text>
+                      {parseInt(food.expiration) > 0 ? (
+                        <Text style={styles.foodExpiration}>
+                          {food.expiration} Days Left
+                        </Text>
+                      ) : (
+                        <Text style={styles.expired}>EXPIRED</Text>
+                      )}
+                    </View>
                   </View>
-                </View>
+                </TouchableOpacity>
               );
             })}
           </View>
