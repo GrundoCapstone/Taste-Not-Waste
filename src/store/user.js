@@ -118,15 +118,12 @@ export const logout = () => {
 
 export const setToken = (token) => {
   return async (dispatch) => {
+    const user = await firebase.auth().currentUser.uid
     const usersRef = firebase.firestore().collection('users');
     usersRef
-    .doc(user.uid)
-    .get()
-    .then((document) => {
-      const userData = document.data();
-      document.update({
-        "pushToken": token,
-    })
+    .doc(user)
+    .update({
+      pushToken: token
     })
       .catch((error) => {
         alert(error);
@@ -153,7 +150,6 @@ export const gettingUserInfo = () => {
           return;
         }
       const user = firestoreDocument.data();
-      console.log("USER>>>>", user)
       dispatch(_getUserInfo(user));
           })
   }

@@ -25,8 +25,8 @@ class UserProfile extends React.Component{
             <SafeAreaView style={styles.container}>
                 <Text style={styles.title}>My Profile</Text>
                 <Image source={require("../../../assets/avoIcon.png")} style={styles.iconLogo}/>
-                <Text>{userName}</Text>
-                <Text>{userEmail}</Text>
+                <Text style={styles.userName}>{userName}</Text>
+                <Text style={styles.userEmail}>{userEmail}</Text>
                 <LogoutScreen />
             </SafeAreaView>
         )
