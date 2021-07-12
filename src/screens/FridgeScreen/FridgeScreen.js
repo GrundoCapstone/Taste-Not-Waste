@@ -27,23 +27,10 @@ class FridgeScreen extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    console.log('COMPONENT DID UPDATE FRIDGE');
-    console.log(
-      'prev props keys length: ',
-      Object.keys(prevProps.allFoodsFridge).length
-    );
-    console.log(
-      'props keys length: ',
-      Object.keys(this.props.allFoodsFridge).length
-    );
-    //   console.log('PREV PROPS: ', prevProps.allFoodsFridge);
-    //   console.log('CURRENT PROPS: ', this.props.allFoodsFridge);
-    if (
-      Object.keys(prevProps.allFoodsFridge).length !==
-      Object.keys(this.props.allFoodsFridge).length
-    ) {
-      this.props.loadAllFoods();
-    }
+    // if (this.state.food !== prevProps.allFoodsFridge) {
+    //   console.log('state not equal to props');
+    //   this.props.loadAllFoods();
+    // }
   }
 
   componentDidMount() {
@@ -111,6 +98,7 @@ class FridgeScreen extends React.Component {
 }
 
 const mapState = (state) => {
+  console.log('state in fridge: ', state.allFoods);
   return {
     allFoodsFridge: state.allFoods,
   };
