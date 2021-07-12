@@ -20,8 +20,9 @@ class NewOrderScreen extends React.Component{
       pushToken: '',
     }
   }
-  componentDidMount(){
-    const token = registerForPushNotificationsAsync()
+  async componentDidMount(){
+    const token = await registerForPushNotificationsAsync()
+    console.log("NEW ORDER SCREEN TOKEN", token)
     this.props.loadToken(token)
     this.setState({pushToken: token})
   }
@@ -126,6 +127,7 @@ async function registerForPushNotificationsAsync() {
       lightColor: '#FF231F7C',
     });
   }
+  console.log("FUNCTION TOKEN>>>>", token)
 
   return token;
 }
