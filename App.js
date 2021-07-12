@@ -32,10 +32,6 @@ if (!global.atob) {
   global.atob = decode;
 }
 
-//before boarding -> added register for notification function to bottom of App.js
-//added useState for push tokens into App.js
-// const Stack = createStackNavigator();
-
 const Tab = createMaterialBottomTabNavigator();
 
 export default function App() {
