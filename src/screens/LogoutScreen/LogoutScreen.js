@@ -2,6 +2,7 @@ import React from 'react';
 import { View, TouchableOpacity, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { logout } from '../../store/user';
+import styles from './styles';
 
 class LogoutScreen extends React.Component {
   constructor(props) {
@@ -16,11 +17,8 @@ class LogoutScreen extends React.Component {
   render() {
     return (
       <View>
-        <TouchableOpacity
-          style={{ marginTop: 300 }}
-          onPress={this.handleLogout}
-        >
-          <Text>Logout</Text>
+        <TouchableOpacity style={styles.button} onPress={this.handleLogout}>
+          <Text style={styles.buttonText}>Logout</Text>
         </TouchableOpacity>
       </View>
     );

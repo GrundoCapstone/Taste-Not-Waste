@@ -28,7 +28,7 @@ class AllRecipes extends React.Component {
   }
   render() {
     return (
-      <View style={styles.screenContainer}>
+      <View style={styles.body}>
         <Text style={styles.header}>Discover New Recipes</Text>
         <KeyboardAwareScrollView
           style={{ flex: 1, width: '100%' }}

@@ -1,6 +1,10 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
+  screenContainer: {
+    backgroundColor: '#FDEAF3',
+    width: '100%',
+  },
   body: {
     marginTop: 50,
     width: '90%',

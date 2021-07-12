@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-  screenContainer: {
+  body: {
     marginTop: 50,
     flex: 1,
     alignItems: 'center',

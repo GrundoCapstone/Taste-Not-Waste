@@ -36,38 +36,40 @@ class SingleFood extends React.Component {
       .slice(4, 15);
     console.log('PROPS FROM SINGLE FOOD', food.name, expiration);
     return (
-      <View style={styles.body}>
-        <View style={styles.foodInfo}>
-          <Text style={styles.title}>{food.name}</Text>
-          <Text style={styles.date}>Expires on: {expiration}</Text>
-          <TouchableOpacity
-            style={styles.deleteButton}
-            onPress={() => this.handleDelete()}
-          >
-            <Text style={styles.delete}>Delete</Text>
-          </TouchableOpacity>
-        </View>
-        <Text style={styles.recipesTitle}>Recipes</Text>
-        {this.props.recipes.length ? (
-          <ScrollView>
-            {this.props.recipes.map((recipe) => {
-              return (
-                <View key={recipe.website} style={styles.container}>
-                  <Text style={styles.text}>{recipe.label}</Text>
-                  <TouchableOpacity
-                    onPress={() => this.handlePress(recipe.website)}
-                  >
-                    <Text style={styles.detailButton}>Details</Text>
-                  </TouchableOpacity>
-                </View>
-              );
-            })}
-          </ScrollView>
-        ) : (
-          <View>
-            <Text>Search for recipes by ingredient!</Text>
+      <View style={styles.screenContainer}>
+        <View style={styles.body}>
+          <View style={styles.foodInfo}>
+            <Text style={styles.title}>{food.name}</Text>
+            <Text style={styles.date}>Expires on: {expiration}</Text>
+            <TouchableOpacity
+              style={styles.deleteButton}
+              onPress={() => this.handleDelete()}
+            >
+              <Text style={styles.delete}>Delete</Text>
+            </TouchableOpacity>
           </View>
-        )}
+          <Text style={styles.recipesTitle}>Recipes</Text>
+          {this.props.recipes.length ? (
+            <ScrollView>
+              {this.props.recipes.map((recipe) => {
+                return (
+                  <View key={recipe.website} style={styles.container}>
+                    <Text style={styles.text}>{recipe.label}</Text>
+                    <TouchableOpacity
+                      onPress={() => this.handlePress(recipe.website)}
+                    >
+                      <Text style={styles.detailButton}>Details</Text>
+                    </TouchableOpacity>
+                  </View>
+                );
+              })}
+            </ScrollView>
+          ) : (
+            <View>
+              <Text>Search for recipes by ingredient!</Text>
+            </View>
+          )}
+        </View>
       </View>
     );
   }
