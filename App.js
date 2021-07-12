@@ -21,17 +21,9 @@ import store from './src/store';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-// import DummyNotification from './src/screens/ReusableComponents/DummyNotification';
-// import Constants from 'expo-constants';
-// import Ionicons from 'react-native-vector-icons/Ionicons'
-
-// const store = configureStore();
-import DummyNotification from './src/screens/ReusableComponents/DummyNotification';
 import Constants from 'expo-constants';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import  FridgeNavigator  from './src/screens/FridgeScreen/FridgeNavigator';
-
-// const store = configureStore();
 
 if (!global.btoa) {
   global.btoa = encode;
