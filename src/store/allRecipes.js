@@ -10,6 +10,7 @@
 import axios from 'axios'
 import { EDAMAM_API_KEY } from '../../secrets'
 const GET_RECIPES = 'GET_RECIPES'
+const GET_FRIDGE_RECIPES = 'GET_FRIDGE_RECIPES'
 
 //action creator
 const getRecipes = (recipes) => {
@@ -19,7 +20,14 @@ const getRecipes = (recipes) => {
   }
 }
 
-export const fetchRecipes = (ingredient) => {
+const getFridgeRecipes = (recipes) => {
+  return {
+    type: GET_FRIDGE_RECIPES,
+    recipes
+  }
+}
+
+export const fetchRecipes = (ingredient, type) => {
   return async (dispatch) => {
     try {
       let options = {
@@ -40,50 +48,25 @@ export const fetchRecipes = (ingredient) => {
 
         })
       });
-
-      //TEMPORARILY INPUT DUMMY DATA INSTEAD OF CALLING THE API TO EDIT THE FRONT END WITHOUT MAKING CONTINUOUS API CALLS
-
-      // let resultArr = [     {
-      //   "imageUrl": "https://www.edamam.com/web-img/1ca/1ca293df6f5cbb73ec7fe4d9104a13c9.jpg",
-      //   "label": "Celery Seed Vinaigrette",
-      // },
-      // {
-      //   "imageUrl": "https://www.edamam.com/web-img/bcf/bcf576c2ae4bd294906aab1b0283164e.JPG",
-      //   "label": "Celery Granita",
-      // },
-      // {
-      //   "imageUrl": "https://www.edamam.com/web-img/36a/36a055a3cabaf6d79da971c780ea65be",
-      //   "label": "Parmesan Celery Salad recipes",
-      // },
-      // {
-      //   "imageUrl": "https://www.edamam.com/web-img/921/921d2c079973f93e486adc283de83655.jpg",
-      //   "label": "Sparkling Celery Gimlets",
-      // },
-      // {
-      //   "imageUrl": "https://www.edamam.com/web-img/84e/84eb901dddf15720dc976d2016d500be.jpg",
-      //   "label": "Celery-And-Celery-Root Salad",
-      // },
-      // {
-      //   "imageUrl": "https://www.edamam.com/web-img/719/71975fd00f28b2a18003c742286eff83",
-      //   "label": "Celery Root Mash recipes",
-      // },
-      // {
-      //   "imageUrl": "https://www.edamam.com/web-img/4b5/4b594dbaf4e22024f651d3a719842603",
-      //   "label": "Celery Salad with Celery Root and Horseradish recipes",
-      // },]
-      dispatch(getRecipes(resultArr))
+      if(type === 'search') {
+        dispatch(getRecipes(resultArr))
+      } else if (type === 'fridge') {
+        dispatch(getFridgeRecipes(resultArr))
+      }
     } catch (error) {
       console.log(error);
     }
   }
 }
 
-const initialState = [];
+const initialState = {fridge: [], search: []};
 
 const allRecipeReducer = (state= initialState, action) => {
   switch (action.type) {
     case GET_RECIPES:
-      return action.recipes;
+      return {...state, search: action.recipes}
+    case GET_FRIDGE_RECIPES:
+      return {...state, fridge: action.recipes}
     default:
       return state;
   }

@@ -42,7 +42,8 @@ class AllRecipes extends React.Component{
           <Text>Search</Text>
         </TouchableOpacity>
         </View>
-      {this.props.recipes.length ? <ScrollView >
+      {this.props.recipes.length ? 
+      <ScrollView >
         {this.props.recipes.map((recipe) => {return (
           <View key={recipe.website} style = {styles.container}>
            <Image
@@ -70,13 +71,13 @@ class AllRecipes extends React.Component{
 
 const mapState = (state) => {
   return {
-    recipes: state.allRecipes,
+    recipes: state.allRecipes.search,
   }
 }
 
 const mapDispatch = (dispatch) => {
   return {
-    loadRecipes: (ingredient) => dispatch(fetchRecipes(ingredient)),
+    loadRecipes: (ingredient) => dispatch(fetchRecipes(ingredient, 'search')),
   }
 }
 
