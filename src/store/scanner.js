@@ -159,25 +159,32 @@ export const submitToGoogle = (image) => {
         const lowercaseFood = food.toLowerCase();
         foodObjects[lowercaseFood] = true;
       });
+      responseText = responseText.map((food) => food.toLowerCase());
       // console.log('FOOD OBJECTS: ', foodObjects);
       //get expirations from database
       let foodResult = [];
       const foodRef = firebase.firestore().collection('/food');
       const snapshot = await foodRef.get();
       snapshot.forEach((doc) => {
-        if (foodObjects[doc.data().name]) {
-          // console.log('MATCH FOUND with OCR');
-          //set found food value to be false
-          foodObjects[doc.data().name] = false;
-          let currentDate = new Date();
-          const duration = parseInt(doc.data().duration, 0);
-          const expiration = currentDate.addDays(duration);
-          const match = {
-            name: doc.data().name,
-            expiration: expiration.toString().slice(4, 15),
-          };
-          foodResult.push(match);
-        }
+        //check each item in receipt to see if it includes an item in the db
+        responseText.forEach((food) => {
+          //if the expiration date for this line item hasn't been found yet
+          if (foodObjects[food]) {
+            if (food.includes(doc.data().name)) {
+              console.log('MATCH FOUND with OCR');
+              //update foodObject to indicate that this food's expiration has been found
+              foodObjects[food] = false;
+              let currentDate = new Date();
+              const duration = parseInt(doc.data().duration, 0);
+              const expiration = currentDate.addDays(duration);
+              const match = {
+                name: food,
+                expiration: expiration.toString().slice(4, 15),
+              };
+              foodResult.push(match);
+            }
+          }
+        });
       });
       Object.keys(foodObjects).forEach((key) => {
         if (foodObjects[key]) {

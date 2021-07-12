@@ -9,6 +9,7 @@ import {
   Pressable,
   TextInput,
   ScrollView,
+  KeyboardAvoidingView,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { addFoodItem } from '../../store/singleFood';
@@ -64,48 +65,50 @@ class ReviewOrder extends React.Component {
             Order Date: {this.state.orderDate.toString().slice(4, 15)}
           </Text>
         </View>
-        <ScrollView style={styles.totalList}>
-          <View style={styles.tableHeader}>
-            <Text style={styles.itemColumn}>Item</Text>
-            <Text style={styles.expirationColumn}>Expiration</Text>
-          </View>
-          {this.state.food.map((item, index) => {
-            if (item.name.length || item.expiration.length) {
-              return (
-                <View key={item.name} style={styles.tableRow}>
-                  <TextInput
-                    style={styles.editName}
-                    autoFocus={true}
-                    value={item.name}
-                    onChangeText={(text) => {
-                      const newFood = [...this.state.food];
-                      newFood[index].name = text;
-                      this.setState({ ...this.state, food: newFood });
-                    }}
-                  ></TextInput>
-                  <TextInput
-                    style={styles.editDate}
-                    value={item.expiration}
-                    onChangeText={(text) => {
-                      const newDate = [...this.state.food];
-                      newDate[index].expiration = text;
-                      this.setState({ ...this.state, food: newDate });
-                    }}
-                  ></TextInput>
-                </View>
-              );
-            }
-          })}
-          <TouchableOpacity
-            style={styles.addItemButton}
-            onPress={() => this.onAddItem()}
-          >
-            <Text style={styles.buttonTitle}>Add Item</Text>
-          </TouchableOpacity>
-        </ScrollView>
-        <TouchableOpacity style={styles.button} onPress={this.onSubmit}>
-          <Text style={styles.buttonTitle}>Confirm Order</Text>
-        </TouchableOpacity>
+        <KeyboardAvoidingView behavior="padding">
+          <ScrollView style={styles.totalList}>
+            <View style={styles.tableHeader}>
+              <Text style={styles.itemColumn}>Item</Text>
+              <Text style={styles.expirationColumn}>Expiration</Text>
+            </View>
+            {this.state.food.map((item, index) => {
+              if (item.name.length || item.expiration.length) {
+                return (
+                  <View key={item.name} style={styles.tableRow}>
+                    <TextInput
+                      style={styles.editName}
+                      autoFocus={true}
+                      value={item.name}
+                      onChangeText={(text) => {
+                        const newFood = [...this.state.food];
+                        newFood[index].name = text;
+                        this.setState({ ...this.state, food: newFood });
+                      }}
+                    ></TextInput>
+                    <TextInput
+                      style={styles.editDate}
+                      value={item.expiration}
+                      onChangeText={(text) => {
+                        const newDate = [...this.state.food];
+                        newDate[index].expiration = text;
+                        this.setState({ ...this.state, food: newDate });
+                      }}
+                    ></TextInput>
+                  </View>
+                );
+              }
+            })}
+            <TouchableOpacity
+              style={styles.addItemButton}
+              onPress={() => this.onAddItem()}
+            >
+              <Text style={styles.buttonTitle}>Add Item</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button} onPress={this.onSubmit}>
+              <Text style={styles.buttonTitle}>Confirm Order</Text>
+            </TouchableOpacity>
+          </ScrollView>
+        </KeyboardAvoidingView>
         {this.maybeRenderModal()}
       </View>
     );
