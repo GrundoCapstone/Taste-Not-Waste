@@ -4,12 +4,14 @@ import {View, Text, ScrollView, TouchableOpacity} from 'react-native'
 import { connect } from 'react-redux'
 import * as Linking from 'expo-linking'
 import { fetchRecipes } from '../../store/allRecipes'
+import { deleteSingleFood } from '../../store/singleFood'
 import styles from './styles'
 
 class SingleFood extends React.Component{
   constructor(){
     super()
     this.handlePress = this.handlePress.bind(this)
+    this.handleDelete = this.handleDelete.bind(this)
   }
   handlePress(item){
     Linking.openURL(item);
@@ -17,6 +19,12 @@ class SingleFood extends React.Component{
 
   componentDidMount() {
     this.props.loadRecipes(this.props.route.params.name)
+  }
+
+  handleDelete() {
+    console.log('HANDLE DELETE FROM SINGLE FOOD')
+    this.props.deleteFood(this.props.route.params.name)
+    this.props.navigation.navigate('Fridge')
   }
 
   render(){
@@ -29,6 +37,10 @@ class SingleFood extends React.Component{
       <View style = {{margin:50}}>
         <Text>{food.name}</Text>
         <Text>Expires on {expiration}</Text>
+        <TouchableOpacity style={styles.detailButton}
+        onPress = {() => this.handleDelete()}>
+          <Text>Delete</Text>
+        </TouchableOpacity>
 
       {this.props.recipes.length ? 
       <ScrollView >
@@ -58,7 +70,8 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    loadRecipes: (ingredient) => dispatch(fetchRecipes(ingredient, 'fridge'))
+    loadRecipes: (ingredient) => dispatch(fetchRecipes(ingredient, 'fridge')),
+    deleteFood: (food) => dispatch(deleteSingleFood(food))
   }
 }
 

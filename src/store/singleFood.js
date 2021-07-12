@@ -12,12 +12,20 @@ Date.prototype.addDays = function (days) {
   }
 //Action Type
 const POST_SINGLE_FOOD = "POST_SINGLE_FOOD";
+const DELETE_SIGNLE_FOOD = "DELETE_SIGNLE_FOOD";
 
 //Action Creator
 const postSingleFood = (foodItem) => {
     return {
         type: POST_SINGLE_FOOD,
         foodItem
+    }
+}
+
+const removeSingleFood = (food) => {
+    return {
+        type: DELETE_SIGNLE_FOOD,
+        food
     }
 }
 
@@ -33,17 +41,30 @@ export const addFoodItem = (food) => {
                 if(doc.data().name == food){
                     let currentDate = new Date()
                     const duration = parseInt((doc.data().duration), 0)
-                    // console.log("FOUND MATCH", duration)
                     const expiration = currentDate.addDays(duration)
-                    // console.log("EXPIRATION ", expiration.toString().slice(4, 15))
                     foodResult['expiration'] = expiration.toString().slice(4, 15)
-                    // console.log("CURRENT DATE", date)
-                    // console.log("EXPIRATION DATE", date.addDays(duration))
                 }
             })
             dispatch(postSingleFood(foodResult));
         } catch (error) {
             console.log(error, "Can't add food item!")
+        }
+    }
+}
+
+export const deleteSingleFood = (food) => {
+    return async (dispatch) => {
+        try {
+            const userId = firebase.auth().currentUser.uid;
+            const fridgeRef = firebase
+              .firestore()
+              .collection(`/users/${userId}/fridge`);
+            const queryRef = fridgeRef.where('name', '==', food);
+            console.log('QUERY REF : ', queryRef)
+            const result = await queryRef.delete()
+            dispatch(removeSingleFood(result))
+        } catch (err) {
+            console.log(err, "Can't delete food item!")
         }
     }
 }
