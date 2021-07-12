@@ -129,4 +129,9 @@ export default StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   },
+  unkown: {
+    color: 'red',
+    fontStyle: 'italic',
+    textAlign: 'center',
+  },
 });

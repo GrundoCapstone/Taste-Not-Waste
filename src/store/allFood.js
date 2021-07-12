@@ -39,14 +39,19 @@ export const fetchAllFoods = () => {
       const snapshot = await fridgeRef.get();
       const resultArr = [];
       snapshot.forEach((doc) => {
-        const expiration = new Date(
-          doc.data().expiration.seconds * 1000
-        ).getTime();
-        const currentDate = new Date().getTime();
-        const difference = Math.round(
-          (expiration - currentDate) / (1000 * 3600 * 24)
-        );
-        resultArr.push({ name: doc.data().name, expiration: difference });
+        //if food expiration is known
+        if (doc.data().expiration !== 'unknown') {
+          const expiration = new Date(
+            doc.data().expiration.seconds * 1000
+          ).getTime();
+          const currentDate = new Date().getTime();
+          const difference = Math.round(
+            (expiration - currentDate) / (1000 * 3600 * 24)
+          );
+          resultArr.push({ name: doc.data().name, expiration: difference });
+        } else {
+          resultArr.push({ name: doc.data().name, expiration: 'unkown' });
+        }
       });
       dispatch(getAllFoods(resultArr));
     } catch (err) {
@@ -64,7 +69,14 @@ export const addAllFoods = (foods) => {
         .collection(`/users/${userId}/fridge`);
       foods = foods.filter((food) => food.name.length);
       foods.forEach(async (food) => {
-        food.expiration = new Date(food.expiration);
+        //if expiration is known in review order
+        if (food.expiration.length) {
+          food.expiration = new Date(food.expiration);
+        }
+        //if food expiration in review order was left blank
+        else {
+          food.expiration = 'unknown';
+        }
         fridgeRef.doc().set(food);
         //this is to add the notifications
         await Notifications.scheduleNotificationAsync({
@@ -80,14 +92,18 @@ export const addAllFoods = (foods) => {
 
       const resultArr = [];
       snapshot.forEach((doc) => {
-        const expiration = new Date(
-          doc.data().expiration.seconds * 1000
-        ).getTime();
-        const currentDate = new Date().getTime();
-        const difference = Math.round(
-          (expiration - currentDate) / (1000 * 3600 * 24)
-        );
-        resultArr.push({ name: doc.data().name, expiration: difference });
+        if (doc.data().expiration !== 'unknown') {
+          const expiration = new Date(
+            doc.data().expiration.seconds * 1000
+          ).getTime();
+          const currentDate = new Date().getTime();
+          const difference = Math.round(
+            (expiration - currentDate) / (1000 * 3600 * 24)
+          );
+          resultArr.push({ name: doc.data().name, expiration: difference });
+        } else {
+          resultArr.push({ name: doc.data().name, expiration: 'unknown' });
+        }
       });
       dispatch(_addAllFoods(resultArr));
     } catch (err) {
