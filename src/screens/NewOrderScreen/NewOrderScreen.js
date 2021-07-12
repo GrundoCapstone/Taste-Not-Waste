@@ -12,6 +12,14 @@ import * as Notifications from 'expo-notifications';
 
 const Stack = createStackNavigator();
 
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false,
+  }),
+});
+
 
 class NewOrderScreen extends React.Component{
   constructor(){
@@ -25,7 +33,7 @@ class NewOrderScreen extends React.Component{
     this.props.loadToken(token)
     this.setState({pushToken: token})
   }
-  
+
 render(){
   return (
     <>
