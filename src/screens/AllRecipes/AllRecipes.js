@@ -42,7 +42,8 @@ class AllRecipes extends React.Component{
           <Text>Search</Text>
         </TouchableOpacity>
         </View>
-      {this.props.recipes.length ? <ScrollView >
+      {this.props.recipes.length ? 
+      <ScrollView >
         {this.props.recipes.map((recipe) => {return (
           <View key={recipe.website} style = {styles.container}>
            <Image

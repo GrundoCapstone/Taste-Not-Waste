@@ -28,8 +28,9 @@ class FridgeScreen extends React.Component {
   componentDidMount() {
     this.props.loadAllFoods();
   }
-  onNavigationPress() {
-    this.props.navigation.navigate('SingleFood');
+  onNavigationPress(food) {
+    console.log("FOOD FROM ONNAVIGATION PRESS", food)
+    this.props.navigation.navigate('SingleFood', {name: food.name, expiration: food.expiration});
   }
 
   render() {
@@ -57,7 +58,7 @@ class FridgeScreen extends React.Component {
             {foods.map((food, index) => {
               return (
                 <TouchableOpacity
-                  onPress={this.onNavigationPress}
+                  onPress={() => this.onNavigationPress(food)}
                   key={`${food.name}${index}`}
                 >
                   <View style={styles.foodTile}>
