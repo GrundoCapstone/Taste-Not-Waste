@@ -147,6 +147,8 @@ export const submitToGoogle = (image) => {
           !line.toLowerCase().includes('discount') &&
           !line.toLowerCase().includes('sale') &&
           !line.toLowerCase().includes('loyalty') &&
+          !line.toLowerCase().includes('item') &&
+          !line.toLowerCase().includes('description') &&
           line.length &&
           regExp.test(line)
         );
@@ -171,7 +173,7 @@ export const submitToGoogle = (image) => {
           //if the expiration date for this line item hasn't been found yet
           if (foodObjects[food]) {
             if (food.includes(doc.data().name)) {
-              console.log('MATCH FOUND with OCR');
+              // console.log('MATCH FOUND with OCR');
               //update foodObject to indicate that this food's expiration has been found
               foodObjects[food] = false;
               let currentDate = new Date();
