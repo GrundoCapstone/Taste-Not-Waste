@@ -7,7 +7,7 @@ export default StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    marginTop: 15,
+    marginTop: 35,
   },
   logo: {
     flex: 1,
@@ -95,7 +95,7 @@ export default StyleSheet.create({
     borderRadius: 5,
     backgroundColor: 'white',
     padding: 5,
-    width: 100,
+    width: 175,
   },
   editDate: {
     borderRadius: 5,

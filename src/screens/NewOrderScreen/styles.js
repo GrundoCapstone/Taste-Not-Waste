@@ -7,7 +7,7 @@ export default StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    marginTop: 15,
+    marginTop: 35,
   },
   logo: {
     flex: 1,

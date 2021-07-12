@@ -110,8 +110,8 @@ export const submitToGoogle = (image) => {
         requests: [
           {
             features: [
-              { type: 'TEXT_DETECTION', maxResults: 5 },
-              { type: 'DOCUMENT_TEXT_DETECTION', maxResults: 5 },
+              { type: 'TEXT_DETECTION' },
+              // { type: 'DOCUMENT_TEXT_DETECTION', maxResults: 5 },
             ],
             image: {
               source: {
@@ -134,13 +134,68 @@ export const submitToGoogle = (image) => {
         }
       );
       let responseJson = await response.json();
+      let responseText = responseJson.responses[0].fullTextAnnotation.text;
+      responseText = responseText.split('\n');
+      const regExp = /[a-zA-Z]/g;
+      responseText = responseText.filter((line) => {
+        return (
+          !line.includes('$') &&
+          !line.toLowerCase().includes('subtotal') &&
+          !line.toLowerCase().includes('total') &&
+          !line.toLowerCase().includes('amount') &&
+          !line.toLowerCase().includes('special') &&
+          !line.toLowerCase().includes('discount') &&
+          !line.toLowerCase().includes('sale') &&
+          !line.toLowerCase().includes('loyalty') &&
+          !line.toLowerCase().includes('item') &&
+          !line.toLowerCase().includes('description') &&
+          line.length &&
+          regExp.test(line)
+        );
+      });
+      // responseText = responseText.filter((text) => !text.includes('$'));
       console.log('>>>>>>>>>>>>RESPONSE FROM GOOGLE OCR<<<<<<<<<<<<<<');
-      console.log(responseJson);
-      dispatch(
-        _submitToGoogle(
-          responseJson.responses[0].textAnnotations[0].description
-        )
-      );
+      console.log(responseText);
+      const foodObjects = {};
+      responseText.forEach((food) => {
+        const lowercaseFood = food.toLowerCase();
+        foodObjects[lowercaseFood] = true;
+      });
+      responseText = responseText.map((food) => food.toLowerCase());
+      // console.log('FOOD OBJECTS: ', foodObjects);
+      //get expirations from database
+      let foodResult = [];
+      const foodRef = firebase.firestore().collection('/food');
+      const snapshot = await foodRef.get();
+      snapshot.forEach((doc) => {
+        //check each item in receipt to see if it includes an item in the db
+        responseText.forEach((food) => {
+          //if the expiration date for this line item hasn't been found yet
+          if (foodObjects[food]) {
+            if (food.includes(doc.data().name)) {
+              // console.log('MATCH FOUND with OCR');
+              //update foodObject to indicate that this food's expiration has been found
+              foodObjects[food] = false;
+              let currentDate = new Date();
+              const duration = parseInt(doc.data().duration, 0);
+              const expiration = currentDate.addDays(duration);
+              const match = {
+                name: food,
+                expiration: expiration.toString().slice(4, 15),
+              };
+              foodResult.push(match);
+            }
+          }
+        });
+      });
+      Object.keys(foodObjects).forEach((key) => {
+        if (foodObjects[key]) {
+          foodResult.push({ name: key, expiration: '' });
+        }
+      });
+      // console.log('>>>>>FOOD RESULT<<<<<');
+      console.log(foodResult);
+      dispatch(_submitToGoogle(foodResult));
     } catch (error) {
       console.log(error);
     }
