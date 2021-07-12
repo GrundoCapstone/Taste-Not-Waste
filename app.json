@@ -4,13 +4,21 @@
     "slug": "TasteNotWaste",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/avoIcon.png",
     "privacy": "public",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/avoIcon.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "plugins": [
+      [
+        "expo-notifications",
+        {
+          "icon": ["./assets/avoIcon.png"]
+        }
+      ]
+    ],
     "updates": {
       "fallbackToCacheTimeout": 0
     },
