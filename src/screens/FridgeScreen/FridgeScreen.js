@@ -25,19 +25,44 @@ class FridgeScreen extends React.Component {
     super(props);
     this.onNavigationPress = this.onNavigationPress.bind(this);
   }
+
+  componentDidUpdate(prevProps) {
+    console.log('COMPONENT DID UPDATE FRIDGE');
+    console.log(
+      'prev props keys length: ',
+      Object.keys(prevProps.allFoodsFridge).length
+    );
+    console.log(
+      'props keys length: ',
+      Object.keys(this.props.allFoodsFridge).length
+    );
+    //   console.log('PREV PROPS: ', prevProps.allFoodsFridge);
+    //   console.log('CURRENT PROPS: ', this.props.allFoodsFridge);
+    if (
+      Object.keys(prevProps.allFoodsFridge).length !==
+      Object.keys(this.props.allFoodsFridge).length
+    ) {
+      this.props.loadAllFoods();
+    }
+  }
+
   componentDidMount() {
+    console.log('COMPONENT DID MOUNT FRIDGE');
     this.props.loadAllFoods();
   }
   onNavigationPress(food) {
-    console.log("FOOD FROM ONNAVIGATION PRESS", food)
-    this.props.navigation.navigate('SingleFood', {name: food.name, expiration: food.expiration});
+    console.log('FOOD FROM ON NAVIGATION PRESS', food);
+    this.props.navigation.navigate('SingleFood', {
+      name: food.name,
+      expiration: food.expiration,
+    });
   }
 
   render() {
-    console.log(
-      'AllFoodsFridge from FridgeScreen : ',
-      this.props.allFoodsFridge
-    );
+    // console.log(
+    //   'AllFoodsFridge from FridgeScreen : ',
+    //   this.props.allFoodsFridge
+    // );
     let foods = this.props.allFoodsFridge;
     foods.sort(function (a, b) {
       const keyA = a.expiration;
