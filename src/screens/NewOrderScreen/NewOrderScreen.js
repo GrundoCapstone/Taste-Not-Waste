@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from './styles';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -7,18 +7,26 @@ import Scanner from '../Scanner/Scanner';
 import ReviewOrder from '../ReviewOrder/ReviewOrder';
 import {setToken} from '../../store/user'
 import { connect } from 'react-redux'
+import Constants from 'expo-constants';
+import * as Notifications from 'expo-notifications';
 
 const Stack = createStackNavigator();
 
-function NewOrderScreen({ navigation })
-{
 
-  // const [expoPushToken, setExpoPushToken] = useState('');
-
-  // useEffect(() => {
-  //   const token = registerForPushNotificationsAsync();setExpoPushToken(token);
-  //   this.props.loadToken(token)
-  // })
+class NewOrderScreen extends React.Component{
+  constructor(){
+    super()
+    this.state = {
+      pushToken: '',
+    }
+  }
+  componentDidMount(){
+    const token = registerForPushNotificationsAsync()
+    this.props.loadToken(token)
+    this.setState({pushToken: token})
+  }
+  
+render(){
   return (
     <>
       <Stack.Navigator initialRouteName="NewOrderOptions" screenOptions={{
@@ -31,6 +39,32 @@ function NewOrderScreen({ navigation })
     </>
   );
 }
+}
+
+// function NewOrderScreen({ navigation, props })
+// {
+
+//   const [expoPushToken, setExpoPushToken] = useState('');
+//   console.log("THIS PROPS", props)
+
+//   useEffect(() => {
+//     const token = registerForPushNotificationsAsync();
+//     setExpoPushToken(token);
+//     props.loadToken(token)
+//   })
+
+//   return (
+//     <>
+//       <Stack.Navigator initialRouteName="NewOrderOptions" screenOptions={{
+//     headerShown: false
+//   }}>
+//         <Stack.Screen name="NewOrderOptions" component={NewOrderOptions} />
+//         <Stack.Screen name="Scanner" component={Scanner} />
+//         <Stack.Screen name="ReviewOrder" component={ReviewOrder} />
+//       </Stack.Navigator>
+//     </>
+//   );
+// }
 
 function NewOrderOptions({ navigation }) {
   const onUseImageReceiptPress = () => {
@@ -65,33 +99,33 @@ const mapDispatch = (dispatch) => {
 
 export default connect(null, mapDispatch)(NewOrderScreen);
 
-// async function registerForPushNotificationsAsync() {
-//   let token;
-//   if (Constants.isDevice) {
-//     const { status: existingStatus } = await Notifications.getPermissionsAsync();
-//     let finalStatus = existingStatus;
-//     if (existingStatus !== 'granted') {
-//       const { status } = await Notifications.requestPermissionsAsync();
-//       finalStatus = status;
-//     }
-//     if (finalStatus !== 'granted') {
-//       alert('Failed to get push token for push notification!');
-//       return;
-//     }
-//     token = (await Notifications.getExpoPushTokenAsync()).data;
-//     console.log(token);
-//   } else {
-//     alert('Must use physical device for Push Notifications');
-//   }
+async function registerForPushNotificationsAsync() {
+  let token;
+  if (Constants.isDevice) {
+    const { status: existingStatus } = await Notifications.getPermissionsAsync();
+    let finalStatus = existingStatus;
+    if (existingStatus !== 'granted') {
+      const { status } = await Notifications.requestPermissionsAsync();
+      finalStatus = status;
+    }
+    if (finalStatus !== 'granted') {
+      alert('Failed to get push token for push notification!');
+      return;
+    }
+    token = (await Notifications.getExpoPushTokenAsync()).data;
+    console.log(token);
+  } else {
+    alert('Must use physical device for Push Notifications');
+  }
 
-//   if (Platform.OS === 'android') {
-//     Notifications.setNotificationChannelAsync('default', {
-//       name: 'default',
-//       importance: Notifications.AndroidImportance.MAX,
-//       vibrationPattern: [0, 250, 250, 250],
-//       lightColor: '#FF231F7C',
-//     });
-//   }
+  if (Platform.OS === 'android') {
+    Notifications.setNotificationChannelAsync('default', {
+      name: 'default',
+      importance: Notifications.AndroidImportance.MAX,
+      vibrationPattern: [0, 250, 250, 250],
+      lightColor: '#FF231F7C',
+    });
+  }
 
-//   return token;
-// }
+  return token;
+}

@@ -118,19 +118,27 @@ export const logout = () => {
 
 export const setToken = (token) => {
   return async (dispatch) => {
+    const user = await firebase.auth().currentUser.uid
     const usersRef = firebase.firestore().collection('users');
-    usersRef
-    .doc(user.uid)
-    .get()
-    .then((document) => {
-      const userData = document.data();
-      document.update({
-        "pushToken": token,
-    })
-    })
-      .catch((error) => {
-        alert(error);
-      });
+    // usersRef
+    // .doc(user)
+    // .get()
+    // .then((document) => {
+    //   const userData = document.data();
+    //   console.log("DOCUMENT>>", document)
+    //   document.set({
+    //     "pushToken": token,
+    // }, {merge: true})
+    // dispatch(setNotificationToken(userData))
+    // })
+    //   .catch((error) => {
+    //     alert(error);
+    //   });
+    console.log("SET TOKEN USER", user.data())
+    const setTokenField = await usersRef.doc(user).set({
+      "pushToken": token
+    }, {merge: true})
+    dispatch(setNotificationToken(user.data()))
   };
 };
 
