@@ -9,27 +9,28 @@ import {
   TouchableOpacity,
   ScrollView,
   View,
-  SafeAreaView,gi
+  SafeAreaView,
+  gi,
 } from 'react-native';
 import styles from './styles';
 import { firebase } from '../../firebase/config';
 import { fetchAllFoods } from '../../store/allFood';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
-import SingleFood from '../SingleFood/SingleFood'
-import AllRecipes from '../AllRecipes/AllRecipes'
-
+import SingleFood from '../SingleFood/SingleFood';
+import AllRecipes from '../AllRecipes/AllRecipes';
 
 class FridgeScreen extends React.Component {
-  constructor(props){
-    super(props)
+  constructor(props) {
+    super(props);
     this.onNavigationPress = this.onNavigationPress.bind(this);
   }
   componentDidMount() {
     this.props.loadAllFoods();
   }
-  onNavigationPress () {
-    this.props.navigation.navigate('SingleFood')
+  onNavigationPress(food) {
+    console.log("FOOD FROM ONNAVIGATION PRESS", food)
+    this.props.navigation.navigate('SingleFood', {name: food.name, expiration: food.expiration});
   }
 
   render() {
@@ -57,8 +58,9 @@ class FridgeScreen extends React.Component {
             {foods.map((food, index) => {
               return (
                 <TouchableOpacity
-                onPress = {this.onNavigationPress}
-                key={`${food.name}${index}`}>
+                  onPress={() => this.onNavigationPress(food)}
+                  key={`${food.name}${index}`}
+                >
                   <View style={styles.foodTile}>
                     <View style={styles.tileContent}>
                       <Text style={styles.foodName}>{food.name}</Text>
@@ -66,6 +68,8 @@ class FridgeScreen extends React.Component {
                         <Text style={styles.foodExpiration}>
                           {food.expiration} Days Left
                         </Text>
+                      ) : food.expiration === 'unkown' ? (
+                        <Text style={styles.unkown}>UNKNOWN EXPIRATION</Text>
                       ) : (
                         <Text style={styles.expired}>EXPIRED</Text>
                       )}
