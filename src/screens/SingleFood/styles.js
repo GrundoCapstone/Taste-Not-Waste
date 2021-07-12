@@ -1,64 +1,76 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
+  body: {
+    marginTop: 50,
+    width: '90%',
+    marginLeft: '5%',
+  },
+  foodInfo: {
+    width: '50%',
+    textAlign: 'center',
+    marginLeft: '25%',
+    marginRight: '25%',
+  },
+  title: {
+    fontFamily: 'Kalam',
+    fontSize: 35,
+    marginBottom: 0,
+    padding: 0,
+    textAlign: 'center',
+  },
+  date: {
+    fontFamily: 'Kalam',
+    fontSize: 15,
+    marginTop: 0,
+    marginBottom: 5,
+    textAlign: 'center',
+  },
+  deleteButton: {
+    padding: 2,
+    borderColor: 'black',
+    borderRadius: 5,
+    borderWidth: 1,
+    backgroundColor: '#FFBABE',
+    width: '70%',
+    marginLeft: '15%',
+    marginRight: '15%',
+    marginBottom: 10,
+  },
+  delete: {
+    textAlign: 'center',
+    fontFamily: 'Kalam',
+  },
   container: {
     flex: 1,
     flexDirection: 'row',
     borderColor: 'black',
     borderWidth: 1,
+    marginBottom: 15,
+    padding: 10,
+    borderRadius: 5,
     alignItems: 'center',
-    justifyContent: 'space-evenly'
-   },
-   item: {
-     padding: 10,
-     fontSize: 18,
-     height: 44,
-   },
-  tinyLogo: {
-    width: 100,
-    height: 100,
+    justifyContent: 'space-evenly',
+  },
+  recipesTitle: {
+    fontFamily: 'Kalam',
+    fontSize: 25,
   },
   text: {
+    fontFamily: 'Kalam',
     fontSize: 20,
     fontWeight: 'bold',
-    color: 'green',
+    color: '#757575',
     flex: 1,
     flexDirection: 'row',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
   },
-  input: {
-    height: 48,
+  detailButton: {
+    marginLeft: 5,
+    borderWidth: 1,
     borderRadius: 5,
-    overflow: 'hidden',
-    backgroundColor: 'white',
-    marginTop: 50,
-    marginBottom: 10,
-    marginLeft: 30,
-    marginRight: 30,
-    paddingLeft: 16
-},
-button: {
-  backgroundColor: '#788eec',
-  marginLeft: 30,
-  marginRight: 30,
-  marginTop: 20,
-  height: 48,
-  borderRadius: 5,
-  alignItems: "center",
-  justifyContent: 'center'
-},
-searchContainer: {
-  flex: 1,
-  flexDirection: 'row'
-},
-screenContainer: {
-  flex: 1,
-  alignItems: 'center'
-},
-detailButton: {
-  marginRight: 30,
-  borderWidth: 2,
-  padding: 5,
-  backgroundColor: 'pink'
-}
+    padding: 4,
+    backgroundColor: '#FFBABE',
+    fontFamily: 'Kalam',
+  },
 });

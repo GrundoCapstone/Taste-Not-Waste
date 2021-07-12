@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { Kalam_400Regular } from '@expo-google-fonts/kalam';
 
 export default StyleSheet.create({
   container: {
@@ -58,6 +59,7 @@ export default StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 15,
     marginTop: 10,
+    fontFamily: 'Kalam',
   },
   totalList: {
     flexDirection: 'row',
@@ -93,10 +95,11 @@ export default StyleSheet.create({
     borderWidth: 0.5,
   },
   foodName: {
-    fontSize: 20,
+    fontSize: 18,
     color: '#333333',
     fontWeight: '500',
     textAlign: 'center',
+    fontFamily: 'Kalam',
   },
   foodExpiration: {
     fontSize: 20,
