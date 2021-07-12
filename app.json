@@ -15,7 +15,8 @@
       [
         "expo-notifications",
         {
-          "icon": ["./assets/avoIcon.png"]
+          "icon": "./assets/avoIcon.png",
+          "mode": "production"
         }
       ]
     ],
