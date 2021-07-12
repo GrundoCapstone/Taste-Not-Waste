@@ -28,6 +28,9 @@ class FridgeScreen extends React.Component {
 
   componentDidUpdate(prevProps) {
     console.log('COMPONENT DID UPDATE');
+    // if (prevProps.allFoodsFridge !== this.props.allFoodsFridge) {
+    //   this.props.loadAllFoods();
+    // }
   }
 
   componentDidMount() {
