@@ -22,7 +22,6 @@ class NewOrderScreen extends React.Component{
   }
   async componentDidMount(){
     const token = await registerForPushNotificationsAsync()
-    console.log("NEW ORDER SCREEN TOKEN", token)
     this.props.loadToken(token)
     this.setState({pushToken: token})
   }
@@ -41,31 +40,6 @@ render(){
   );
 }
 }
-
-// function NewOrderScreen({ navigation, props })
-// {
-
-//   const [expoPushToken, setExpoPushToken] = useState('');
-//   console.log("THIS PROPS", props)
-
-//   useEffect(() => {
-//     const token = registerForPushNotificationsAsync();
-//     setExpoPushToken(token);
-//     props.loadToken(token)
-//   })
-
-//   return (
-//     <>
-//       <Stack.Navigator initialRouteName="NewOrderOptions" screenOptions={{
-//     headerShown: false
-//   }}>
-//         <Stack.Screen name="NewOrderOptions" component={NewOrderOptions} />
-//         <Stack.Screen name="Scanner" component={Scanner} />
-//         <Stack.Screen name="ReviewOrder" component={ReviewOrder} />
-//       </Stack.Navigator>
-//     </>
-//   );
-// }
 
 function NewOrderOptions({ navigation }) {
   const onUseImageReceiptPress = () => {
@@ -114,7 +88,6 @@ async function registerForPushNotificationsAsync() {
       return;
     }
     token = (await Notifications.getExpoPushTokenAsync()).data;
-    console.log(token);
   } else {
     alert('Must use physical device for Push Notifications');
   }
@@ -127,7 +100,6 @@ async function registerForPushNotificationsAsync() {
       lightColor: '#FF231F7C',
     });
   }
-  console.log("FUNCTION TOKEN>>>>", token)
 
   return token;
 }
