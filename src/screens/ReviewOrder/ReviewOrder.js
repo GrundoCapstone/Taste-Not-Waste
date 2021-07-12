@@ -8,6 +8,7 @@ import {
   Modal,
   Pressable,
   TextInput,
+  ScrollView,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { addFoodItem } from '../../store/singleFood';
@@ -34,6 +35,13 @@ class ReviewOrder extends React.Component {
       const updatedFoods = [...this.state.food, newFood];
       this.setState({ food: updatedFoods });
     }
+    if (this.props.receiptScan !== prevProps.receiptScan) {
+      console.log('FOUND SCAN RESULTS IN REVIEW');
+      const newFoods = this.props.receiptScan;
+      const updatedFoods = [...this.state.food, ...newFoods];
+      console.log('UPDATED FOODS: ', updatedFoods);
+      this.setState({ food: updatedFoods });
+    }
   }
 
   onSubmit = () => {
@@ -56,7 +64,7 @@ class ReviewOrder extends React.Component {
             Order Date: {this.state.orderDate.toString().slice(4, 15)}
           </Text>
         </View>
-        <View style={styles.totalList}>
+        <ScrollView style={styles.totalList}>
           <View style={styles.tableHeader}>
             <Text style={styles.itemColumn}>Item</Text>
             <Text style={styles.expirationColumn}>Expiration</Text>
@@ -94,7 +102,7 @@ class ReviewOrder extends React.Component {
           >
             <Text style={styles.buttonTitle}>Add Item</Text>
           </TouchableOpacity>
-        </View>
+        </ScrollView>
         <TouchableOpacity style={styles.button} onPress={this.onSubmit}>
           <Text style={styles.buttonTitle}>Confirm Order</Text>
         </TouchableOpacity>
@@ -169,9 +177,10 @@ class ReviewOrder extends React.Component {
   };
 }
 const mapState = (state) => {
-  console.log('MAPSTATE>>', state.singleFood);
+  console.log('MAPSTATE receipt>>', state.scanner.googleResponse);
   return {
     singleFoodFridge: state.singleFood,
+    receiptScan: state.scanner.googleResponse,
   };
 };
 

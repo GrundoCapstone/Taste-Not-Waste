@@ -112,7 +112,10 @@ class Scanner extends React.Component {
       >
         <Button
           style={{ marginBottom: 10 }}
-          onPress={() => this.props.submitToGoogle(this.props.image)}
+          onPress={() => {
+            this.props.submitToGoogle(this.props.image);
+            this.props.navigation.navigate('ReviewOrder');
+          }}
           title="Analyze Receipt!"
         />
 
@@ -134,19 +137,6 @@ class Scanner extends React.Component {
           onLongPress={this._share}
           style={{ paddingVertical: 10, paddingHorizontal: 10 }}
         />
-
-        <Text>Raw JSON:</Text>
-
-        {googleResponse && (
-          <Text
-            onPress={this._copyToClipboard}
-            onLongPress={this._share}
-            style={{ paddingVertical: 10, paddingHorizontal: 10 }}
-          >
-            {/* {googleResponse.responses[0].textAnnotations[0].description} */}
-            {this.props.googleResponse}
-          </Text>
-        )}
       </View>
     );
   };

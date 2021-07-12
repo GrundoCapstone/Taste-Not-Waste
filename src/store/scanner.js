@@ -136,18 +136,57 @@ export const submitToGoogle = (image) => {
       let responseJson = await response.json();
       let responseText = responseJson.responses[0].fullTextAnnotation.text;
       responseText = responseText.split('\n');
+      const regExp = /[a-zA-Z]/g;
       responseText = responseText.filter((line) => {
         return (
           !line.includes('$') &&
           !line.toLowerCase().includes('subtotal') &&
           !line.toLowerCase().includes('total') &&
-          !line.toLowerCase().includes('amount')
+          !line.toLowerCase().includes('amount') &&
+          !line.toLowerCase().includes('special') &&
+          !line.toLowerCase().includes('discount') &&
+          !line.toLowerCase().includes('sale') &&
+          !line.toLowerCase().includes('loyalty') &&
+          line.length &&
+          regExp.test(line)
         );
       });
       // responseText = responseText.filter((text) => !text.includes('$'));
       console.log('>>>>>>>>>>>>RESPONSE FROM GOOGLE OCR<<<<<<<<<<<<<<');
       console.log(responseText);
-      dispatch(_submitToGoogle(responseText));
+      const foodObjects = {};
+      responseText.forEach((food) => {
+        const lowercaseFood = food.toLowerCase();
+        foodObjects[lowercaseFood] = true;
+      });
+      // console.log('FOOD OBJECTS: ', foodObjects);
+      //get expirations from database
+      let foodResult = [];
+      const foodRef = firebase.firestore().collection('/food');
+      const snapshot = await foodRef.get();
+      snapshot.forEach((doc) => {
+        if (foodObjects[doc.data().name]) {
+          // console.log('MATCH FOUND with OCR');
+          //set found food value to be false
+          foodObjects[doc.data().name] = false;
+          let currentDate = new Date();
+          const duration = parseInt(doc.data().duration, 0);
+          const expiration = currentDate.addDays(duration);
+          const match = {
+            name: doc.data().name,
+            expiration: expiration.toString().slice(4, 15),
+          };
+          foodResult.push(match);
+        }
+      });
+      Object.keys(foodObjects).forEach((key) => {
+        if (foodObjects[key]) {
+          foodResult.push({ name: key, expiration: '' });
+        }
+      });
+      // console.log('>>>>>FOOD RESULT<<<<<');
+      console.log(foodResult);
+      dispatch(_submitToGoogle(foodResult));
     } catch (error) {
       console.log(error);
     }
