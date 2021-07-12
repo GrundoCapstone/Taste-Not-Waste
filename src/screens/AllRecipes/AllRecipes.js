@@ -71,13 +71,13 @@ class AllRecipes extends React.Component{
 
 const mapState = (state) => {
   return {
-    recipes: state.allRecipes,
+    recipes: state.allRecipes.search,
   }
 }
 
 const mapDispatch = (dispatch) => {
   return {
-    loadRecipes: (ingredient) => dispatch(fetchRecipes(ingredient)),
+    loadRecipes: (ingredient) => dispatch(fetchRecipes(ingredient, 'search')),
   }
 }
 
