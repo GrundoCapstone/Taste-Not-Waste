@@ -79,15 +79,16 @@ export const addAllFoods = (foods) => {
         }
         fridgeRef.doc().set(food);
         //this is to add the notifications
-        await Notifications.scheduleNotificationAsync({
-          content: {
-            title: "You've got mail! 📬",
-            body: 'Here is the notification body',
-            data: { data: 'goes here' },
-          },
-          trigger: { seconds: 5 },
-        });
-      });
+    });
+    const body = foods.length > 1 ? `You have ${foods.length} foods expiring!` : `Your ${foods[0].name} is expiring!`
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: "Time to eat! 🥑",
+        body: body,
+        data: { data: 'goes here' },
+      },
+      trigger: { seconds: 5 },
+    });
       const snapshot = await fridgeRef.get();
 
       const resultArr = [];

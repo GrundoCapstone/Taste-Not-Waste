@@ -148,7 +148,7 @@ export default function App() {
               />
               <Tab.Screen
                 name="User Profile"
-                component={DummyNotification}
+                component={UserProfile}
                 options={{
                   tabBarLabel: 'Profile',
                   tabBarIcon: ({ color }) => (

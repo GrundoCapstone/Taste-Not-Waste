@@ -120,30 +120,14 @@ export const setToken = (token) => {
   return async (dispatch) => {
     const user = await firebase.auth().currentUser.uid
     const usersRef = firebase.firestore().collection('users');
-    console.log("TOKEN", token)
     usersRef
     .doc(user)
     .update({
       pushToken: token
     })
-    // .get()
-    // .then((document) => {
-    //   console.log("DOCUMENT>>", document)
-    //   document.set({
-    //     "pushToken": token,
-    //   }, {merge: true})
-    //   const userData = document.data();
-    // dispatch(setNotificationToken(userData))
-    // })
       .catch((error) => {
         alert(error);
       });
-    // console.log("SET TOKEN USER", await usersRef.doc(user).get())
-    
-    // const setTokenField = await usersRef.doc(user).set({
-    //   "pushToken": token
-    // }, {merge: true})
-    // dispatch(setNotificationToken(user.data()))
   };
 };
 
@@ -166,7 +150,6 @@ export const gettingUserInfo = () => {
           return;
         }
       const user = firestoreDocument.data();
-      // console.log("USER>>>>", user)
       dispatch(_getUserInfo(user));
           })
   }
