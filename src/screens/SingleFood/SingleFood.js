@@ -1,6 +1,6 @@
 //single food component
 import React from 'react';
-import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, Image } from 'react-native';
 import { connect } from 'react-redux';
 import * as Linking from 'expo-linking';
 import { fetchRecipes } from '../../store/allRecipes';
@@ -24,7 +24,7 @@ class SingleFood extends React.Component {
   async handleDelete() {
     console.log('HANDLE DELETE FROM SINGLE FOOD');
     await this.props.deleteFood(this.props.route.params.name);
-    this.props.loadAllFoods()
+    this.props.loadAllFoods();
     this.props.navigation.navigate('Fridge');
   }
 
@@ -51,24 +51,28 @@ class SingleFood extends React.Component {
           </View>
           <Text style={styles.recipesTitle}>Recipes</Text>
           {this.props.recipes.length ? (
-            <ScrollView>
+            <ScrollView style={styles.recipesScroll}>
               {this.props.recipes.map((recipe) => {
                 return (
-                  <View key={recipe.website} style={styles.container}>
-                    <Text style={styles.text}>{recipe.label}</Text>
+                  <View key={recipe.website}>
                     <TouchableOpacity
                       onPress={() => this.handlePress(recipe.website)}
+                      style={styles.container}
                     >
-                      <Text style={styles.detailButton}>Details</Text>
+                      <Image
+                        style={styles.tinyLogo}
+                        source={{
+                          uri: recipe.imageUrl,
+                        }}
+                      />
+                      <Text style={styles.text}>{recipe.label}</Text>
                     </TouchableOpacity>
                   </View>
                 );
               })}
             </ScrollView>
           ) : (
-            <View>
-              <Text>Search for recipes by ingredient!</Text>
-            </View>
+            <></>
           )}
         </View>
       </View>
@@ -79,7 +83,7 @@ class SingleFood extends React.Component {
 const mapState = (state) => {
   return {
     recipes: state.allRecipes.fridge,
-    allFoodsFridge: state.allFoods
+    allFoodsFridge: state.allFoods,
   };
 };
 
@@ -87,7 +91,7 @@ const mapDispatch = (dispatch) => {
   return {
     loadRecipes: (ingredient) => dispatch(fetchRecipes(ingredient, 'fridge')),
     deleteFood: (food) => dispatch(deleteSingleFood(food)),
-    loadAllFoods: () => dispatch(fetchAllFoods())
+    loadAllFoods: () => dispatch(fetchAllFoods()),
   };
 };
 
