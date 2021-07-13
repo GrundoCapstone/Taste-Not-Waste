@@ -16,7 +16,6 @@ import { addFoodItem } from '../../store/singleFood';
 import { addAllFoods } from '../../store/allFood';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
-
 class ReviewOrder extends React.Component {
   constructor(props) {
     super(props);
@@ -26,7 +25,7 @@ class ReviewOrder extends React.Component {
       modalVisible: false,
       orderDate: new Date(),
       deleteModalVisible: false,
-      itemToDelete: {}
+      itemToDelete: {},
     };
     this.onSubmit = this.onSubmit.bind(this);
     this.onAddItem = this.onAddItem.bind(this);
@@ -61,8 +60,12 @@ class ReviewOrder extends React.Component {
   };
 
   onDeleteRow = (name, index) => {
-    this.setState({ ...this.state, deleteModalVisible: true, itemToDelete: {name,index} });
-  }
+    this.setState({
+      ...this.state,
+      deleteModalVisible: true,
+      itemToDelete: { name, index },
+    });
+  };
 
   render() {
     return (
@@ -96,6 +99,7 @@ class ReviewOrder extends React.Component {
                     <TextInput
                       style={styles.editDate}
                       value={item.expiration}
+                      placeholder="MMM DD YYYY"
                       onChangeText={(text) => {
                         const newDate = [...this.state.food];
                         newDate[index].expiration = text;
@@ -103,10 +107,17 @@ class ReviewOrder extends React.Component {
                       }}
                     ></TextInput>
                     <View>
-              <TouchableOpacity onPress = {() => this.onDeleteRow(item.name, index)}>
-                <FontAwesome5 name="trash" color="black" size={20} style={styles.trashIcon}/>
-              </TouchableOpacity>
-                   </View>
+                      <TouchableOpacity
+                        onPress={() => this.onDeleteRow(item.name, index)}
+                      >
+                        <FontAwesome5
+                          name="trash"
+                          color="black"
+                          size={20}
+                          style={styles.trashIcon}
+                        />
+                      </TouchableOpacity>
+                    </View>
                   </View>
                 );
               }
@@ -198,17 +209,19 @@ class ReviewOrder extends React.Component {
         }}
       >
         <View style={styles.modalView}>
-          <Text style={styles.modalText}>Are you sure you want to delete {item.name}?</Text>
+          <Text style={styles.modalText}>
+            Are you sure you want to delete {item.name}?
+          </Text>
           <Pressable
             style={[styles.button, styles.buttonClose]}
             onPress={() => {
-              let newFood = [...this.state.food]
-              newFood.splice(item.index,1);
+              let newFood = [...this.state.food];
+              newFood.splice(item.index, 1);
               this.setState({
                 ...this.state,
                 deleteModalVisible: !this.state.deleteModalVisible,
                 food: newFood,
-                itemToDelete: {}
+                itemToDelete: {},
               });
             }}
           >
@@ -220,7 +233,7 @@ class ReviewOrder extends React.Component {
               this.setState({
                 ...this.state,
                 deleteModalVisible: !this.state.deleteModalVisible,
-                itemToDelete: {}
+                itemToDelete: {},
               });
             }}
           >
@@ -231,7 +244,6 @@ class ReviewOrder extends React.Component {
     );
   };
 }
-
 
 const mapState = (state) => {
   return {
