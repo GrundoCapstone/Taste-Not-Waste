@@ -1,23 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
-import {
-  FlatList,
-  TouchableHighlight,
-  Keyboard,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  ScrollView,
-  View,
-  SafeAreaView,
-} from 'react-native';
-import styles from './styles';
-import { firebase } from '../../firebase/config';
-import { fetchAllFoods } from '../../store/allFood';
+import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import SingleFood from '../SingleFood/SingleFood'
-import AllRecipes from '../AllRecipes/AllRecipes'
 import  FridgeScreen  from './FridgeScreen';
 
 const Stack = createStackNavigator();

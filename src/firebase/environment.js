@@ -6,6 +6,7 @@ import {
   FIREBASE_PROJECT_ID,
   FIREBASE_STORAGE_BUCKET,
   FIREBASE_MESSAGING_SENDER_ID,
+  APP_ID
 } from '../../secrets';
 import Constants from 'expo-constants';
 
@@ -18,6 +19,7 @@ var environments = {
     FIREBASE_STORAGE_BUCKET,
     FIREBASE_MESSAGING_SENDER_ID,
     GOOGLE_CLOUD_VISION_API_KEY,
+    APP_ID
   },
   production: {
     // Warning: This file still gets included in your native binary and  is not a secure way to store secrets if you build for the app stores. Details: https://github.com/expo/expo/issues/83

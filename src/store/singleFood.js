@@ -3,7 +3,7 @@ edit food item (quantity and delete)
 
 get food name and expiration
 */
-import { firebase } from '../firebase/config';
+import firebase from '../firebase/firebase';
 
 Date.prototype.addDays = function (days) {
   let date = new Date(this.valueOf());
