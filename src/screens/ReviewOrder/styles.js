@@ -4,10 +4,12 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
+    backgroundColor: '#FDEAF3',
   },
   title: {
-    fontSize: 24,
-    marginTop: 35,
+    fontSize: 30,
+    fontFamily: 'Kalam',
+    marginTop: 60,
   },
   logo: {
     flex: 1,
@@ -28,7 +30,7 @@ export default StyleSheet.create({
     paddingLeft: 16,
   },
   button: {
-    backgroundColor: '#A9EBDB',
+    backgroundColor: '#6ED8BE',
     marginLeft: 30,
     marginRight: 30,
     marginTop: 20,
@@ -37,14 +39,17 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 5,
+    borderWidth: 1,
+    borderColor: 'black',
   },
   buttonTitle: {
     color: 'black',
     fontSize: 16,
     fontWeight: 'normal',
+    fontFamily: 'Kalam',
   },
   smallButton: {
-    backgroundColor: '#A9EBDB',
+    backgroundColor: '#6ED8BE',
     height: 20,
     borderRadius: 5,
     alignItems: 'center',
@@ -52,6 +57,8 @@ export default StyleSheet.create({
     padding: 1,
     width: 75,
     marginLeft: 12,
+    borderWidth: 1,
+    borderColor: 'black',
   },
   modalView: {
     margin: 20,
@@ -69,16 +76,20 @@ export default StyleSheet.create({
     marginTop: '50%',
   },
   buttonClose: {
-    backgroundColor: '#2196F3',
+    backgroundColor: '#6ED8BE',
+    borderWidth: 1,
+    borderColor: 'black',
   },
   textStyle: {
-    color: 'white',
-    fontWeight: 'bold',
+    color: 'black',
+    fontFamily: 'Kalam',
     textAlign: 'center',
   },
   modalText: {
     marginBottom: 15,
+    fontSize: 18,
     textAlign: 'center',
+    fontFamily: 'Kalam',
   },
   input: {
     height: 48,
@@ -135,11 +146,14 @@ export default StyleSheet.create({
     marginTop: 20,
   },
   addItemButton: {
-    backgroundColor: '#A9EBDB',
+    backgroundColor: '#6ED8BE',
+    borderWidth: 1,
+    borderColor: 'black',
     borderRadius: 5,
     padding: 5,
     width: 100,
     marginTop: 5,
     alignItems: 'center',
+    fontFamily: 'Kalam',
   },
 });

@@ -4,10 +4,12 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
+    backgroundColor: '#FFBABE',
   },
   title: {
-    fontSize: 24,
-    marginTop: 35,
+    fontSize: 30,
+    marginTop: 60,
+    fontFamily: 'Kalam',
   },
   logo: {
     flex: 1,
@@ -28,7 +30,7 @@ export default StyleSheet.create({
     paddingLeft: 16,
   },
   button: {
-    backgroundColor: '#A9EBDB',
+    backgroundColor: '#6ED8BE',
     borderColor: 'black',
     borderWidth: 1,
     marginLeft: 30,
@@ -38,11 +40,11 @@ export default StyleSheet.create({
     borderRadius: 5,
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 5,
+    padding: 8,
   },
   buttonTitle: {
     color: 'black',
     fontSize: 16,
-    fontWeight: 'normal',
+    fontFamily: 'Kalam',
   },
 });

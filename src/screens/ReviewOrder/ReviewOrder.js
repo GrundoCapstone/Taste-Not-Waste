@@ -142,15 +142,6 @@ class ReviewOrder extends React.Component {
             underlineColorAndroid="transparent"
             autoCapitalize="none"
           />
-          {/* <TextInput
-            style={styles.input}
-            placeholder="Expiration Date"
-            placeholderTextColor="#aaaaaa"
-            // onChangeText={(text) => setExpiration(text)}
-            // value={email}
-            underlineColorAndroid="transparent"
-            autoCapitalize="none"
-          /> */}
           <Pressable
             style={[styles.button, styles.buttonClose]}
             onPress={() => {

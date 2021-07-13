@@ -6,6 +6,7 @@ import {
   Image,
   Share,
   StyleSheet,
+  TouchableOpacity,
   Text,
   ScrollView,
   View,
@@ -13,6 +14,7 @@ import {
 import { connect } from 'react-redux';
 import * as MediaLibrary from 'expo-media-library';
 import { Camera } from 'expo-camera';
+import styles from './styles';
 
 import { _pickImage, _takePhoto, submitToGoogle } from '../../store/scanner';
 
@@ -44,12 +46,21 @@ class Scanner extends React.Component {
           </View>
 
           <View style={styles.helpContainer}>
-            <Button
+            <TouchableOpacity
               onPress={this.props.pickImage}
-              title="Pick an image from camera roll"
-            />
+              style={styles.button}
+            >
+              <Text style={styles.buttonText}>
+                Pick an image from camera roll
+              </Text>
+            </TouchableOpacity>
 
-            <Button onPress={this.props.takePhoto} title="Take a photo" />
+            <TouchableOpacity
+              onPress={this.props.takePhoto}
+              style={styles.button}
+            >
+              <Text style={styles.buttonText}>Take a Photo</Text>
+            </TouchableOpacity>
             {this.state.googleResponse && (
               <FlatList
                 data={this.state.googleResponse.responses[0].labelAnnotations}
@@ -143,41 +154,6 @@ class Scanner extends React.Component {
 
   _keyExtractor = (item, index) => item.id;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    paddingBottom: 10,
-  },
-  developmentModeText: {
-    marginBottom: 20,
-    color: 'rgba(0,0,0,0.4)',
-    fontSize: 14,
-    lineHeight: 19,
-    textAlign: 'center',
-  },
-  contentContainer: {
-    paddingTop: 30,
-  },
-
-  getStartedContainer: {
-    alignItems: 'center',
-    marginHorizontal: 50,
-  },
-
-  getStartedText: {
-    fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
-    lineHeight: 24,
-    textAlign: 'center',
-  },
-
-  helpContainer: {
-    marginTop: 15,
-    alignItems: 'center',
-  },
-});
 
 const mapState = (state) => {
   return {

@@ -55,7 +55,7 @@ export default StyleSheet.create({
   },
   title: {
     textAlign: 'center',
-    fontSize: 24,
+    fontSize: 30,
     fontWeight: 'bold',
     marginBottom: 15,
     marginTop: 10,
