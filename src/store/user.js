@@ -140,7 +140,7 @@ export const gettingUserInfo = () => {
     // console.log("SIGNED IN USER", signedInUser)
     // console.log("USER ID ID ID", userId)
     const usersRef = firebase.firestore().collection('users')
-    console.log("USERS REF", usersRef)
+    // console.log("USERS REF", usersRef)
     usersRef
       .doc(userId)
       .get()

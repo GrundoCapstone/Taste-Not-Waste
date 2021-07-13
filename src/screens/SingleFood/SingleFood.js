@@ -4,7 +4,7 @@ import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import * as Linking from 'expo-linking';
 import { fetchRecipes } from '../../store/allRecipes';
-import { deleteSingleFood } from '../../store/singleFood';
+import { deleteSingleFood, fetchAllFoods } from '../../store/allFood';
 import styles from './styles';
 
 class SingleFood extends React.Component {
@@ -24,6 +24,7 @@ class SingleFood extends React.Component {
   async handleDelete() {
     console.log('HANDLE DELETE FROM SINGLE FOOD');
     await this.props.deleteFood(this.props.route.params.name);
+    this.props.loadAllFoods()
     this.props.navigation.navigate('Fridge');
   }
 
@@ -78,6 +79,7 @@ class SingleFood extends React.Component {
 const mapState = (state) => {
   return {
     recipes: state.allRecipes.fridge,
+    allFoodsFridge: state.allFoods
   };
 };
 
@@ -85,6 +87,7 @@ const mapDispatch = (dispatch) => {
   return {
     loadRecipes: (ingredient) => dispatch(fetchRecipes(ingredient, 'fridge')),
     deleteFood: (food) => dispatch(deleteSingleFood(food)),
+    loadAllFoods: () => dispatch(fetchAllFoods())
   };
 };
 

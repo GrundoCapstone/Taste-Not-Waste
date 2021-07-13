@@ -12,6 +12,7 @@ import { firebase } from '../firebase/config';
 // Action Types
 const GET_ALL_FOODS = 'GET_ALL_FOODS';
 const ADD_ALL_FOODS = 'ADD_ALL_FOODS';
+const DELETE_SINGLE_FOOD = 'DELETE_SIGNLE_FOOD';
 
 // ACTION CREATOR
 const getAllFoods = (foods) => {
@@ -25,6 +26,13 @@ const _addAllFoods = (foods) => {
   return {
     type: ADD_ALL_FOODS,
     foods,
+  };
+};
+
+const removeSingleFood = (food) => {
+  return {
+    type: DELETE_SINGLE_FOOD,
+    food,
   };
 };
 
@@ -113,6 +121,27 @@ export const addAllFoods = (foods) => {
   };
 };
 
+export const deleteSingleFood = (food) => {
+  return async (dispatch) => {
+    try {
+      const userId = firebase.auth().currentUser.uid;
+      const fridgeRef = firebase
+        .firestore()
+        .collection(`/users/${userId}/fridge`);
+      const snapshot = await fridgeRef.where('name', '==', food).get();
+      let result;
+      snapshot.forEach((doc) => {
+        console.log('SNAPSHOT DOC ID', doc.id);
+        result = doc.id;
+      });
+      await fridgeRef.doc(result).delete();
+      dispatch(removeSingleFood(result));
+    } catch (err) {
+      console.log(err, "Can't delete food item!");
+    }
+  };
+};
+
 const initialState = [];
 
 // Reducer
@@ -122,6 +151,9 @@ const allFoodReducer = (state = initialState, action) => {
       return action.foods;
     case ADD_ALL_FOODS:
       return action.foods;
+    case DELETE_SINGLE_FOOD:
+      const removedFood = state.filter(food => food.id !== action.food.id)
+      return [...state, removedFood]
     default:
       return state;
   }

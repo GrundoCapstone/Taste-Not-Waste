@@ -12,20 +12,12 @@ Date.prototype.addDays = function (days) {
 };
 //Action Type
 const POST_SINGLE_FOOD = 'POST_SINGLE_FOOD';
-const DELETE_SINGLE_FOOD = 'DELETE_SIGNLE_FOOD';
 
 //Action Creator
 const postSingleFood = (foodItem) => {
   return {
     type: POST_SINGLE_FOOD,
     foodItem,
-  };
-};
-
-const removeSingleFood = (food) => {
-  return {
-    type: DELETE_SINGLE_FOOD,
-    food,
   };
 };
 
@@ -52,35 +44,12 @@ export const addFoodItem = (food) => {
   };
 };
 
-export const deleteSingleFood = (food) => {
-  return async (dispatch) => {
-    try {
-      const userId = firebase.auth().currentUser.uid;
-      const fridgeRef = firebase
-        .firestore()
-        .collection(`/users/${userId}/fridge`);
-      const snapshot = await fridgeRef.where('name', '==', food).get();
-      let result;
-      snapshot.forEach((doc) => {
-        console.log('SNAPSHOT DOC ID', doc.id);
-        result = doc.id;
-      });
-      await fridgeRef.doc(result).delete();
-      dispatch(removeSingleFood(result));
-    } catch (err) {
-      console.log(err, "Can't delete food item!");
-    }
-  };
-};
-
 const initialState = {};
 //Reducer
 const singleFoodReducer = (state = initialState, action) => {
   switch (action.type) {
     case POST_SINGLE_FOOD:
       return action.foodItem;
-    case DELETE_SINGLE_FOOD:
-      return action.food;
     default:
       return state;
   }
