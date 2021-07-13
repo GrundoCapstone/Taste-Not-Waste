@@ -5,6 +5,7 @@ export default StyleSheet.create({
     marginTop: 50,
     flex: 1,
     alignItems: 'center',
+    backgroundColor: '#fdf1e2'
   },
   header: {
     fontFamily: 'Kalam',

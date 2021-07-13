@@ -6,7 +6,7 @@ export default StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     // margin: 5,
-    backgroundColor: '#FFBABE',
+    backgroundColor: '#EAC4D5',
   },
   formContainer: {
     flexDirection: 'row',
@@ -120,7 +120,7 @@ export default StyleSheet.create({
     margin: 10,
     flexDirection: 'column',
     alignItems: 'center',
-    backgroundColor: '#6ED8BE',
+    backgroundColor: '#B8E0D2',
   },
   tileContent: {
     height: 50,

@@ -50,4 +50,18 @@ export default StyleSheet.create({
     justifyContent: 'center',
     padding: 8,
   },
+  analyzeButton: {
+    backgroundColor: '#6ED8BE',
+    borderColor: 'black',
+    borderWidth: 1,
+    marginLeft: 30,
+    marginRight: 30,
+    marginTop: 20,
+    height: 48,
+    borderRadius: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 8,
+    marginBottom: 10,
+  }
 });

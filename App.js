@@ -73,9 +73,9 @@ export default function App() {
       <NavigationContainer>
         <Tab.Navigator
           initialRouteName="Home"
-          activeColor="#020202"
-          inactiveColor="#61A393"
-          barStyle={{ backgroundColor: '#6ED8BE' }}
+          activeColor="#D6EADF"
+          inactiveColor="#6e8dc7"
+          barStyle={{ backgroundColor: '#95B8D1' }}
           shifting={false}
         >
           {user ? (
