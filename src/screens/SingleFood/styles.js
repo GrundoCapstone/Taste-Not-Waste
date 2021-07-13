@@ -2,6 +2,7 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   screenContainer: {
+    height: '100%',
     backgroundColor: '#FDEAF3',
     width: '100%',
   },
@@ -56,6 +57,9 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-evenly',
   },
+  recipesScroll: {
+    height: '69%',
+  },
   recipesTitle: {
     fontFamily: 'Kalam',
     fontSize: 25,
@@ -76,5 +80,11 @@ export default StyleSheet.create({
     padding: 4,
     backgroundColor: '#FFBABE',
     fontFamily: 'Kalam',
+  },
+  tinyLogo: {
+    width: 100,
+    height: 100,
+    borderRadius: 5,
+    marginRight: 10,
   },
 });
