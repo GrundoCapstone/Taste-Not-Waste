@@ -22,8 +22,11 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Constants from 'expo-constants';
-import Ionicons from 'react-native-vector-icons/Ionicons'
-import  FridgeNavigator  from './src/screens/FridgeScreen/FridgeNavigator';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import FridgeNavigator from './src/screens/FridgeScreen/FridgeNavigator';
+import * as Font from 'expo-font';
+import { AppLoading } from 'expo';
+import { useFonts } from '@use-expo/font';
 
 if (!global.btoa) {
   global.btoa = encode;
@@ -34,9 +37,15 @@ if (!global.atob) {
 
 const Tab = createMaterialBottomTabNavigator();
 
+const customFonts = {
+  Kalam: require('./assets/fonts/Kalam/Kalam-Regular.ttf'),
+  // KalamBold: require('./assets/fonts/Kalam/Kalam-Bold.ttf'),
+};
+
 export default function App() {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
+  const [isLoaded] = useFonts(customFonts);
 
   useEffect(() => {
     const usersRef = firebase.firestore().collection('users');
@@ -63,7 +72,9 @@ export default function App() {
   if (loading) {
     return <></>;
   }
-
+  if (!isLoaded) {
+    return <AppLoading />;
+  }
   return (
     <Provider store={store}>
       <NavigationContainer>
@@ -140,11 +151,7 @@ export default function App() {
                 options={{
                   tabBarLabel: 'Profile',
                   tabBarIcon: ({ color }) => (
-                    <Ionicons
-                      name="person-sharp"
-                      color={color}
-                      size={26}
-                    />
+                    <Ionicons name="person-sharp" color={color} size={26} />
                   ),
                 }}
               />

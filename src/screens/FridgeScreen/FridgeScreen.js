@@ -1,43 +1,46 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import {
-  FlatList,
-  TouchableHighlight,
-  Keyboard,
   Text,
-  TextInput,
   TouchableOpacity,
   ScrollView,
   View,
   SafeAreaView,
-  gi,
 } from 'react-native';
 import styles from './styles';
-import { firebase } from '../../firebase/config';
 import { fetchAllFoods } from '../../store/allFood';
-import { createStackNavigator } from '@react-navigation/stack';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
-import SingleFood from '../SingleFood/SingleFood';
-import AllRecipes from '../AllRecipes/AllRecipes';
 
 class FridgeScreen extends React.Component {
   constructor(props) {
     super(props);
     this.onNavigationPress = this.onNavigationPress.bind(this);
   }
+
+  componentDidUpdate(prevProps) {
+    console.log('COMPONENT DID UPDATE');
+    // if (prevProps.allFoodsFridge !== this.props.allFoodsFridge) {
+    //   this.props.loadAllFoods();
+    // }
+  }
+
   componentDidMount() {
+    console.log('COMPONENT DID MOUNT FRIDGE');
     this.props.loadAllFoods();
   }
   onNavigationPress(food) {
-    console.log("FOOD FROM ONNAVIGATION PRESS", food)
-    this.props.navigation.navigate('SingleFood', {name: food.name, expiration: food.expiration});
+    console.log('FOOD FROM ON NAVIGATION PRESS', food);
+    this.props.navigation.navigate('SingleFood', {
+      name: food.name,
+      expiration: food.expiration,
+    });
   }
 
   render() {
-    console.log(
-      'AllFoodsFridge from FridgeScreen : ',
-      this.props.allFoodsFridge
-    );
+    // console.log(
+    //   'AllFoodsFridge from FridgeScreen : ',
+    //   this.props.allFoodsFridge
+    // );
+    console.log('RENDER FRIDGE');
     let foods = this.props.allFoodsFridge;
     foods.sort(function (a, b) {
       const keyA = a.expiration;
@@ -86,6 +89,7 @@ class FridgeScreen extends React.Component {
 }
 
 const mapState = (state) => {
+  console.log('map state in fridge');
   return {
     allFoodsFridge: state.allFoods,
   };
