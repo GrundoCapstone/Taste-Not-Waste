@@ -2,29 +2,22 @@ import 'react-native-gesture-handler';
 import React, { useEffect, useState } from 'react';
 import { firebase } from './src/firebase/config';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
 import {
   LoginScreen,
-  FridgeScreen,
   RegistrationScreen,
   AllRecipes,
   NewOrderScreen,
-  ReviewOrder,
-  SingleFood,
   UserProfile,
-  LogoutScreen,
 } from './src/screens';
-import { Button, AppRegistry, Platform } from 'react-native';
+import { AppRegistry } from 'react-native';
 import { decode, encode } from 'base-64';
 import { Provider } from 'react-redux';
 import store from './src/store';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import Constants from 'expo-constants';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FridgeNavigator from './src/screens/FridgeScreen/FridgeNavigator';
-import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
 import { useFonts } from '@use-expo/font';
 
@@ -87,20 +80,6 @@ export default function App() {
         >
           {user ? (
             <>
-              {/* <Tab.Screen
-                name="Fridge"
-                component={FridgeScreen}
-                options={{
-                  tabBarLabel: 'Fridge',
-                  tabBarIcon: ({ color }) => (
-                    <MaterialCommunityIcons
-                      name="fridge"
-                      color={color}
-                      size={26}
-                    />
-                  ),
-                }}
-              /> */}
               <Tab.Screen
                 name="FridgeNavigator"
                 options={{
