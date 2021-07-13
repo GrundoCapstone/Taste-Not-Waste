@@ -140,6 +140,7 @@ export default StyleSheet.create({
   },
   expirationColumn: {
     flexDirection: 'column',
+    marginRight: 55,
   },
   datePickerStyle: {
     width: 200,
@@ -156,4 +157,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     fontFamily: 'Kalam',
   },
+  trashIcon: {
+    marginRight: 10,
+  }
 });

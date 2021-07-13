@@ -104,7 +104,7 @@ class ReviewOrder extends React.Component {
                     ></TextInput>
                     <View>
               <TouchableOpacity onPress = {() => this.onDeleteRow(item.name, index)}>
-                <FontAwesome5 name="trash" color="black" size={20}/>
+                <FontAwesome5 name="trash" color="black" size={20} style={styles.trashIcon}/>
               </TouchableOpacity>
                    </View>
                   </View>
@@ -202,7 +202,6 @@ class ReviewOrder extends React.Component {
           <Pressable
             style={[styles.button, styles.buttonClose]}
             onPress={() => {
-              // this.props.loadSingleFood(this.state.newFood);
               let newFood = [...this.state.food]
               newFood.splice(item.index,1);
               this.setState({
@@ -235,7 +234,6 @@ class ReviewOrder extends React.Component {
 
 
 const mapState = (state) => {
-  console.log('MAPSTATE receipt>>', state.scanner.googleResponse);
   return {
     singleFoodFridge: state.singleFood,
     receiptScan: state.scanner.googleResponse,
