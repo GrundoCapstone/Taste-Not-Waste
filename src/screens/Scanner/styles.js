@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FDEAF3',
+    backgroundColor: '#B8E0D2',
     paddingTop: 60,
   },
   developmentModeText: {
@@ -38,7 +38,7 @@ export default StyleSheet.create({
     fontFamily: 'Kalam',
   },
   button: {
-    backgroundColor: '#6ED8BE',
+    backgroundColor: '#EAC4D5',
     borderColor: 'black',
     borderWidth: 1,
     marginLeft: 30,
@@ -51,7 +51,7 @@ export default StyleSheet.create({
     padding: 8,
   },
   analyzeButton: {
-    backgroundColor: '#6ED8BE',
+    backgroundColor: '#EAC4D5',
     borderColor: 'black',
     borderWidth: 1,
     marginLeft: 30,

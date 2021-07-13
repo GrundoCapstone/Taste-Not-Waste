@@ -4,7 +4,7 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    backgroundColor: '#FDEAF3',
+    backgroundColor: '#B8E0D2',
   },
   title: {
     fontSize: 30,
@@ -30,7 +30,7 @@ export default StyleSheet.create({
     paddingLeft: 16,
   },
   button: {
-    backgroundColor: '#6ED8BE',
+    backgroundColor: '#EAC4D5',
     marginLeft: 30,
     marginRight: 30,
     marginTop: 20,
@@ -49,7 +49,7 @@ export default StyleSheet.create({
     fontFamily: 'Kalam',
   },
   smallButton: {
-    backgroundColor: '#6ED8BE',
+    backgroundColor: '#EAC4D5',
     height: 20,
     borderRadius: 5,
     alignItems: 'center',
@@ -76,7 +76,7 @@ export default StyleSheet.create({
     marginTop: '50%',
   },
   buttonClose: {
-    backgroundColor: '#6ED8BE',
+    backgroundColor: '#EAC4D5',
     borderWidth: 1,
     borderColor: 'black',
   },
@@ -147,7 +147,7 @@ export default StyleSheet.create({
     marginTop: 20,
   },
   addItemButton: {
-    backgroundColor: '#6ED8BE',
+    backgroundColor: '#EAC4D5',
     borderWidth: 1,
     borderColor: 'black',
     borderRadius: 5,
