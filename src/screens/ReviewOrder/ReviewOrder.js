@@ -14,7 +14,8 @@ import {
 import { connect } from 'react-redux';
 import { addFoodItem } from '../../store/singleFood';
 import { addAllFoods } from '../../store/allFood';
-import { FridgeScreen } from '../FridgeScreen/FridgeScreen';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+
 
 class ReviewOrder extends React.Component {
   constructor(props) {
@@ -24,10 +25,14 @@ class ReviewOrder extends React.Component {
       newFood: '',
       modalVisible: false,
       orderDate: new Date(),
+      deleteModalVisible: false,
+      itemToDelete: {}
     };
     this.onSubmit = this.onSubmit.bind(this);
     this.onAddItem = this.onAddItem.bind(this);
     this.maybeRenderModal = this.maybeRenderModal.bind(this);
+    this.onDeleteRow = this.onDeleteRow.bind(this);
+    this.maybeRenderDeleteModal = this.maybeRenderDeleteModal.bind(this);
   }
 
   componentDidUpdate(prevProps) {
@@ -55,8 +60,11 @@ class ReviewOrder extends React.Component {
     this.setState({ ...this.state, modalVisible: true });
   };
 
+  onDeleteRow = (name, index) => {
+    this.setState({ ...this.state, deleteModalVisible: true, itemToDelete: {name,index} });
+  }
+
   render() {
-    // console.log('state: ', this.state);
     return (
       <View style={styles.container}>
         <Text style={styles.title}>Review Your Order</Text>
@@ -94,6 +102,11 @@ class ReviewOrder extends React.Component {
                         this.setState({ ...this.state, food: newDate });
                       }}
                     ></TextInput>
+                    <View>
+              <TouchableOpacity onPress = {() => this.onDeleteRow(item.name, index)}>
+                <FontAwesome5 name="trash" color="black" size={20} style={styles.trashIcon}/>
+              </TouchableOpacity>
+                   </View>
                   </View>
                 );
               }
@@ -110,6 +123,7 @@ class ReviewOrder extends React.Component {
           </ScrollView>
         </KeyboardAvoidingView>
         {this.maybeRenderModal()}
+        {this.maybeRenderDeleteModal(this.state.itemToDelete)}
       </View>
     );
   }
@@ -169,9 +183,57 @@ class ReviewOrder extends React.Component {
       </Modal>
     );
   };
+  maybeRenderDeleteModal = (item) => {
+    return (
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={this.state.deleteModalVisible}
+        onRequestClose={() => {
+          Alert.alert('Modal has been closed.');
+          this.setState({
+            ...this.state,
+            deleteModalVisible: !visible,
+          });
+        }}
+      >
+        <View style={styles.modalView}>
+          <Text style={styles.modalText}>Are you sure you want to delete {item.name}?</Text>
+          <Pressable
+            style={[styles.button, styles.buttonClose]}
+            onPress={() => {
+              let newFood = [...this.state.food]
+              newFood.splice(item.index,1);
+              this.setState({
+                ...this.state,
+                deleteModalVisible: !this.state.deleteModalVisible,
+                food: newFood,
+                itemToDelete: {}
+              });
+            }}
+          >
+            <Text style={styles.textStyle}>Confirm</Text>
+          </Pressable>
+          <Pressable
+            style={[styles.button, styles.buttonClose]}
+            onPress={() => {
+              this.setState({
+                ...this.state,
+                deleteModalVisible: !this.state.deleteModalVisible,
+                itemToDelete: {}
+              });
+            }}
+          >
+            <Text style={styles.textStyle}>Cancel</Text>
+          </Pressable>
+        </View>
+      </Modal>
+    );
+  };
 }
+
+
 const mapState = (state) => {
-  console.log('MAPSTATE receipt>>', state.scanner.googleResponse);
   return {
     singleFoodFridge: state.singleFood,
     receiptScan: state.scanner.googleResponse,
