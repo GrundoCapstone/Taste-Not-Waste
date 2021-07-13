@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import React, { useEffect, useState } from 'react';
-import { firebase } from './src/firebase/config';
+import firebase from './src/firebase/firebase';
 import { NavigationContainer } from '@react-navigation/native';
 import {
   LoginScreen,

@@ -1,5 +1,4 @@
-import { USER_FACING_NOTIFICATIONS } from 'expo-permissions';
-import { firebase } from '../firebase/config';
+import firebase from '../firebase/firebase';
 /*
 get user info
 
@@ -134,13 +133,7 @@ export const setToken = (token) => {
 export const gettingUserInfo = () => {
   return async(dispatch) => {
     const userId = await firebase.auth().currentUser.uid
-
-    // const signedInUser = firebase.firestore().collection('users').doc(`${userId}`)
-    // dispatch(_getUserInfo(signedInUser))
-    // console.log("SIGNED IN USER", signedInUser)
-    // console.log("USER ID ID ID", userId)
     const usersRef = firebase.firestore().collection('users')
-    // console.log("USERS REF", usersRef)
     usersRef
       .doc(userId)
       .get()

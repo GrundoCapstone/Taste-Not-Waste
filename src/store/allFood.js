@@ -7,7 +7,7 @@ add multiple food items, then click confirm to change state
 
 */
 import * as Notifications from 'expo-notifications';
-import { firebase } from '../firebase/config';
+import firebase from '../firebase/firebase';
 
 // Action Types
 const GET_ALL_FOODS = 'GET_ALL_FOODS';
@@ -131,7 +131,6 @@ export const deleteSingleFood = (food) => {
       const snapshot = await fridgeRef.where('name', '==', food).get();
       let result;
       snapshot.forEach((doc) => {
-        console.log('SNAPSHOT DOC ID', doc.id);
         result = doc.id;
       });
       await fridgeRef.doc(result).delete();
@@ -160,8 +159,3 @@ const allFoodReducer = (state = initialState, action) => {
 };
 
 export default allFoodReducer;
-
-// const daysLeft = (new Date() - doc.data().expiration.seconds) / 86400
-// const expiration = new Date(doc.data().expiration.seconds * 1000).toLocaleString()
-// resultArr.push(doc.data().name, (expiration))
-// console.log(resultArr)

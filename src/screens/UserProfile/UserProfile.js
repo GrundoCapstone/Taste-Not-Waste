@@ -1,7 +1,6 @@
 //user profile component
-import { View, SafeAreaView, Text, Button, Image } from 'react-native';
-import React, { useEffect, useState } from 'react';
-import { firebase } from '../../firebase/config'
+import { SafeAreaView, Text, Image } from 'react-native';
+import React from 'react';
 import styles from './styles'
 import LogoutScreen from '../LogoutScreen/LogoutScreen';
 import {connect} from 'react-redux'
@@ -14,7 +13,6 @@ class UserProfile extends React.Component{
     }
     
     render(){
-        console.log("USER PROFILE THIS PROPS =====", this.props.userInfo)
         let userName = "" 
         let userEmail = ""
         if(this.props.userInfo !== null){
@@ -43,9 +41,3 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(UserProfile)
-
-//editable pre-populated form for full name name email
-//sign out
-
-//const userId = firebase.auth().currentUser.uid
-//const userRef = firebase.firestore().collection(`/users/${userId}`)

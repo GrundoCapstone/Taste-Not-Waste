@@ -8,6 +8,7 @@ const firebaseConfig = {
   projectId: Environment['FIREBASE_PROJECT_ID'],
   storageBucket: Environment['FIREBASE_STORAGE_BUCKET'],
   messagingSenderId: Environment['FIREBASE_MESSAGING_SENDER_ID'],
+  appId: Environment['APP_ID']
 };
 
 if (!firebase.apps.length) {
