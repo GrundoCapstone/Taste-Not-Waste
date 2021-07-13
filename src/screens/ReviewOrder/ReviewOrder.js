@@ -68,6 +68,7 @@ class ReviewOrder extends React.Component {
   };
 
   render() {
+    console.log('RENDER REVIEW ORDER: ', this.state.food);
     return (
       <View style={styles.container}>
         <Text style={styles.title}>Review Your Order</Text>
@@ -99,7 +100,7 @@ class ReviewOrder extends React.Component {
                     <TextInput
                       style={styles.editDate}
                       value={item.expiration}
-                      placeholder="MMM DD YYYY"
+                      placeholder='"JAN 01 2021"'
                       onChangeText={(text) => {
                         const newDate = [...this.state.food];
                         newDate[index].expiration = text;
