@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './styles';
 import {
   Text,
@@ -10,11 +10,16 @@ import {
   TextInput,
   ScrollView,
   KeyboardAvoidingView,
+  Button
 } from 'react-native';
 import { connect } from 'react-redux';
 import { addFoodItem } from '../../store/singleFood';
 import { addAllFoods } from '../../store/allFood';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
+
+const Stack = createStackNavigator();
 
 class ReviewOrder extends React.Component {
   constructor(props) {
@@ -71,7 +76,10 @@ class ReviewOrder extends React.Component {
     console.log('RENDER REVIEW ORDER: ', this.state.food);
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>Review Your Order</Text>
+        <TouchableOpacity style={styles.backButton} onPress={() => this.props.navigation.goBack()} >
+        <Text style={styles.textStyle} title="Go back">Back</Text>
+        </TouchableOpacity>
+        <Text style={styles.title}>Review Order</Text>
         <View style={styles.orderDate}>
           <Text>
             Order Date: {this.state.orderDate.toString().slice(4, 15)}
