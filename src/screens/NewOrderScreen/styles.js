@@ -8,6 +8,7 @@ export default StyleSheet.create({
   },
   title: {
     fontSize: 30,
+    textAlign: 'center',
     marginTop: 60,
     fontFamily: 'Kalam',
   },

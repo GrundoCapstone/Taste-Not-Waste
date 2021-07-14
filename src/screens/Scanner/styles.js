@@ -4,6 +4,9 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#B8E0D2',
+  },
+  body: {
+    marginTop: 60,
     paddingTop: 30,
   },
   developmentModeText: {
@@ -12,18 +15,13 @@ export default StyleSheet.create({
     lineHeight: 19,
     textAlign: 'center',
   },
-  contentContainer: {
-    paddingTop: 30,
-  },
 
   getStartedContainer: {
     alignItems: 'center',
     marginHorizontal: 50,
   },
-
   getStartedText: {
     fontSize: 30,
-    zIndex: 2,
     fontFamily: 'Kalam',
     lineHeight: 40,
     textAlign: 'center',

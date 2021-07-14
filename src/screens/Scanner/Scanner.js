@@ -35,19 +35,11 @@ class Scanner extends React.Component {
 
     return (
       <ScrollView style={styles.container}>
-        <View
-          style={styles.container}
-          contentContainerStyle={styles.contentContainer}
-        >
+        <View style={styles.body}>
+          <Text style={styles.getStartedText}>Upload a Receipt</Text>
           <TouchableOpacity style={styles.backButton} onPress={() => this.props.navigation.goBack()} >
         <Text style={styles.textStyle} title="Go back">Back</Text>
         </TouchableOpacity>
-          <View style={styles.getStartedContainer}>
-            {image ? null : (
-              <Text style={styles.getStartedText}>Upload a Receipt</Text>
-            )}
-          </View>
-
           <View style={styles.helpContainer}>
             <TouchableOpacity
               onPress={this.props.pickImage}
@@ -131,7 +123,9 @@ class Scanner extends React.Component {
             this.props.navigation.navigate('ReviewOrder');
           }}
           title="Analyze Receipt!"
-        ><Text style = {styles.buttonText}>Analyze Receipt!</Text></TouchableOpacity>
+        >
+          <Text style={styles.buttonText}>Analyze Receipt!</Text>
+        </TouchableOpacity>
 
         <View
           style={{

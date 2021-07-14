@@ -8,7 +8,7 @@ export default StyleSheet.create({
   },
   title: {
     fontSize: 30,
-    marginTop: 15,
+    marginTop: 18,
     fontFamily: 'Kalam',
   },
   userName: {
@@ -23,5 +23,6 @@ export default StyleSheet.create({
     resizeMode: 'contain',
     height: 150,
     marginTop: 20,
+    marginBottom: 10,
   },
 });

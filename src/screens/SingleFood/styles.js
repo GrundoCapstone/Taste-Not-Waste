@@ -56,6 +56,7 @@ export default StyleSheet.create({
     borderRadius: 5,
     alignItems: 'center',
     justifyContent: 'space-evenly',
+    backgroundColor: '#B8E0D2',
   },
   recipesScroll: {
     height: '74%',

@@ -47,10 +47,6 @@ class FridgeScreen extends React.Component {
         <ScrollView style={styles.scrollView}>
           <Text style={styles.title}>Fridge</Text>
           <View style={styles.totalList}>
-            {/* <View style={styles.tableHeader}>
-              <Text style={styles.itemColumnName}>Item</Text>
-              <Text style={styles.expiresColumnName}>Expires In</Text>
-            </View> */}
             {foods.map((food, index) => {
               return (
                 <TouchableOpacity
