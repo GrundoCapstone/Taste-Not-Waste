@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import {
   Text,
@@ -17,11 +17,9 @@ class FridgeScreen extends React.Component {
   }
 
   componentDidMount() {
-    console.log('COMPONENT DID MOUNT FRIDGE');
     this.props.loadAllFoods();
   }
   onNavigationPress(food) {
-    console.log('FOOD FROM ON NAVIGATION PRESS', food);
     this.props.navigation.navigate('SingleFood', {
       name: food.name,
       expiration: food.expiration,
@@ -29,11 +27,6 @@ class FridgeScreen extends React.Component {
   }
 
   render() {
-    // console.log(
-    //   'AllFoodsFridge from FridgeScreen : ',
-    //   this.props.allFoodsFridge
-    // );
-    console.log('RENDER FRIDGE');
     let foods = this.props.allFoodsFridge;
     foods.sort(function (a, b) {
       const keyA = a.expiration;
@@ -78,7 +71,6 @@ class FridgeScreen extends React.Component {
 }
 
 const mapState = (state) => {
-  console.log('map state in fridge');
   return {
     allFoodsFridge: state.allFoods,
   };
