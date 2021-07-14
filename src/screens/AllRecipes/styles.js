@@ -5,6 +5,7 @@ export default StyleSheet.create({
     marginTop: 50,
     flex: 1,
     alignItems: 'center',
+    backgroundColor: '#EAC4D5'
   },
   header: {
     fontFamily: 'Kalam',
@@ -63,7 +64,7 @@ export default StyleSheet.create({
     fontSize: 16,
   },
   button: {
-    backgroundColor: '#FFBABE',
+    backgroundColor: '#B8E0D2',
     borderColor: 'black',
     borderRadius: 5,
     borderWidth: 1,

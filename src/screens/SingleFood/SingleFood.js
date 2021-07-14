@@ -35,7 +35,6 @@ class SingleFood extends React.Component {
     const expiration = new Date(currentDate + duration * 24 * 60 * 60 * 1000)
       .toString()
       .slice(4, 15);
-    console.log('PROPS FROM SINGLE FOOD', food.name, expiration);
     return (
       <View style={styles.screenContainer}>
         <View style={styles.body}>

@@ -121,14 +121,14 @@ class Scanner extends React.Component {
           elevation: 2,
         }}
       >
-        <Button
-          style={{ marginBottom: 10 }}
+        <TouchableOpacity
+          style={styles.analyzeButton}
           onPress={() => {
             this.props.submitToGoogle(this.props.image);
             this.props.navigation.navigate('ReviewOrder');
           }}
           title="Analyze Receipt!"
-        />
+        ><Text style = {styles.buttonText}>Analyze Receipt!</Text></TouchableOpacity>
 
         <View
           style={{

@@ -4,7 +4,7 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    backgroundColor: '#FFBABE',
+    backgroundColor: '#B8E0D2',
   },
   title: {
     fontSize: 30,
@@ -30,7 +30,7 @@ export default StyleSheet.create({
     paddingLeft: 16,
   },
   button: {
-    backgroundColor: '#6ED8BE',
+    backgroundColor: '#EAC4D5',
     borderColor: 'black',
     borderWidth: 1,
     marginLeft: 30,

@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
   screenContainer: {
     height: '100%',
-    backgroundColor: '#FDEAF3',
+    backgroundColor: '#EAC4D5',
     width: '100%',
   },
   body: {
@@ -36,7 +36,7 @@ export default StyleSheet.create({
     borderColor: 'black',
     borderRadius: 5,
     borderWidth: 1,
-    backgroundColor: '#FFBABE',
+    backgroundColor: '#B8E0D2',
     width: '70%',
     marginLeft: '15%',
     marginRight: '15%',
