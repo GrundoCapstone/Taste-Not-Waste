@@ -26,6 +26,7 @@ class UserProfile extends React.Component{
                 <Text style={styles.userName}>{userName}</Text>
                 <Text style={styles.userEmail}>{userEmail}</Text>
                 <LogoutScreen />
+                <Text style={styles.appName}>Taste Not Waste</Text>
             </SafeAreaView>
         )
     }
