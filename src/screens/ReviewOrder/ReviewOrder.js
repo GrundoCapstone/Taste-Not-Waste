@@ -22,6 +22,7 @@ class ReviewOrder extends React.Component {
     this.state = {
       food: [],
       newFood: '',
+      newExpiration: '',
       modalVisible: false,
       orderDate: new Date(),
       deleteModalVisible: false,
@@ -92,7 +93,7 @@ class ReviewOrder extends React.Component {
               if (item.name.length || item.expiration.length) {
                 return (
                   <View key={item.name} style={styles.tableRow}>
-                    <TextInput
+                    {/* <TextInput
                       style={styles.editName}
                       autoFocus={true}
                       value={item.name}
@@ -111,7 +112,9 @@ class ReviewOrder extends React.Component {
                         newDate[index].expiration = text;
                         this.setState({ ...this.state, food: newDate });
                       }}
-                    ></TextInput>
+                    ></TextInput> */}
+                    <Text >{item.name}</Text>
+                    <Text >{item.expiration}</Text>
                     <View>
                       <TouchableOpacity
                         onPress={() => this.onDeleteRow(item.name, index)}
@@ -164,7 +167,7 @@ class ReviewOrder extends React.Component {
           <Text style={styles.modalText}>Add an Item</Text>
           <TextInput
             style={styles.input}
-            placeholder="Food Item"
+            placeholder="FOOD ITEM"
             placeholderTextColor="#aaaaaa"
             onChangeText={(text) => {
               this.setState({ newFood: text });
@@ -172,10 +175,20 @@ class ReviewOrder extends React.Component {
             underlineColorAndroid="transparent"
             autoCapitalize="none"
           />
+           <TextInput
+            style={styles.input}
+            placeholder='"JAN 01 2021" (optional)'
+            placeholderTextColor="#aaaaaa"
+            onChangeText={(text) => {
+              this.setState({ newExpiration: text });
+            }}
+            underlineColorAndroid="transparent"
+            autoCapitalize="none"
+          />
           <Pressable
             style={[styles.button, styles.buttonClose]}
             onPress={() => {
-              this.props.loadSingleFood(this.state.newFood);
+              this.props.loadSingleFood(this.state.newFood, this.state.newExpiration);
               this.setState({
                 ...this.state,
                 modalVisible: !this.state.modalVisible,
@@ -259,7 +272,7 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    loadSingleFood: (food) => dispatch(addFoodItem(food)),
+    loadSingleFood: (food, expiration) => dispatch(addFoodItem(food, expiration)),
     loadFridge: (foods) => dispatch(addAllFoods(foods)),
   };
 };
