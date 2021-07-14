@@ -1,11 +1,7 @@
 import React from 'react';
 import {
-  ActivityIndicator,
-  Button,
   FlatList,
   Image,
-  Share,
-  StyleSheet,
   TouchableOpacity,
   Text,
   ScrollView,
@@ -65,7 +61,6 @@ class Scanner extends React.Component {
               />
             )}
             {this._maybeRenderImage()}
-            {/* {this._maybeRenderUploadingOverlay()} */}
           </View>
         </View>
       </ScrollView>
@@ -81,25 +76,6 @@ class Scanner extends React.Component {
       );
     });
   };
-
-  // _maybeRenderUploadingOverlay = () => {
-  //   if (this.state.uploading) {
-  //     return (
-  //       <View
-  //         style={[
-  //           StyleSheet.absoluteFill,
-  //           {
-  //             backgroundColor: 'rgba(0,0,0,0.4)',
-  //             alignItems: 'center',
-  //             justifyContent: 'center',
-  //           },
-  //         ]}
-  //       >
-  //         <ActivityIndicator color="#fff" animating size="large" />
-  //       </View>
-  //     );
-  //   }
-  // };
 
   _maybeRenderImage = () => {
     let { image, googleResponse } = this.props;

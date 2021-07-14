@@ -18,7 +18,6 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FridgeNavigator from './src/screens/FridgeScreen/FridgeNavigator';
-import { AppLoading } from 'expo';
 import { useFonts } from '@use-expo/font';
 
 if (!global.btoa) {
@@ -32,7 +31,6 @@ const Tab = createMaterialBottomTabNavigator();
 
 const customFonts = {
   Kalam: require('./assets/fonts/Kalam/Kalam-Regular.ttf'),
-  // KalamBold: require('./assets/fonts/Kalam/Kalam-Bold.ttf'),
 };
 
 export default function App() {
@@ -65,9 +63,7 @@ export default function App() {
   if (loading) {
     return <></>;
   }
-  // if (!isLoaded) {
-  //   return <AppLoading />;
-  // }
+
   return (
     <Provider store={store}>
       <NavigationContainer>

@@ -10,16 +10,11 @@ import {
   TextInput,
   ScrollView,
   KeyboardAvoidingView,
-  Button
 } from 'react-native';
 import { connect } from 'react-redux';
 import { addFoodItem } from '../../store/singleFood';
 import { addAllFoods } from '../../store/allFood';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import { createStackNavigator } from '@react-navigation/stack';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
-
-const Stack = createStackNavigator();
 
 class ReviewOrder extends React.Component {
   constructor(props) {

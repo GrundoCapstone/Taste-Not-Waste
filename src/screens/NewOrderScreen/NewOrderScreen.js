@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styles from './styles';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import Scanner from '../Scanner/Scanner';
 import ReviewOrder from '../ReviewOrder/ReviewOrder';
 import { setToken } from '../../store/user';
