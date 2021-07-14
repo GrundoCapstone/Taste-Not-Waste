@@ -46,9 +46,10 @@ export const fetchAllFoods = () => {
         .collection(`/users/${userId}/fridge`);
       const snapshot = await fridgeRef.get();
       const resultArr = [];
+      const unknownExpiration = new Date('Jan 1 2099').getTime()
       snapshot.forEach((doc) => {
         //if food expiration is known
-        if (doc.data().expiration !== 'unknown') {
+        if (doc.data().expiration !== unknownExpiration) {
           const expiration = new Date(
             doc.data().expiration.seconds * 1000
           ).getTime();
@@ -58,7 +59,10 @@ export const fetchAllFoods = () => {
           );
           resultArr.push({ name: doc.data().name, expiration: difference });
         } else {
-          resultArr.push({ name: doc.data().name, expiration: 'unkown' });
+          resultArr.push({
+            name: doc.data().name,
+            expiration: Number.MAX_SAFE_INTEGER,
+          });
         }
       });
       dispatch(getAllFoods(resultArr));
@@ -83,25 +87,28 @@ export const addAllFoods = (foods) => {
         }
         //if food expiration in review order was left blank
         else {
-          food.expiration = 'unknown';
+          food.expiration = new Date('Jan 1 2099');
         }
         fridgeRef.doc().set(food);
         //this is to add the notifications
-    });
-    const body = foods.length > 1 ? `You have ${foods.length} foods expiring!` : `Your ${foods[0].name} is expiring!`
-    await Notifications.scheduleNotificationAsync({
-      content: {
-        title: "Time to eat! 🥑",
-        body: body,
-        data: { data: 'goes here' },
-      },
-      trigger: { seconds: 5 },
-    });
+      });
+      const body =
+        foods.length > 1
+          ? `You have ${foods.length} foods expiring!`
+          : `Your ${foods[0].name} is expiring!`;
+      await Notifications.scheduleNotificationAsync({
+        content: {
+          title: 'Time to eat! 🥑',
+          body: body,
+          data: { data: 'goes here' },
+        },
+        trigger: { seconds: 5 },
+      });
       const snapshot = await fridgeRef.get();
 
       const resultArr = [];
       snapshot.forEach((doc) => {
-        if (doc.data().expiration !== 'unknown') {
+        if (doc.data().expiration !== new Date('Jan 1 2099')) {
           const expiration = new Date(
             doc.data().expiration.seconds * 1000
           ).getTime();
@@ -111,7 +118,8 @@ export const addAllFoods = (foods) => {
           );
           resultArr.push({ name: doc.data().name, expiration: difference });
         } else {
-          resultArr.push({ name: doc.data().name, expiration: 'unknown' });
+          const unknownExpiration = new Date('Jan 1 2099').getTime()
+          resultArr.push({ name: doc.data().name, expiration: unknownExpiration });
         }
       });
       dispatch(_addAllFoods(resultArr));
@@ -151,8 +159,8 @@ const allFoodReducer = (state = initialState, action) => {
     case ADD_ALL_FOODS:
       return action.foods;
     case DELETE_SINGLE_FOOD:
-      const removedFood = state.filter(food => food.id !== action.food.id)
-      return [...state, removedFood]
+      const removedFood = state.filter((food) => food.id !== action.food.id);
+      return [...state, removedFood];
     default:
       return state;
   }
