@@ -12,10 +12,10 @@ export default StyleSheet.create({
     marginLeft: '5%',
   },
   foodInfo: {
-    width: '50%',
+    width: '70%',
     textAlign: 'center',
-    marginLeft: '25%',
-    marginRight: '25%',
+    marginLeft: '15%',
+    marginRight: '15%',
   },
   title: {
     fontFamily: 'Kalam',
@@ -58,7 +58,8 @@ export default StyleSheet.create({
     justifyContent: 'space-evenly',
   },
   recipesScroll: {
-    height: '69%',
+    height: '74%',
+    marginBottom: 10,
   },
   recipesTitle: {
     fontFamily: 'Kalam',
