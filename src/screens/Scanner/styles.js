@@ -4,7 +4,10 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#B8E0D2',
-    paddingTop: 60,
+    // paddingTop: 60,
+  },
+  body: {
+    marginTop: 60,
   },
   developmentModeText: {
     marginBottom: 20,
@@ -12,20 +15,14 @@ export default StyleSheet.create({
     lineHeight: 19,
     textAlign: 'center',
   },
-  contentContainer: {
-    paddingTop: 30,
-  },
 
   getStartedContainer: {
     alignItems: 'center',
     marginHorizontal: 50,
   },
-
   getStartedText: {
-    fontSize: 16,
-    zIndex: 2,
+    fontSize: 30,
     fontFamily: 'Kalam',
-    lineHeight: 24,
     textAlign: 'center',
   },
 
@@ -63,5 +60,5 @@ export default StyleSheet.create({
     justifyContent: 'center',
     padding: 8,
     marginBottom: 10,
-  }
+  },
 });

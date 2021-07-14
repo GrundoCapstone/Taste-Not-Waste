@@ -2,14 +2,14 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   body: {
-    marginTop: 50,
     flex: 1,
     alignItems: 'center',
-    backgroundColor: '#EAC4D5'
+    backgroundColor: '#EAC4D5',
   },
   header: {
+    marginTop: 60,
     fontFamily: 'Kalam',
-    fontSize: 35,
+    fontSize: 30,
     marginBottom: 0,
     padding: 0,
     textAlign: 'center',
@@ -27,6 +27,7 @@ export default StyleSheet.create({
     width: '90%',
     marginLeft: '5%',
     marginRight: '5%',
+    backgroundColor: '#B8E0D2',
   },
   item: {
     padding: 10,
@@ -68,10 +69,10 @@ export default StyleSheet.create({
     borderColor: 'black',
     borderRadius: 5,
     borderWidth: 1,
-    marginLeft: 30,
-    marginRight: 30,
-    marginTop: 20,
-    marginBottom: 15,
+    marginLeft: 70,
+    marginRight: 70,
+    marginTop: 10,
+    marginBottom: 30,
     height: 48,
     borderRadius: 5,
     alignItems: 'center',
@@ -85,12 +86,5 @@ export default StyleSheet.create({
     fontFamily: 'Kalam',
     textAlign: 'center',
     fontSize: 18,
-  },
-  detailButton: {
-    marginLeft: 5,
-    borderWidth: 1,
-    borderRadius: 5,
-    padding: 5,
-    backgroundColor: '#FFBABE',
   },
 });
