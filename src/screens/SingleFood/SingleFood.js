@@ -46,7 +46,11 @@ class SingleFood extends React.Component {
             <TouchableOpacity onPress = {this.handleBackButton} style={styles.backButton}><Text style = {styles.delete}>Back</Text></TouchableOpacity>
           <View style={styles.foodInfo}>
             <Text style={styles.title}>{food.name}</Text>
-            <Text style={styles.date}>Expires on: {expiration}</Text>
+            <Text style={styles.date}>Expires on: 
+            {expiration !== 'Dec 31 2098' ? 
+            <Text> {expiration} </Text> : 
+            <Text> Unknown Expiration </Text>}
+            </Text>
             <TouchableOpacity
               style={styles.deleteButton}
               onPress={() => this.handleDelete()}

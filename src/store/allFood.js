@@ -46,9 +46,10 @@ export const fetchAllFoods = () => {
         .collection(`/users/${userId}/fridge`);
       const snapshot = await fridgeRef.get();
       const resultArr = [];
+      const unknownExpiration = new Date('Jan 1 2099').getTime()
       snapshot.forEach((doc) => {
         //if food expiration is known
-        if (doc.data().expiration !== 'unknown') {
+        if (doc.data().expiration !== unknownExpiration) {
           const expiration = new Date(
             doc.data().expiration.seconds * 1000
           ).getTime();
@@ -86,7 +87,7 @@ export const addAllFoods = (foods) => {
         }
         //if food expiration in review order was left blank
         else {
-          food.expiration = 'unknown';
+          food.expiration = new Date('Jan 1 2099');
         }
         fridgeRef.doc().set(food);
         //this is to add the notifications
@@ -107,7 +108,7 @@ export const addAllFoods = (foods) => {
 
       const resultArr = [];
       snapshot.forEach((doc) => {
-        if (doc.data().expiration !== 'unknown') {
+        if (doc.data().expiration !== new Date('Jan 1 2099')) {
           const expiration = new Date(
             doc.data().expiration.seconds * 1000
           ).getTime();
@@ -117,7 +118,8 @@ export const addAllFoods = (foods) => {
           );
           resultArr.push({ name: doc.data().name, expiration: difference });
         } else {
-          resultArr.push({ name: doc.data().name, expiration: 'unknown' });
+          const unknownExpiration = new Date('Jan 1 2099').getTime()
+          resultArr.push({ name: doc.data().name, expiration: unknownExpiration });
         }
       });
       dispatch(_addAllFoods(resultArr));
