@@ -39,6 +39,9 @@ class Scanner extends React.Component {
           style={styles.container}
           contentContainerStyle={styles.contentContainer}
         >
+          <TouchableOpacity style={styles.backButton} onPress={() => this.props.navigation.goBack()} >
+        <Text style={styles.textStyle} title="Go back">Back</Text>
+        </TouchableOpacity>
           <View style={styles.getStartedContainer}>
             {image ? null : (
               <Text style={styles.getStartedText}>Upload a Receipt</Text>
