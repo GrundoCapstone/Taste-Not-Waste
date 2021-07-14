@@ -33,9 +33,7 @@ class FridgeScreen extends React.Component {
     //   'AllFoodsFridge from FridgeScreen : ',
     //   this.props.allFoodsFridge
     // );
-    // console.log('RENDER FRIDGE');
     let foods = this.props.allFoodsFridge;
-    console.log('UNSORTED FRIDGE DATES: ', foods);
     foods.sort(function (a, b) {
       const keyA = a.expiration;
       const keyB = b.expiration;
@@ -43,7 +41,6 @@ class FridgeScreen extends React.Component {
       if (keyA > keyB) return 1;
       return 0;
     });
-    console.log('SORTED FRIDGE DATES: ', foods);
     return (
       <SafeAreaView style={styles.container}>
         <ScrollView style={styles.scrollView}>
