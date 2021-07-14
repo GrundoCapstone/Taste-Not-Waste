@@ -116,6 +116,10 @@ export default StyleSheet.create({
     fontSize: 16,
     flexDirection: 'row',
   },
+  orderDateText: {
+    fontSize: 16,
+    fontFamily: 'Kalam',
+  },
   totalList: {
     flexDirection: 'column',
     width: 350,
@@ -135,11 +139,15 @@ export default StyleSheet.create({
     marginBottom: 5,
   },
   itemColumn: {
+    fontSize: 16,
     flexDirection: 'column',
+    fontFamily: 'Kalam',
   },
   expirationColumn: {
+    fontSize: 16,
     flexDirection: 'column',
     marginRight: 55,
+    fontFamily: 'Kalam',
   },
   datePickerStyle: {
     width: 200,
@@ -162,15 +170,14 @@ export default StyleSheet.create({
   backButton: {
     marginTop: 60,
     backgroundColor: '#EAC4D5',
-    height: 20,
     borderRadius: 5,
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 1,
+    paddingTop: 1,
     width: 65,
     marginLeft: 12,
     borderWidth: 1,
     borderColor: 'black',
     marginRight: 300,
-  }
+  },
 });

@@ -64,11 +64,10 @@ export default StyleSheet.create({
   },
   backButton: {
     backgroundColor: '#EAC4D5',
-    height: 20,
     borderRadius: 5,
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 1,
+    paddingTop: 1,
     width: 65,
     marginLeft: 12,
     borderWidth: 1,
@@ -79,5 +78,5 @@ export default StyleSheet.create({
     color: 'black',
     fontFamily: 'Kalam',
     textAlign: 'center',
-  }
+  },
 });
