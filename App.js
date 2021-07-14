@@ -19,6 +19,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FridgeNavigator from './src/screens/FridgeScreen/FridgeNavigator';
 import { useFonts } from '@use-expo/font';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
 if (!global.btoa) {
   global.btoa = encode;
@@ -133,8 +134,25 @@ export default function App() {
             </>
           ) : (
             <>
-              <Tab.Screen name="Login" component={LoginScreen} />
-              <Tab.Screen name="Registration" component={RegistrationScreen} />
+              <Tab.Screen name="Login" component={LoginScreen}
+              options={{
+                  tabBarLabel: 'Login',
+                  tabBarIcon: ({ color }) => (
+                    <MaterialIcons name="food-bank" color={color} size={26} />
+                  ),
+                }}
+              />
+              <Tab.Screen name="Registration" component={RegistrationScreen}
+               options={{
+                tabBarLabel: 'Register',
+                  tabBarIcon: ({ color }) => (
+                 <MaterialCommunityIcons
+                  name="food-fork-drink"
+                   color={color}
+                   size={26}
+                     />
+                     ),
+                              }}/>
             </>
           )}
         </Tab.Navigator>

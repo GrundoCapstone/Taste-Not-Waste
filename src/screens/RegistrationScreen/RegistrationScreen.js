@@ -31,6 +31,7 @@ class RegistrationScreen extends React.Component {
           style={{ flex: 1, width: '100%' }}
           keyboardShouldPersistTaps="always"
         >
+          <Text style = {styles.title}>Taste Not Waste</Text>
           <Image
             style={styles.logo}
             source={require('../../../assets/avoIcon.png')}
