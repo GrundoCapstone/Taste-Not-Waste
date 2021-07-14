@@ -152,7 +152,7 @@ export default function App() {
                    size={26}
                      />
                      ),
-                              }}/>
+               }}/>
             </>
           )}
         </Tab.Navigator>
