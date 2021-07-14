@@ -7,6 +7,7 @@ import { nanoid } from 'nanoid/non-secure';
 //action types:
 const HANDLE_PICKED_IMAGE = 'HANDLE_PICKED_IMAGE';
 const SUBMIT_TO_GOOGLE = 'SUBMIT_TO_GOOGLE';
+const RESET_IMAGE = 'RESET_IMAGE';
 
 //action creators
 const handlePickedImage = (image) => {
@@ -23,22 +24,15 @@ const _submitToGoogle = (response) => {
   };
 };
 
+export const resetImage = () => {
+  return {
+    type: RESET_IMAGE,
+  };
+};
+
 export const _renderItem = (item) => {
   <Text>response: {JSON.stringify(item)}</Text>;
 };
-
-// export const _share = () => {
-//   Share.share({
-//     message: JSON.stringify(this.state.googleResponse.responses),
-//     title: 'Check it out',
-//     url: this.state.image,
-//   });
-// };
-
-// export const _copyToClipboard = () => {
-//   Clipboard.setString(this.state.image);
-//   alert('Copied to clipboard');
-// };
 
 //upload new image taken with camera
 export const _takePhoto = () => {
@@ -205,6 +199,8 @@ export default scannerReducer = (state = initialState, action) => {
       return { ...state, image: action.image };
     case SUBMIT_TO_GOOGLE:
       return { ...state, googleResponse: action.googleResponse };
+    case RESET_IMAGE:
+      return { ...state, image: null };
     default:
       return state;
   }
