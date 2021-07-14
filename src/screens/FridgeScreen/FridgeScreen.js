@@ -49,14 +49,17 @@ class FridgeScreen extends React.Component {
                   <View style={styles.foodTile}>
                     <View style={styles.tileContent}>
                       <Text style={styles.foodName}>{food.name}</Text>
-                      {parseInt(food.expiration) > 0 ? (
+                      {parseInt(food.expiration) < 20000 &&
+                      parseInt(food.expiration) > 0 ? (
                         <Text style={styles.foodExpiration}>
                           {food.expiration} Days Left
                         </Text>
-                      ) : food.expiration === 'unkown' ? (
-                        <Text style={styles.unkown}>UNKNOWN EXPIRATION</Text>
-                      ) : (
+                      ) : food.expiration === 0 ? (
+                        <Text style={styles.unkown}>EXPIRES TODAY</Text>
+                      ) : food.expiration <= -1 ? (
                         <Text style={styles.expired}>EXPIRED</Text>
+                      ) : (
+                        <Text style={styles.unkown}>UNKNOWN EXPIRATION</Text>
                       )}
                     </View>
                   </View>
