@@ -53,7 +53,7 @@ export const fetchAllFoods = () => {
           const expiration = new Date(
             doc.data().expiration.seconds * 1000
           ).getTime();
-          const currentDate = new Date().getTime();
+          const currentDate = new Date().setHours(0, 0, 0, 0)
           const difference = Math.round(
             (expiration - currentDate) / (1000 * 3600 * 24)
           );
