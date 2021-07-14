@@ -58,7 +58,10 @@ export const fetchAllFoods = () => {
           );
           resultArr.push({ name: doc.data().name, expiration: difference });
         } else {
-          resultArr.push({ name: doc.data().name, expiration: 'unkown' });
+          resultArr.push({
+            name: doc.data().name,
+            expiration: Number.MAX_SAFE_INTEGER,
+          });
         }
       });
       dispatch(getAllFoods(resultArr));
@@ -87,16 +90,19 @@ export const addAllFoods = (foods) => {
         }
         fridgeRef.doc().set(food);
         //this is to add the notifications
-    });
-    const body = foods.length > 1 ? `You have ${foods.length} foods expiring!` : `Your ${foods[0].name} is expiring!`
-    await Notifications.scheduleNotificationAsync({
-      content: {
-        title: "Time to eat! 🥑",
-        body: body,
-        data: { data: 'goes here' },
-      },
-      trigger: { seconds: 5 },
-    });
+      });
+      const body =
+        foods.length > 1
+          ? `You have ${foods.length} foods expiring!`
+          : `Your ${foods[0].name} is expiring!`;
+      await Notifications.scheduleNotificationAsync({
+        content: {
+          title: 'Time to eat! 🥑',
+          body: body,
+          data: { data: 'goes here' },
+        },
+        trigger: { seconds: 5 },
+      });
       const snapshot = await fridgeRef.get();
 
       const resultArr = [];
@@ -151,8 +157,8 @@ const allFoodReducer = (state = initialState, action) => {
     case ADD_ALL_FOODS:
       return action.foods;
     case DELETE_SINGLE_FOOD:
-      const removedFood = state.filter(food => food.id !== action.food.id)
-      return [...state, removedFood]
+      const removedFood = state.filter((food) => food.id !== action.food.id);
+      return [...state, removedFood];
     default:
       return state;
   }

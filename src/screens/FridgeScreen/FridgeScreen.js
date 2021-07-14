@@ -33,8 +33,9 @@ class FridgeScreen extends React.Component {
     //   'AllFoodsFridge from FridgeScreen : ',
     //   this.props.allFoodsFridge
     // );
-    console.log('RENDER FRIDGE');
+    // console.log('RENDER FRIDGE');
     let foods = this.props.allFoodsFridge;
+    console.log('UNSORTED FRIDGE DATES: ', foods);
     foods.sort(function (a, b) {
       const keyA = a.expiration;
       const keyB = b.expiration;
@@ -42,6 +43,7 @@ class FridgeScreen extends React.Component {
       if (keyA > keyB) return 1;
       return 0;
     });
+    console.log('SORTED FRIDGE DATES: ', foods);
     return (
       <SafeAreaView style={styles.container}>
         <ScrollView style={styles.scrollView}>
@@ -56,11 +58,12 @@ class FridgeScreen extends React.Component {
                   <View style={styles.foodTile}>
                     <View style={styles.tileContent}>
                       <Text style={styles.foodName}>{food.name}</Text>
-                      {parseInt(food.expiration) > 0 ? (
+                      {parseInt(food.expiration) !== Number.MAX_SAFE_INTEGER &&
+                      parseInt(food.expiration) > -1 ? (
                         <Text style={styles.foodExpiration}>
                           {food.expiration} Days Left
                         </Text>
-                      ) : food.expiration === 'unkown' ? (
+                      ) : food.expiration === Number.MAX_SAFE_INTEGER ? (
                         <Text style={styles.unkown}>UNKNOWN EXPIRATION</Text>
                       ) : (
                         <Text style={styles.expired}>EXPIRED</Text>
