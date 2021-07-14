@@ -68,12 +68,17 @@ class ReviewOrder extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <TouchableOpacity style={styles.backButton} onPress={() => this.props.navigation.goBack()} >
-        <Text style={styles.textStyle} title="Go back">Back</Text>
+        <TouchableOpacity
+          style={styles.backButton}
+          onPress={() => this.props.navigation.goBack()}
+        >
+          <Text style={styles.textStyle} title="Go back">
+            Back
+          </Text>
         </TouchableOpacity>
         <Text style={styles.title}>Review Order</Text>
         <View style={styles.orderDate}>
-          <Text>
+          <Text style={styles.orderDateText}>
             Order Date: {this.state.orderDate.toString().slice(4, 15)}
           </Text>
         </View>
@@ -259,6 +264,3 @@ const mapDispatch = (dispatch) => {
   };
 };
 export default connect(mapState, mapDispatch)(ReviewOrder);
-
-//ReviewOrder.js contains modal.
-//enter food item into modal, update state on Review Order

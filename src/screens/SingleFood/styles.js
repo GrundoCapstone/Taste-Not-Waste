@@ -91,11 +91,10 @@ export default StyleSheet.create({
   },
   backButton: {
     backgroundColor: '#B8E0D2',
-    height: 20,
     borderRadius: 5,
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 1,
+    paddingTop: 1,
     width: 65,
     borderWidth: 1,
     borderColor: 'black',
