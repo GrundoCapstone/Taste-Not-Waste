@@ -10,16 +10,11 @@ import {
   TextInput,
   ScrollView,
   KeyboardAvoidingView,
-  Button
 } from 'react-native';
 import { connect } from 'react-redux';
 import { addFoodItem } from '../../store/singleFood';
 import { addAllFoods } from '../../store/allFood';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import { createStackNavigator } from '@react-navigation/stack';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
-
-const Stack = createStackNavigator();
 
 class ReviewOrder extends React.Component {
   constructor(props) {
@@ -46,10 +41,8 @@ class ReviewOrder extends React.Component {
       this.setState({ food: updatedFoods });
     }
     if (this.props.receiptScan !== prevProps.receiptScan) {
-      console.log('FOUND SCAN RESULTS IN REVIEW');
       const newFoods = this.props.receiptScan;
       const updatedFoods = [...this.state.food, ...newFoods];
-      console.log('UPDATED FOODS: ', updatedFoods);
       this.setState({ food: updatedFoods });
     }
   }
@@ -73,7 +66,6 @@ class ReviewOrder extends React.Component {
   };
 
   render() {
-    console.log('RENDER REVIEW ORDER: ', this.state.food);
     return (
       <View style={styles.container}>
         <TouchableOpacity style={styles.backButton} onPress={() => this.props.navigation.goBack()} >
@@ -172,7 +164,6 @@ class ReviewOrder extends React.Component {
             onChangeText={(text) => {
               this.setState({ newFood: text });
             }}
-            // value={text}
             underlineColorAndroid="transparent"
             autoCapitalize="none"
           />

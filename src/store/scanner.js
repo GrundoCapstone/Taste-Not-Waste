@@ -97,9 +97,6 @@ export const _handleImagePicked = (pickerResult) => {
       console.log(e);
       alert('Upload failed, sorry :(');
     }
-    // finally {
-    //   this.setState({ uploading: false });
-    // }
   };
 };
 
@@ -153,16 +150,12 @@ export const submitToGoogle = (image) => {
           regExp.test(line)
         );
       });
-      // responseText = responseText.filter((text) => !text.includes('$'));
-      console.log('>>>>>>>>>>>>RESPONSE FROM GOOGLE OCR<<<<<<<<<<<<<<');
-      console.log(responseText);
       const foodObjects = {};
       responseText.forEach((food) => {
         const lowercaseFood = food.toLowerCase();
         foodObjects[lowercaseFood] = true;
       });
       responseText = responseText.map((food) => food.toLowerCase());
-      // console.log('FOOD OBJECTS: ', foodObjects);
       //get expirations from database
       let foodResult = [];
       const foodRef = firebase.firestore().collection('/food');
@@ -173,7 +166,6 @@ export const submitToGoogle = (image) => {
           //if the expiration date for this line item hasn't been found yet
           if (foodObjects[food]) {
             if (food.includes(doc.data().name)) {
-              // console.log('MATCH FOUND with OCR');
               //update foodObject to indicate that this food's expiration has been found
               foodObjects[food] = false;
               let currentDate = new Date();
@@ -193,8 +185,6 @@ export const submitToGoogle = (image) => {
           foodResult.push({ name: key, expiration: '' });
         }
       });
-      // console.log('>>>>>FOOD RESULT<<<<<');
-      console.log(foodResult);
       dispatch(_submitToGoogle(foodResult));
     } catch (error) {
       console.log(error);

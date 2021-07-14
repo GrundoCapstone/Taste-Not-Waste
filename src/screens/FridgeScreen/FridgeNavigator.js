@@ -5,10 +5,8 @@ import  FridgeScreen  from './FridgeScreen';
 
 const Stack = createStackNavigator();
 
-
 export default function FridgeNavigator({ navigation })
 {
-
   return (
     <>
       <Stack.Navigator initialRouteName="Fridge" screenOptions={{
