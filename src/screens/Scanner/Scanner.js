@@ -37,7 +37,9 @@ class Scanner extends React.Component {
       <ScrollView style={styles.container}>
         <View style={styles.body}>
           <Text style={styles.getStartedText}>Upload a Receipt</Text>
-          {/* <Text style={styles.title}>Upload a Receipt</Text> */}
+          <TouchableOpacity style={styles.backButton} onPress={() => this.props.navigation.goBack()} >
+        <Text style={styles.textStyle} title="Go back">Back</Text>
+        </TouchableOpacity>
           <View style={styles.helpContainer}>
             <TouchableOpacity
               onPress={this.props.pickImage}

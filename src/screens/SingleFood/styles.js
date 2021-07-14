@@ -7,7 +7,7 @@ export default StyleSheet.create({
     width: '100%',
   },
   body: {
-    marginTop: 50,
+    marginTop: 30,
     width: '90%',
     marginLeft: '5%',
   },
@@ -88,5 +88,18 @@ export default StyleSheet.create({
     height: 100,
     borderRadius: 5,
     marginRight: 10,
+  },
+  backButton: {
+    backgroundColor: '#B8E0D2',
+    height: 20,
+    borderRadius: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 1,
+    width: 65,
+    borderWidth: 1,
+    borderColor: 'black',
+    marginRight: 700,
+    marginTop: 30,
   },
 });

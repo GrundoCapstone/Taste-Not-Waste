@@ -12,9 +12,15 @@ class SingleFood extends React.Component {
     super();
     this.handlePress = this.handlePress.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+    this.handleBackButton = this.handleBackButton.bind(this);
+
   }
   handlePress(item) {
     Linking.openURL(item);
+  }
+
+  handleBackButton(){
+    this.props.navigation.navigate('Fridge');
   }
 
   componentDidMount() {
@@ -22,7 +28,6 @@ class SingleFood extends React.Component {
   }
 
   async handleDelete() {
-    console.log('HANDLE DELETE FROM SINGLE FOOD');
     await this.props.deleteFood(this.props.route.params.name);
     this.props.loadAllFoods();
     this.props.navigation.navigate('Fridge');
@@ -38,6 +43,7 @@ class SingleFood extends React.Component {
     return (
       <View style={styles.screenContainer}>
         <View style={styles.body}>
+            <TouchableOpacity onPress = {this.handleBackButton} style={styles.backButton}><Text style = {styles.delete}>Back</Text></TouchableOpacity>
           <View style={styles.foodInfo}>
             <Text style={styles.title}>{food.name}</Text>
             <Text style={styles.date}>Expires on: {expiration}</Text>

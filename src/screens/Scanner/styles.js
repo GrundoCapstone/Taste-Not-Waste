@@ -4,10 +4,10 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#B8E0D2',
-    // paddingTop: 60,
   },
   body: {
     marginTop: 60,
+    paddingTop: 30,
   },
   developmentModeText: {
     marginBottom: 20,
@@ -23,6 +23,7 @@ export default StyleSheet.create({
   getStartedText: {
     fontSize: 30,
     fontFamily: 'Kalam',
+    lineHeight: 40,
     textAlign: 'center',
   },
 
@@ -61,4 +62,22 @@ export default StyleSheet.create({
     padding: 8,
     marginBottom: 10,
   },
+  backButton: {
+    backgroundColor: '#EAC4D5',
+    height: 20,
+    borderRadius: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 1,
+    width: 65,
+    marginLeft: 12,
+    borderWidth: 1,
+    borderColor: 'black',
+    marginRight: 300,
+  },
+  textStyle: {
+    color: 'black',
+    fontFamily: 'Kalam',
+    textAlign: 'center',
+  }
 });
