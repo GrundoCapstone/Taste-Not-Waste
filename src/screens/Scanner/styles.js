@@ -6,7 +6,7 @@ export default StyleSheet.create({
     backgroundColor: '#B8E0D2',
   },
   body: {
-    marginTop: 60,
+    marginTop: 35,
     paddingTop: 30,
   },
   developmentModeText: {
@@ -23,7 +23,6 @@ export default StyleSheet.create({
   getStartedText: {
     fontSize: 30,
     fontFamily: 'Kalam',
-    lineHeight: 40,
     textAlign: 'center',
   },
 

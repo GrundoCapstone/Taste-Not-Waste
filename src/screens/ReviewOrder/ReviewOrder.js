@@ -9,7 +9,6 @@ import {
   Pressable,
   TextInput,
   ScrollView,
-  KeyboardAvoidingView,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { addFoodItem } from '../../store/singleFood';
@@ -62,7 +61,7 @@ class ReviewOrder extends React.Component {
   };
 
   onEditOrder = (item, index) => {
-    this.setState({ ...this.state, editModalVisible: true, 
+    this.setState({ ...this.state, editModalVisible: true,
       itemToEdit: {name: item.name, expiration: item.expiration, index} });
   };
 
@@ -77,6 +76,7 @@ class ReviewOrder extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+      <ScrollView style={styles.totalList}>
         <TouchableOpacity
           style={styles.backButton}
           onPress={() => this.props.navigation.goBack()}
@@ -91,8 +91,7 @@ class ReviewOrder extends React.Component {
             Order Date: {this.state.orderDate.toString().slice(4, 15)}
           </Text>
         </View>
-        <KeyboardAvoidingView behavior="padding">
-          <ScrollView style={styles.totalList}>
+
             <View style={styles.tableHeader}>
               <Text style={styles.itemColumn}>Item</Text>
               <Text style={styles.expirationColumn}>Expiration</Text>
@@ -142,7 +141,6 @@ class ReviewOrder extends React.Component {
               <Text style={styles.buttonTitle}>Confirm Order</Text>
             </TouchableOpacity>
           </ScrollView>
-        </KeyboardAvoidingView>
         {this.maybeRenderModal()}
         {this.maybeRenderEditModal(this.state.itemToEdit)}
         {this.maybeRenderDeleteModal(this.state.itemToDelete)}
@@ -241,7 +239,7 @@ class ReviewOrder extends React.Component {
             placeholderTextColor="#aaaaaa"
             value = {this.state.itemToEdit.name}
             onChangeText={(text) => {
-              this.setState(state => ({ 
+              this.setState(state => ({
                 ...state, itemToEdit: {
                   ...state.itemToEdit,
                   name: text
@@ -257,7 +255,7 @@ class ReviewOrder extends React.Component {
             placeholderTextColor="#aaaaaa"
             value = {food.expiration}
             onChangeText={(text) => {
-              this.setState(state => ({ 
+              this.setState(state => ({
                 ...state, itemToEdit: {
                   ...state.itemToEdit,
                   expiration: text
