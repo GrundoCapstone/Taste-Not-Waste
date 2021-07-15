@@ -9,6 +9,7 @@ export default StyleSheet.create({
   title: {
     fontSize: 30,
     fontFamily: 'Kalam',
+    textAlign: 'center'
   },
   logo: {
     flex: 1,
@@ -114,11 +115,13 @@ export default StyleSheet.create({
   },
   orderDate: {
     fontSize: 16,
-    flexDirection: 'row',
+    flexDirection: 'column',
+    alignItems: 'center'
   },
   orderDateText: {
     fontSize: 16,
     fontFamily: 'Kalam',
+    textAlign: 'center'
   },
   totalList: {
     flexDirection: 'column',
