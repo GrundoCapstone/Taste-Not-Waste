@@ -24,6 +24,7 @@ class ReviewOrder extends React.Component {
       newFood: '',
       newExpiration: '',
       modalVisible: false,
+      editModalVisible: false,
       orderDate: new Date(),
       deleteModalVisible: false,
       itemToDelete: {},
@@ -32,6 +33,7 @@ class ReviewOrder extends React.Component {
     this.onAddItem = this.onAddItem.bind(this);
     this.maybeRenderModal = this.maybeRenderModal.bind(this);
     this.onDeleteRow = this.onDeleteRow.bind(this);
+    this.onEditOrder = this.onEditOrder.bind(this);
     this.maybeRenderDeleteModal = this.maybeRenderDeleteModal.bind(this);
   }
 
@@ -56,6 +58,10 @@ class ReviewOrder extends React.Component {
 
   onAddItem = () => {
     this.setState({ ...this.state, modalVisible: true });
+  };
+
+  onEditOrder = () => {
+    this.setState({ ...this.state, editModalVisible: true });
   };
 
   onDeleteRow = (name, index) => {
@@ -113,8 +119,8 @@ class ReviewOrder extends React.Component {
                         this.setState({ ...this.state, food: newDate });
                       }}
                     ></TextInput> */}
-                    <Text >{item.name}</Text>
-                    <Text >{item.expiration}</Text>
+                    <Text>{item.name}</Text>
+                    <Text>{item.expiration}</Text>
                     <View>
                       <TouchableOpacity
                         onPress={() => this.onDeleteRow(item.name, index)}
@@ -137,12 +143,19 @@ class ReviewOrder extends React.Component {
             >
               <Text style={styles.buttonTitle}>Add Item</Text>
             </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => this.onEditOrder()}
+            >
+              <Text style={styles.buttonTitle}>Edit Order</Text>
+            </TouchableOpacity>
             <TouchableOpacity style={styles.button} onPress={this.onSubmit}>
               <Text style={styles.buttonTitle}>Confirm Order</Text>
             </TouchableOpacity>
           </ScrollView>
         </KeyboardAvoidingView>
         {this.maybeRenderModal()}
+        {this.maybeRenderEditModal()}
         {this.maybeRenderDeleteModal(this.state.itemToDelete)}
       </View>
     );
@@ -175,7 +188,7 @@ class ReviewOrder extends React.Component {
             underlineColorAndroid="transparent"
             autoCapitalize="none"
           />
-           <TextInput
+          <TextInput
             style={styles.input}
             placeholder='"JAN 01 2021" (optional)'
             placeholderTextColor="#aaaaaa"
@@ -188,7 +201,10 @@ class ReviewOrder extends React.Component {
           <Pressable
             style={[styles.button, styles.buttonClose]}
             onPress={() => {
-              this.props.loadSingleFood(this.state.newFood, this.state.newExpiration);
+              this.props.loadSingleFood(
+                this.state.newFood,
+                this.state.newExpiration
+              );
               this.setState({
                 ...this.state,
                 modalVisible: !this.state.modalVisible,
@@ -212,6 +228,74 @@ class ReviewOrder extends React.Component {
       </Modal>
     );
   };
+
+  maybeRenderEditModal = () => {
+    return (
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={this.state.editModalVisible}
+        onRequestClose={() => {
+          Alert.alert('Modal has been closed.');
+          this.setState({
+            ...this.state,
+            editModalVisible: !visible,
+          });
+        }}
+      >
+        <View style={styles.modalView}>
+          <Text style={styles.modalText}>Add an Item</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="FOOD ITEM"
+            placeholderTextColor="#aaaaaa"
+            onChangeText={(text) => {
+              this.setState({ newFood: text });
+            }}
+            underlineColorAndroid="transparent"
+            autoCapitalize="none"
+          />
+          <TextInput
+            style={styles.input}
+            placeholder='"JAN 01 2021" (optional)'
+            placeholderTextColor="#aaaaaa"
+            onChangeText={(text) => {
+              this.setState({ newExpiration: text });
+            }}
+            underlineColorAndroid="transparent"
+            autoCapitalize="none"
+          />
+          <Pressable
+            style={[styles.button, styles.buttonClose]}
+            onPress={() => {
+              this.props.loadSingleFood(
+                this.state.newFood,
+                this.state.newExpiration
+              );
+              this.setState({
+                ...this.state,
+                editModalVisible: !this.state.editModalVisible,
+              });
+            }}
+          >
+            <Text style={styles.textStyle}>Submit</Text>
+          </Pressable>
+          <Pressable
+            style={[styles.button, styles.buttonClose]}
+            onPress={() => {
+              this.setState({
+                ...this.state,
+                editModalVisible: !this.state.editModalVisible,
+              });
+            }}
+          >
+            <Text style={styles.textStyle}>Cancel</Text>
+          </Pressable>
+        </View>
+      </Modal>
+    );
+  };
+
   maybeRenderDeleteModal = (item) => {
     return (
       <Modal
@@ -272,7 +356,8 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    loadSingleFood: (food, expiration) => dispatch(addFoodItem(food, expiration)),
+    loadSingleFood: (food, expiration) =>
+      dispatch(addFoodItem(food, expiration)),
     loadFridge: (foods) => dispatch(addAllFoods(foods)),
   };
 };
