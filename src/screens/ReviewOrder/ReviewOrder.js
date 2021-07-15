@@ -9,7 +9,6 @@ import {
   Pressable,
   TextInput,
   ScrollView,
-  KeyboardAvoidingView,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { addFoodItem } from '../../store/singleFood';
@@ -77,7 +76,6 @@ class ReviewOrder extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-      {/* <KeyboardAvoidingView behavior="padding" sty> */}
       <ScrollView style={styles.totalList}>
         <TouchableOpacity
           style={styles.backButton}
@@ -143,7 +141,6 @@ class ReviewOrder extends React.Component {
               <Text style={styles.buttonTitle}>Confirm Order</Text>
             </TouchableOpacity>
           </ScrollView>
-        {/* </KeyboardAvoidingView> */}
         {this.maybeRenderModal()}
         {this.maybeRenderEditModal(this.state.itemToEdit)}
         {this.maybeRenderDeleteModal(this.state.itemToDelete)}

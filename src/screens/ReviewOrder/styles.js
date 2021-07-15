@@ -191,9 +191,8 @@ export default StyleSheet.create({
     justifyContent: 'center',
     paddingTop: 1,
     width: 65,
-    marginLeft: 12,
     borderWidth: 1,
     borderColor: 'black',
-    marginRight: 300,
+    marginRight: 350,
   },
 });
