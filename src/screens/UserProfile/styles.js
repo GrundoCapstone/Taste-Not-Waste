@@ -69,9 +69,11 @@ export default StyleSheet.create({
     fontFamily: 'Kalam',
     textAlign: 'center',
   },
-  checkBoxContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    marginBottom: 15,
+  unChecked: {
+    fontWeight: 'normal'
+  },
+  checked: {
+    color: 'red',
+    fontWeight: 'bold'
   }
 });

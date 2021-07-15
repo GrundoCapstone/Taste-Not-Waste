@@ -166,14 +166,17 @@ export const updateHealthRestrictions = (restrictions) => {
   return async (dispatch) => {
     const userId = await firebase.auth().currentUser.uid
     const usersRef = firebase.firestore().collection('users')
-    usersRef.doc(userId).update({healthLabels:restrictions})
-    .then((firestoreDocument) => {
-      if (!firestoreDocument.exists) {
-        alert('User does not exist anymore.');
-        return;
-      }
-    const user = firestoreDocument.data();
-    dispatch(_getUserInfo(user));
+    usersRef.doc(userId).update({healthLabels:restrictions});
+    usersRef
+      .doc(userId)
+      .get()
+      .then((firestoreDocument) => {
+        if (!firestoreDocument.exists) {
+          alert('User does not exist anymore.');
+          return;
+        }
+      const user = firestoreDocument.data();
+    dispatch(editHealthRestrictions(user));
         })
   }
 }

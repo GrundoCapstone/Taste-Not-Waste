@@ -6,18 +6,18 @@ import LogoutScreen from '../LogoutScreen/LogoutScreen';
 import {connect} from 'react-redux'
 import { gettingUserInfo, updateHealthRestrictions } from '../../store/user';
 import {CheckBox} from 'react-native-elements'
-
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 class UserProfile extends React.Component{
     constructor(props){
         super(props)
         this.state = {
-            healthLabels: {'vegan': false,
-                        'vegetarian': false,
-                    'dairy-free': false,
-                    'gluten-free': false},
-                    isChecked: false,
-                    modalVisible: true,
+            vegan: false,
+            vegetarian: false,
+            dairyFree: false,
+            glutenFree: false,
+            isChecked: false,
+            modalVisible: false,
              }
     }
 
@@ -28,16 +28,30 @@ class UserProfile extends React.Component{
     render(){
         let userName = ""
         let userEmail = ""
+        let vegan;
+        let vegetarian;
+        let glutenFree;
+        let dairyFree;
         if(this.props.userInfo !== null){
+            console.log(this.props.userInfo)
             userName = this.props.userInfo.fullName
             userEmail = this.props.userInfo.email
+            vegan = this.props.userInfo.healthLabels.vegan
+            vegetarian = this.props.userInfo.healthLabels.vegetarian
+            glutenFree = this.props.userInfo.healthLabels['gluten-free']
+            dairyFree = this.props.userInfo.healthLabels['dairy-free']
         }
+        console.log(vegan, vegetarian, glutenFree, dairyFree)
         return (
             <SafeAreaView style={styles.container}>
                 <Text style={styles.title}>My Profile</Text>
                 <Image source={require("../../../assets/avoIcon.png")} style={styles.iconLogo}/>
                 <Text style={styles.userName}>{userName}</Text>
                 <Text style={styles.userEmail}>{userEmail}</Text>
+                <Text style = {vegan ? styles.checked : styles.unChecked}>Vegan</Text>
+                <Text style = {vegetarian ? styles.checked : styles.unChecked}>Vegetarian</Text>
+                <Text style = {glutenFree ? styles.checked : styles.unChecked}>Gluten Free</Text>
+                <Text style = {dairyFree ? styles.checked : styles.unChecked}>Dairy Free</Text>
                 <TouchableOpacity onPress={() =>this.setState({modalVisible:true})}><Text>Edit Dietary Preferences</Text></TouchableOpacity>
                 <LogoutScreen />
                 {this.maybeRenderModal()}
@@ -62,53 +76,85 @@ class UserProfile extends React.Component{
               <Text style={styles.modalText}>Select Your Preferences</Text>
               <CheckBox
                     style={{flex: 1, padding: 10, margin: 10}}
-                    onClick={()=>{
-                    let labels = this.state.healthLabels;
+                    onPress={()=>{
                     this.setState({
-                     isChecked:!this.state.isChecked
+                     glutenFree:!this.state.glutenFree
                     })
                  }}
-                isChecked={this.state.isChecked}
+                checked={this.state.glutenFree}
+                uncheckedIcon = {<FontAwesome5
+                    name="square"
+                  />}
+                checkedIcon= {<FontAwesome5
+                    name="shopping-basket"
+                  />}
+                  iconType = 'material'
                 title = {'Gluten Free'}
                 />
                  <CheckBox
                     style={{flex: 1, padding: 10, margin: 10}}
-                    onClick={()=>{
+                    onPress={()=>{
                     let labels = this.state.healthLabels;
                     this.setState({
-                     isChecked:!this.state.isChecked
+                     vegetarian:!this.state.vegetarian
                     })
                  }}
-                isChecked={this.state.isChecked}
+                checked={this.state.vegetarian}
+                uncheckedIcon = {<FontAwesome5
+                    name="square"
+                  />}
+                checkedIcon= {<FontAwesome5
+                    name="shopping-basket"
+                  />}
+                  iconType = 'material'
                 title = {'Vegetarian'}
                 />
                 <CheckBox
                     style={{flex: 1, padding: 10, margin: 10}}
-                    onClick={()=>{
+                    onPress={()=>{
                     let labels = this.state.healthLabels;
                     this.setState({
-                     isChecked:!this.state.isChecked
+                     vegan:!this.state.vegan
                     })
                  }}
-                isChecked={this.state.isChecked}
+                checked={this.state.vegan}
+                uncheckedIcon = {<FontAwesome5
+                    name="square"
+                  />}
+                checkedIcon= {<FontAwesome5
+                    name="shopping-basket"
+                  />}
+                  iconType = 'material'
                 title = {'Vegan'}
                 />
                 <CheckBox
                     style={{flex: 1, padding: 10, margin: 10}}
-                    onClick={()=>{
+                    onPress={()=>{
                     let labels = this.state.healthLabels;
                     this.setState({
-                     isChecked:!this.state.isChecked
+                     dairyFree:!this.state.dairyFree
                     })
                  }}
-                isChecked={this.state.isChecked}
+                checked={this.state.dairyFree}
+                uncheckedIcon = {<FontAwesome5
+                    name="square"
+                  />}
+                checkedIcon= {<FontAwesome5
+                    name="shopping-basket"
+                  />}
+                  iconType = 'material'
                 title = {'Dairy Free'}
                 />
 
               <Pressable
                 style={[styles.button, styles.buttonClose]}
                 onPress={() => {
-                  this.props.loadSingleFood(this.state.newFood);
+                    let healthLabels = {
+                        'vegan':this.state.vegan,
+                        'vegetarian': this.state.vegetarian,
+                        'gluten-free': this.state.glutenFree,
+                        'dairy-free': this.state.dairyFree}
+                  this.props.editHealthInfo(healthLabels);
                   this.setState({
                     ...this.state,
                     modalVisible: !this.state.modalVisible,
