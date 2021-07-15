@@ -98,27 +98,10 @@ class ReviewOrder extends React.Component {
             {this.state.food.map((item, index) => {
               if (item.name.length || item.expiration.length) {
                 return (
-                  <View key={item.name} style={styles.tableRow}>
-                    {/* <TextInput
-                      style={styles.editName}
-                      autoFocus={true}
-                      value={item.name}
-                      onChangeText={(text) => {
-                        const newFood = [...this.state.food];
-                        newFood[index].name = text;
-                        this.setState({ ...this.state, food: newFood });
-                      }}
-                    ></TextInput>
-                    <TextInput
-                      style={styles.editDate}
-                      value={item.expiration}
-                      placeholder='"JAN 01 2021"'
-                      onChangeText={(text) => {
-                        const newDate = [...this.state.food];
-                        newDate[index].expiration = text;
-                        this.setState({ ...this.state, food: newDate });
-                      }}
-                    ></TextInput> */}
+                  <View
+                    key={item.name + item.expiration}
+                    style={styles.tableRow}
+                  >
                     <Text>{item.name}</Text>
                     <Text>{item.expiration}</Text>
                     <View>
@@ -230,6 +213,7 @@ class ReviewOrder extends React.Component {
   };
 
   maybeRenderEditModal = () => {
+    let copyFoodList = [...this.state.food];
     return (
       <Modal
         animationType="fade"
@@ -244,36 +228,43 @@ class ReviewOrder extends React.Component {
         }}
       >
         <View style={styles.modalView}>
-          <Text style={styles.modalText}>Add an Item</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="FOOD ITEM"
-            placeholderTextColor="#aaaaaa"
-            onChangeText={(text) => {
-              this.setState({ newFood: text });
-            }}
-            underlineColorAndroid="transparent"
-            autoCapitalize="none"
-          />
-          <TextInput
-            style={styles.input}
-            placeholder='"JAN 01 2021" (optional)'
-            placeholderTextColor="#aaaaaa"
-            onChangeText={(text) => {
-              this.setState({ newExpiration: text });
-            }}
-            underlineColorAndroid="transparent"
-            autoCapitalize="none"
-          />
+          <Text style={styles.modalText}>Edit Order</Text>
+          {copyFoodList.map((item, index) => {
+            // console.log('>>>>>>COPY FOOD LIST<<<<<<<<');
+            // console.log(copyFoodList);
+            if (item.name.length || item.expiration.length) {
+              return (
+                <View key={item.name} style={styles.tableRow}>
+                  <TextInput
+                    style={styles.editName}
+                    // autoFocus={true}
+                    value={item.name}
+                    onChangeText={(text) => {
+                      copyFoodList[index].name = text;
+                    }}
+                  ></TextInput>
+                  <TextInput
+                    style={styles.editDate}
+                    value={item.expiration}
+                    placeholder='"JAN 01 2021"'
+                    onChangeText={(text) => {
+                      copyFoodList[index].expiration = text;
+                    }}
+                  ></TextInput>
+                </View>
+              );
+            }
+          })}
           <Pressable
             style={[styles.button, styles.buttonClose]}
             onPress={() => {
-              this.props.loadSingleFood(
-                this.state.newFood,
-                this.state.newExpiration
-              );
+              // this.props.loadSingleFood(
+              //   this.state.newFood,
+              //   this.state.newExpiration
+              // );
               this.setState({
                 ...this.state,
+                food: copyFoodList,
                 editModalVisible: !this.state.editModalVisible,
               });
             }}
