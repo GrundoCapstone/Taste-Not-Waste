@@ -139,14 +139,15 @@ export default StyleSheet.create({
     marginBottom: 5,
   },
   itemColumn: {
-    fontSize: 16,
+    fontSize: 20,
+    width: 150,
     flexDirection: 'column',
     fontFamily: 'Kalam',
   },
   expirationColumn: {
-    fontSize: 16,
+    fontSize: 20,
     flexDirection: 'column',
-    marginRight: 55,
+    marginRight: 90,
     fontFamily: 'Kalam',
   },
   datePickerStyle: {
@@ -164,8 +165,20 @@ export default StyleSheet.create({
     alignItems: 'center',
     fontFamily: 'Kalam',
   },
+  icon: {
+    flexDirection: 'row'
+  },
   trashIcon: {
     marginRight: 10,
+  },
+  nameText: {
+    fontSize: 16,
+    fontFamily: 'Kalam',
+    width: 150
+  },
+  expirationText: {
+    fontSize: 16,
+    fontFamily: 'Kalam',
   },
   backButton: {
     marginTop: 60,
