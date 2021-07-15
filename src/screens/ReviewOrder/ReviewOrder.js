@@ -104,24 +104,24 @@ class ReviewOrder extends React.Component {
                     key={item.name + item.expiration}
                     style={styles.tableRow}
                   >
-                    <Text>{item.name}</Text>
-                    <Text>{item.expiration}</Text>
-                    <View>
+                    <Text style={styles.nameText}>{item.name}</Text>
+                    <Text style={styles.expirationText}>{item.expiration}</Text>
+                    <View style={styles.icon}>
                       <TouchableOpacity
-                        onPress={() => this.onDeleteRow(item.name, index)}
+                        onPress={() => this.onEditOrder(item, index)}
                       >
                         <FontAwesome5
-                          name="trash"
+                          name="edit"
                           color="black"
                           size={20}
                           style={styles.trashIcon}
                         />
                       </TouchableOpacity>
                       <TouchableOpacity
-                        onPress={() => this.onEditOrder(item, index)}
+                        onPress={() => this.onDeleteRow(item.name, index)}
                       >
                         <FontAwesome5
-                          name="edit"
+                          name="trash"
                           color="black"
                           size={20}
                           style={styles.trashIcon}
@@ -273,10 +273,6 @@ class ReviewOrder extends React.Component {
               let newFood = [...this.state.food];
               let replacementFood = {name: this.state.itemToEdit.name, expiration: this.state.itemToEdit.expiration}
               newFood.splice(food.index, 1, replacementFood);
-              // this.props.loadSingleFood(
-              //   this.state.newFood,
-              //   this.state.newExpiration
-              // );
               this.setState({
                 ...this.state,
                 food: newFood,
