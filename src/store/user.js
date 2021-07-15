@@ -12,9 +12,11 @@ const LOGIN = 'LOGIN';
 const SIGN_UP = 'SIGN_UP';
 const LOGOUT = 'LOGOUT';
 const NOTIFICATION_AUTH = 'NOTIFICATION_AUTH';
+const GET_USER_INFO = 'GET_USER_INFO';
+const EDIT_HEALTH_RESTRICTIONS = 'EDIT_HEALTH_RESTRICTIONS';
 
-const GET_USER_INFO = 'GET_USER_INFO'
 
+//{ vegan: false, vegetarian: true , }
 //action creator
 const _login = (user) => {
   return {
@@ -36,6 +38,13 @@ const _logout = (user) => {
     user: user,
   };
 };
+
+const editHealthRestrictions = (user) => {
+  return {
+    type: EDIT_HEALTH_RESTRICTIONS,
+    user:user
+  }
+}
 
 const setNotificationToken = (user) => {
   return {
@@ -92,6 +101,11 @@ export const signup = (fullName, email, password) => {
           id: uid,
           email,
           fullName,
+          healthLabels: {
+          'vegan':false,
+          'vegetarian':false,
+          "gluten-free":false,
+          'dairy-free':false}
         };
         const usersRef = firebase.firestore().collection('users');
         usersRef
@@ -148,6 +162,22 @@ export const gettingUserInfo = () => {
   }
 }
 
+export const updateHealthRestrictions = (restrictions) => {
+  return async (dispatch) => {
+    const userId = await firebase.auth().currentUser.uid
+    const usersRef = firebase.firestore().collection('users')
+    usersRef.doc(userId).update({healthLabels:restrictions})
+    .then((firestoreDocument) => {
+      if (!firestoreDocument.exists) {
+        alert('User does not exist anymore.');
+        return;
+      }
+    const user = firestoreDocument.data();
+    dispatch(_getUserInfo(user));
+        })
+  }
+}
+
 
 //reducer
 const initialState = {};
@@ -166,6 +196,8 @@ const userReducer = (state = initialState, action) => {
     case NOTIFICATION_AUTH:
       return action.user;
     case GET_USER_INFO:
+      return action.user;
+    case EDIT_HEALTH_RESTRICTIONS:
       return action.user;
     default:
       return state;

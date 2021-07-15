@@ -33,7 +33,7 @@ export const fetchRecipes = (ingredient, type) => {
       let options = {
         method: 'GET',
         url: 'https://edamam-recipe-search.p.rapidapi.com/search',
-        params: {q: `${ingredient}`, to: 20, Health: ['Vegan','Peanut-Free','Dairy-Free']},
+        params: {q: `${ingredient}`, to: 20, Health: ['Vegan','Dairy-Free']},
         headers: {
           'x-rapidapi-key': `${EDAMAM_API_KEY}`,
          'x-rapidapi-host': 'edamam-recipe-search.p.rapidapi.com'}

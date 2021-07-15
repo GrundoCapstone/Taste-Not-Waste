@@ -1,36 +1,24 @@
 //user profile component
-import { SafeAreaView, Text, Image } from 'react-native';
+import { SafeAreaView, Text, Image, TouchableOpacity, Modal, View, Pressable } from 'react-native';
 import React from 'react';
 import styles from './styles'
 import LogoutScreen from '../LogoutScreen/LogoutScreen';
 import {connect} from 'react-redux'
-import { gettingUserInfo } from '../../store/user';
-import RadioGroup from 'react-native-radio-buttons-group';
-import CheckboxFlex from "react-native-checkbox-flex";
-import CheckBox from 'react-native-check-box'
+import { gettingUserInfo, updateHealthRestrictions } from '../../store/user';
+import {CheckBox} from 'react-native-elements'
 
-const radioButtonsData = [{
-    id: '1', // acts as primary key, should be unique and non-empty string
-    label: 'Option 1',
-    value: 'option1'
-}, {
-    id: '2',
-    label: 'Option 2',
-    value: 'option2'
-}]
 
 class UserProfile extends React.Component{
     constructor(props){
         super(props)
         this.state = {
-            radioButtons: [...radioButtonsData],
-            isChecked: false,
-        }
-        this.onPressRadioButton = this.onPressRadioButton.bind(this)
-    }
-
-    onPressRadioButton(radioButtonsArray) {
-        this.setState({radioButtons: radioButtonsArray});
+            healthLabels: {'vegan': false,
+                        'vegetarian': false,
+                    'dairy-free': false,
+                    'gluten-free': false},
+                    isChecked: false,
+                    modalVisible: true,
+             }
     }
 
     componentDidMount(){
@@ -50,20 +38,100 @@ class UserProfile extends React.Component{
                 <Image source={require("../../../assets/avoIcon.png")} style={styles.iconLogo}/>
                 <Text style={styles.userName}>{userName}</Text>
                 <Text style={styles.userEmail}>{userEmail}</Text>
-            <CheckBox
-            style={{flex: 1, padding: 10}}
-            onClick={()=>{
-            this.setState({
-            isChecked:!this.state.isChecked
-      })
-    }}
-    isChecked={this.state.isChecked}
-    leftText={"CheckBox"}
-/>
+                <TouchableOpacity onPress={() =>this.setState({modalVisible:true})}><Text>Edit Dietary Preferences</Text></TouchableOpacity>
                 <LogoutScreen />
+                {this.maybeRenderModal()}
             </SafeAreaView>
         )
     }
+    maybeRenderModal = () => {
+        return (
+          <Modal
+            animationType="fade"
+            transparent={true}
+            visible={this.state.modalVisible}
+            onRequestClose={() => {
+              Alert.alert('Modal has been closed.');
+              this.setState({
+                ...this.state,
+                modalVisible: !visible,
+              });
+            }}
+          >
+            <View style={styles.modalView}>
+              <Text style={styles.modalText}>Select Your Preferences</Text>
+              <CheckBox
+                    style={{flex: 1, padding: 10, margin: 10}}
+                    onClick={()=>{
+                    let labels = this.state.healthLabels;
+                    this.setState({
+                     isChecked:!this.state.isChecked
+                    })
+                 }}
+                isChecked={this.state.isChecked}
+                title = {'Gluten Free'}
+                />
+                 <CheckBox
+                    style={{flex: 1, padding: 10, margin: 10}}
+                    onClick={()=>{
+                    let labels = this.state.healthLabels;
+                    this.setState({
+                     isChecked:!this.state.isChecked
+                    })
+                 }}
+                isChecked={this.state.isChecked}
+                title = {'Vegetarian'}
+                />
+                <CheckBox
+                    style={{flex: 1, padding: 10, margin: 10}}
+                    onClick={()=>{
+                    let labels = this.state.healthLabels;
+                    this.setState({
+                     isChecked:!this.state.isChecked
+                    })
+                 }}
+                isChecked={this.state.isChecked}
+                title = {'Vegan'}
+                />
+                <CheckBox
+                    style={{flex: 1, padding: 10, margin: 10}}
+                    onClick={()=>{
+                    let labels = this.state.healthLabels;
+                    this.setState({
+                     isChecked:!this.state.isChecked
+                    })
+                 }}
+                isChecked={this.state.isChecked}
+                title = {'Dairy Free'}
+                />
+
+              <Pressable
+                style={[styles.button, styles.buttonClose]}
+                onPress={() => {
+                  this.props.loadSingleFood(this.state.newFood);
+                  this.setState({
+                    ...this.state,
+                    modalVisible: !this.state.modalVisible,
+                  });
+                }}
+              >
+                <Text style={styles.textStyle}>Submit</Text>
+              </Pressable>
+              <Pressable
+                style={[styles.button, styles.buttonClose]}
+                onPress={() => {
+                  this.setState({
+                    ...this.state,
+                    modalVisible: !this.state.modalVisible,
+                  });
+                }}
+              >
+                <Text style={styles.textStyle}>Cancel</Text>
+              </Pressable>
+            </View>
+          </Modal>
+        );
+      };
 }
 const mapStateToProps = (state) => {
     return {
@@ -72,7 +140,8 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        loadUserInfo: (user) => dispatch(gettingUserInfo(user))
+        loadUserInfo: (user) => dispatch(gettingUserInfo(user)),
+        editHealthInfo: (restrictions) => dispatch(updateHealthRestrictions(restrictions))
     }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(UserProfile)
