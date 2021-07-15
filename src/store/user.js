@@ -104,8 +104,8 @@ export const signup = (fullName, email, password) => {
           healthLabels: {
           'vegan':false,
           'vegetarian':false,
-          "gluten-free":false,
-          'dairy-free':false}
+          'glutenFree':false,
+          'dairyFree':false}
         };
         const usersRef = firebase.firestore().collection('users');
         usersRef

@@ -16,15 +16,20 @@ class UserProfile extends React.Component{
             vegetarian: false,
             dairyFree: false,
             glutenFree: false,
-            isChecked: false,
             modalVisible: false,
              }
     }
 
     componentDidMount(){
-        this.props.loadUserInfo()
+        this.props.loadUserInfo();
+        console.log('USER INFO IN COMPONENT DID MOUNT',this.props.userInfo)
+        this.setState({
+            vegan: this.props.userInfo.healthLabels.vegan,
+            vegetarian: this.props.userInfo.healthLabels.vegetarian,
+            dairyFree: this.props.userInfo.healthLabels.dairyFree,
+            glutenFree: this.props.userInfo.healthLabels.glutenFree
+        })
     }
-    // {name: vegan, isChecked: true/false}
     render(){
         let userName = ""
         let userEmail = ""
@@ -32,16 +37,17 @@ class UserProfile extends React.Component{
         let vegetarian;
         let glutenFree;
         let dairyFree;
-        if(this.props.userInfo !== null){
-            console.log(this.props.userInfo)
+        console.log('OUTSIDE CONTIDIONAL', this.props.userInfo)
+        if(this.props.userInfo.id){
+            console.log('IN CONDITIONAL',this.props.userInfo)
             userName = this.props.userInfo.fullName
             userEmail = this.props.userInfo.email
             vegan = this.props.userInfo.healthLabels.vegan
             vegetarian = this.props.userInfo.healthLabels.vegetarian
-            glutenFree = this.props.userInfo.healthLabels['gluten-free']
-            dairyFree = this.props.userInfo.healthLabels['dairy-free']
+            glutenFree = this.props.userInfo.healthLabels.glutenFree
+            dairyFree = this.props.userInfo.healthLabels.dairyFree
         }
-        console.log(vegan, vegetarian, glutenFree, dairyFree)
+        // console.log(vegan, vegetarian, glutenFree, dairyFree)
         return (
             <SafeAreaView style={styles.container}>
                 <Text style={styles.title}>My Profile</Text>
@@ -94,7 +100,6 @@ class UserProfile extends React.Component{
                  <CheckBox
                     style={{flex: 1, padding: 10, margin: 10}}
                     onPress={()=>{
-                    let labels = this.state.healthLabels;
                     this.setState({
                      vegetarian:!this.state.vegetarian
                     })
@@ -112,7 +117,6 @@ class UserProfile extends React.Component{
                 <CheckBox
                     style={{flex: 1, padding: 10, margin: 10}}
                     onPress={()=>{
-                    let labels = this.state.healthLabels;
                     this.setState({
                      vegan:!this.state.vegan
                     })
@@ -130,7 +134,6 @@ class UserProfile extends React.Component{
                 <CheckBox
                     style={{flex: 1, padding: 10, margin: 10}}
                     onPress={()=>{
-                    let labels = this.state.healthLabels;
                     this.setState({
                      dairyFree:!this.state.dairyFree
                     })
@@ -152,8 +155,8 @@ class UserProfile extends React.Component{
                     let healthLabels = {
                         'vegan':this.state.vegan,
                         'vegetarian': this.state.vegetarian,
-                        'gluten-free': this.state.glutenFree,
-                        'dairy-free': this.state.dairyFree}
+                        'glutenFree': this.state.glutenFree,
+                        'dairyFree': this.state.dairyFree}
                   this.props.editHealthInfo(healthLabels);
                   this.setState({
                     ...this.state,
