@@ -24,6 +24,7 @@ class ReviewOrder extends React.Component {
       newFood: '',
       newExpiration: '',
       modalVisible: false,
+      editModalVisable: false,
       orderDate: new Date(),
       deleteModalVisible: false,
       itemToDelete: {},
@@ -33,6 +34,8 @@ class ReviewOrder extends React.Component {
     this.maybeRenderModal = this.maybeRenderModal.bind(this);
     this.onDeleteRow = this.onDeleteRow.bind(this);
     this.maybeRenderDeleteModal = this.maybeRenderDeleteModal.bind(this);
+    this.onEditOrder = this.onEditOrder.bind(this)
+    this.maybeRenderEditModal = this.maybeRenderEditModal.bind(this)
   }
 
   componentDidUpdate(prevProps) {
@@ -57,6 +60,11 @@ class ReviewOrder extends React.Component {
   onAddItem = () => {
     this.setState({ ...this.state, modalVisible: true });
   };
+
+  onEditOrder = () => {
+    console.log('<<<EDIT ORDER PRESSED>>>')
+    this.setState({ ...this.state, editModalVisable: true })
+  }
 
   onDeleteRow = (name, index) => {
     this.setState({
@@ -137,6 +145,9 @@ class ReviewOrder extends React.Component {
             >
               <Text style={styles.buttonTitle}>Add Item</Text>
             </TouchableOpacity>
+            <TouchableOpacity style={styles.button} onPress={() => this.onEditOrder()}>
+              <Text style={styles.buttonTitle}>Edit Order</Text>
+            </TouchableOpacity>
             <TouchableOpacity style={styles.button} onPress={this.onSubmit}>
               <Text style={styles.buttonTitle}>Confirm Order</Text>
             </TouchableOpacity>
@@ -144,6 +155,7 @@ class ReviewOrder extends React.Component {
         </KeyboardAvoidingView>
         {this.maybeRenderModal()}
         {this.maybeRenderDeleteModal(this.state.itemToDelete)}
+        {this.maybeRenderEditModal()}
       </View>
     );
   }
@@ -261,6 +273,56 @@ class ReviewOrder extends React.Component {
       </Modal>
     );
   };
+
+  maybeRenderEditModal = () => {
+    return (
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={this.state.editModalVisible}
+        onRequestClose={() => {
+          Alert.alert('Modal has been closed.');
+          this.setState({
+            ...this.state,
+            editModalVisible: !visible,
+          });
+        }}
+      >
+        <View style={styles.modalView}>
+          <Text style={styles.modalText}>
+            Are you sure you want to delete?
+          </Text>
+          <Pressable
+            style={[styles.button, styles.buttonClose]}
+            onPress={() => {
+              let newFood = [...this.state.food];
+              newFood.splice(item.index, 1);
+              this.setState({
+                ...this.state,
+                deleteModalVisible: !this.state.deleteModalVisible,
+                food: newFood,
+                itemToDelete: {},
+              });
+            }}
+          >
+            <Text style={styles.textStyle}>Confirm</Text>
+          </Pressable>
+          <Pressable
+            style={[styles.button, styles.buttonClose]}
+            onPress={() => {
+              this.setState({
+                ...this.state,
+                deleteModalVisible: !this.state.deleteModalVisible,
+                itemToDelete: {},
+              });
+            }}
+          >
+            <Text style={styles.textStyle}>Cancel</Text>
+          </Pressable>
+        </View>
+      </Modal>
+    )
+  }
 }
 
 const mapState = (state) => {
