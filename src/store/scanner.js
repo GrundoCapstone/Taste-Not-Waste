@@ -1,5 +1,4 @@
 import * as ImagePicker from 'expo-image-picker';
-import Clipboard from 'expo-clipboard';
 import Environment from '../firebase/environment';
 import firebase from '../firebase/firebase';
 import { nanoid } from 'nanoid/non-secure';
@@ -63,8 +62,6 @@ export const _handleImagePicked = (pickerResult) => {
   2;
   return async (dispatch) => {
     try {
-      // this.setState({ uploading: true });
-
       if (!pickerResult.cancelled) {
         const blob = await new Promise((resolve, reject) => {
           const xhr = new XMLHttpRequest();
@@ -100,10 +97,7 @@ export const submitToGoogle = (image) => {
       let body = JSON.stringify({
         requests: [
           {
-            features: [
-              { type: 'TEXT_DETECTION' },
-              // { type: 'DOCUMENT_TEXT_DETECTION', maxResults: 5 },
-            ],
+            features: [{ type: 'TEXT_DETECTION' }],
             image: {
               source: {
                 imageUri: image,
