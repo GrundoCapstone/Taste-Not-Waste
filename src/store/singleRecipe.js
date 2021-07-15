@@ -1,6 +1,0 @@
-/*
-get recipes by ID
-
-all details regarding selected recipe
-
-*/

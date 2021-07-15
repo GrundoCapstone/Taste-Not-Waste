@@ -27,7 +27,7 @@ class ReviewOrder extends React.Component {
       orderDate: new Date(),
       deleteModalVisible: false,
       itemToDelete: {},
-      itemToEdit: {}
+      itemToEdit: {},
     };
     this.onSubmit = this.onSubmit.bind(this);
     this.onAddItem = this.onAddItem.bind(this);
@@ -61,8 +61,11 @@ class ReviewOrder extends React.Component {
   };
 
   onEditOrder = (item, index) => {
-    this.setState({ ...this.state, editModalVisible: true,
-      itemToEdit: {name: item.name, expiration: item.expiration, index} });
+    this.setState({
+      ...this.state,
+      editModalVisible: true,
+      itemToEdit: { name: item.name, expiration: item.expiration, index },
+    });
   };
 
   onDeleteRow = (name, index) => {
@@ -76,71 +79,68 @@ class ReviewOrder extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-      <ScrollView style={styles.totalList}>
-        <TouchableOpacity
-          style={styles.backButton}
-          onPress={() => this.props.navigation.goBack()}
-        >
-          <Text style={styles.textStyle} title="Go back">
-            Back
-          </Text>
-        </TouchableOpacity>
-        <Text style={styles.title}>Review Order</Text>
-        <View style={styles.orderDate}>
-          <Text style={styles.orderDateText}>
-            Order Date: {this.state.orderDate.toString().slice(4, 15)}
-          </Text>
-        </View>
+        <ScrollView style={styles.totalList}>
+          <TouchableOpacity
+            style={styles.backButton}
+            onPress={() => this.props.navigation.goBack()}
+          >
+            <Text style={styles.textStyle} title="Go back">
+              Back
+            </Text>
+          </TouchableOpacity>
+          <Text style={styles.title}>Review Order</Text>
+          <View style={styles.orderDate}>
+            <Text style={styles.orderDateText}>
+              Order Date: {this.state.orderDate.toString().slice(4, 15)}
+            </Text>
+          </View>
 
-            <View style={styles.tableHeader}>
-              <Text style={styles.itemColumn}>Item</Text>
-              <Text style={styles.expirationColumn}>Expiration</Text>
-            </View>
-            {this.state.food.map((item, index) => {
-              if (item.name.length || item.expiration.length) {
-                return (
-                  <View
-                    key={item.name + item.expiration}
-                    style={styles.tableRow}
-                  >
-                    <Text style={styles.nameText}>{item.name}</Text>
-                    <Text style={styles.expirationText}>{item.expiration}</Text>
-                    <View style={styles.icon}>
-                      <TouchableOpacity
-                        onPress={() => this.onEditOrder(item, index)}
-                      >
-                        <FontAwesome5
-                          name="edit"
-                          color="black"
-                          size={20}
-                          style={styles.trashIcon}
-                        />
-                      </TouchableOpacity>
-                      <TouchableOpacity
-                        onPress={() => this.onDeleteRow(item.name, index)}
-                      >
-                        <FontAwesome5
-                          name="trash"
-                          color="black"
-                          size={20}
-                          style={styles.trashIcon}
-                        />
-                      </TouchableOpacity>
-                    </View>
+          <View style={styles.tableHeader}>
+            <Text style={styles.itemColumn}>Item</Text>
+            <Text style={styles.expirationColumn}>Expiration</Text>
+          </View>
+          {this.state.food.map((item, index) => {
+            if (item.name.length || item.expiration.length) {
+              return (
+                <View key={item.name + item.expiration} style={styles.tableRow}>
+                  <Text style={styles.nameText}>{item.name}</Text>
+                  <Text style={styles.expirationText}>{item.expiration}</Text>
+                  <View style={styles.icon}>
+                    <TouchableOpacity
+                      onPress={() => this.onEditOrder(item, index)}
+                    >
+                      <FontAwesome5
+                        name="edit"
+                        color="black"
+                        size={20}
+                        style={styles.trashIcon}
+                      />
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      onPress={() => this.onDeleteRow(item.name, index)}
+                    >
+                      <FontAwesome5
+                        name="trash"
+                        color="black"
+                        size={20}
+                        style={styles.trashIcon}
+                      />
+                    </TouchableOpacity>
                   </View>
-                );
-              }
-            })}
-            <TouchableOpacity
-              style={styles.addItemButton}
-              onPress={() => this.onAddItem()}
-            >
-              <Text style={styles.buttonTitle}>Add Item</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress={this.onSubmit}>
-              <Text style={styles.buttonTitle}>Confirm Order</Text>
-            </TouchableOpacity>
-          </ScrollView>
+                </View>
+              );
+            }
+          })}
+          <TouchableOpacity
+            style={styles.addItemButton}
+            onPress={() => this.onAddItem()}
+          >
+            <Text style={styles.buttonTitle}>Add Item</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={this.onSubmit}>
+            <Text style={styles.buttonTitle}>Confirm Order</Text>
+          </TouchableOpacity>
+        </ScrollView>
         {this.maybeRenderModal()}
         {this.maybeRenderEditModal(this.state.itemToEdit)}
         {this.maybeRenderDeleteModal(this.state.itemToDelete)}
@@ -217,7 +217,6 @@ class ReviewOrder extends React.Component {
   };
 
   maybeRenderEditModal = (food) => {
-    console.log("ITEM FROM EDIT ", food)
     return (
       <Modal
         animationType="fade"
@@ -237,13 +236,14 @@ class ReviewOrder extends React.Component {
             style={styles.input}
             placeholder="FOOD ITEM"
             placeholderTextColor="#aaaaaa"
-            value = {this.state.itemToEdit.name}
+            value={this.state.itemToEdit.name}
             onChangeText={(text) => {
-              this.setState(state => ({
-                ...state, itemToEdit: {
+              this.setState((state) => ({
+                ...state,
+                itemToEdit: {
                   ...state.itemToEdit,
-                  name: text
-                }
+                  name: text,
+                },
               }));
             }}
             underlineColorAndroid="transparent"
@@ -253,13 +253,14 @@ class ReviewOrder extends React.Component {
             style={styles.input}
             placeholder='"JAN 01 2021" (optional)'
             placeholderTextColor="#aaaaaa"
-            value = {food.expiration}
+            value={food.expiration}
             onChangeText={(text) => {
-              this.setState(state => ({
-                ...state, itemToEdit: {
+              this.setState((state) => ({
+                ...state,
+                itemToEdit: {
                   ...state.itemToEdit,
-                  expiration: text
-                }
+                  expiration: text,
+                },
               }));
             }}
             underlineColorAndroid="transparent"
@@ -269,13 +270,16 @@ class ReviewOrder extends React.Component {
             style={[styles.button, styles.buttonClose]}
             onPress={() => {
               let newFood = [...this.state.food];
-              let replacementFood = {name: this.state.itemToEdit.name, expiration: this.state.itemToEdit.expiration}
+              let replacementFood = {
+                name: this.state.itemToEdit.name,
+                expiration: this.state.itemToEdit.expiration,
+              };
               newFood.splice(food.index, 1, replacementFood);
               this.setState({
                 ...this.state,
                 food: newFood,
                 editModalVisible: !this.state.editModalVisible,
-                itemToEdit: {}
+                itemToEdit: {},
               });
             }}
           >
@@ -287,7 +291,7 @@ class ReviewOrder extends React.Component {
               this.setState({
                 ...this.state,
                 editModalVisible: !this.state.editModalVisible,
-                itemToEdit: {}
+                itemToEdit: {},
               });
             }}
           >

@@ -1,11 +1,9 @@
 import { StyleSheet } from 'react-native';
-import { Kalam_400Regular } from '@expo-google-fonts/kalam';
 
 export default StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',
-    // margin: 5,
     backgroundColor: '#EAC4D5',
   },
   scrollView: {
