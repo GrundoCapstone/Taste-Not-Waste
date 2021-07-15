@@ -28,6 +28,7 @@ class ReviewOrder extends React.Component {
       orderDate: new Date(),
       deleteModalVisible: false,
       itemToDelete: {},
+      itemToEdit: {}
     };
     this.onSubmit = this.onSubmit.bind(this);
     this.onAddItem = this.onAddItem.bind(this);
@@ -60,8 +61,9 @@ class ReviewOrder extends React.Component {
     this.setState({ ...this.state, modalVisible: true });
   };
 
-  onEditOrder = () => {
-    this.setState({ ...this.state, editModalVisible: true });
+  onEditOrder = (item, index) => {
+    this.setState({ ...this.state, editModalVisible: true, 
+      itemToEdit: {name: item.name, expiration: item.expiration, index} });
   };
 
   onDeleteRow = (name, index) => {
@@ -115,6 +117,16 @@ class ReviewOrder extends React.Component {
                           style={styles.trashIcon}
                         />
                       </TouchableOpacity>
+                      <TouchableOpacity
+                        onPress={() => this.onEditOrder(item, index)}
+                      >
+                        <FontAwesome5
+                          name="edit"
+                          color="black"
+                          size={20}
+                          style={styles.trashIcon}
+                        />
+                      </TouchableOpacity>
                     </View>
                   </View>
                 );
@@ -126,19 +138,13 @@ class ReviewOrder extends React.Component {
             >
               <Text style={styles.buttonTitle}>Add Item</Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => this.onEditOrder()}
-            >
-              <Text style={styles.buttonTitle}>Edit Order</Text>
-            </TouchableOpacity>
             <TouchableOpacity style={styles.button} onPress={this.onSubmit}>
               <Text style={styles.buttonTitle}>Confirm Order</Text>
             </TouchableOpacity>
           </ScrollView>
         </KeyboardAvoidingView>
         {this.maybeRenderModal()}
-        {this.maybeRenderEditModal()}
+        {this.maybeRenderEditModal(this.state.itemToEdit)}
         {this.maybeRenderDeleteModal(this.state.itemToDelete)}
       </View>
     );
@@ -212,8 +218,8 @@ class ReviewOrder extends React.Component {
     );
   };
 
-  maybeRenderEditModal = () => {
-    let copyFoodList = [...this.state.food];
+  maybeRenderEditModal = (food) => {
+    console.log("ITEM FROM EDIT ", food)
     return (
       <Modal
         animationType="fade"
@@ -228,44 +234,54 @@ class ReviewOrder extends React.Component {
         }}
       >
         <View style={styles.modalView}>
-          <Text style={styles.modalText}>Edit Order</Text>
-          {copyFoodList.map((item, index) => {
-            // console.log('>>>>>>COPY FOOD LIST<<<<<<<<');
-            // console.log(copyFoodList);
-            if (item.name.length || item.expiration.length) {
-              return (
-                <View key={item.name} style={styles.tableRow}>
-                  <TextInput
-                    style={styles.editName}
-                    // autoFocus={true}
-                    value={item.name}
-                    onChangeText={(text) => {
-                      copyFoodList[index].name = text;
-                    }}
-                  ></TextInput>
-                  <TextInput
-                    style={styles.editDate}
-                    value={item.expiration}
-                    placeholder='"JAN 01 2021"'
-                    onChangeText={(text) => {
-                      copyFoodList[index].expiration = text;
-                    }}
-                  ></TextInput>
-                </View>
-              );
-            }
-          })}
+          <Text style={styles.modalText}>Edit Item</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="FOOD ITEM"
+            placeholderTextColor="#aaaaaa"
+            value = {this.state.itemToEdit.name}
+            onChangeText={(text) => {
+              this.setState(state => ({ 
+                ...state, itemToEdit: {
+                  ...state.itemToEdit,
+                  name: text
+                }
+              }));
+            }}
+            underlineColorAndroid="transparent"
+            autoCapitalize="none"
+          />
+          <TextInput
+            style={styles.input}
+            placeholder='"JAN 01 2021" (optional)'
+            placeholderTextColor="#aaaaaa"
+            value = {food.expiration}
+            onChangeText={(text) => {
+              this.setState(state => ({ 
+                ...state, itemToEdit: {
+                  ...state.itemToEdit,
+                  expiration: text
+                }
+              }));
+            }}
+            underlineColorAndroid="transparent"
+            autoCapitalize="none"
+          />
           <Pressable
             style={[styles.button, styles.buttonClose]}
             onPress={() => {
+              let newFood = [...this.state.food];
+              let replacementFood = {name: this.state.itemToEdit.name, expiration: this.state.itemToEdit.expiration}
+              newFood.splice(food.index, 1, replacementFood);
               // this.props.loadSingleFood(
               //   this.state.newFood,
               //   this.state.newExpiration
               // );
               this.setState({
                 ...this.state,
-                food: copyFoodList,
+                food: newFood,
                 editModalVisible: !this.state.editModalVisible,
+                itemToEdit: {}
               });
             }}
           >
@@ -277,6 +293,7 @@ class ReviewOrder extends React.Component {
               this.setState({
                 ...this.state,
                 editModalVisible: !this.state.editModalVisible,
+                itemToEdit: {}
               });
             }}
           >
