@@ -254,6 +254,7 @@ class ReviewOrder extends React.Component {
             underlineColorAndroid="transparent"
             autoCapitalize="none"
           />
+          <Text style={styles.inputLabel}>Food Name</Text>
           <TextInput
             style={styles.input}
             placeholder='"JAN 01 2021" (optional)'
@@ -271,6 +272,7 @@ class ReviewOrder extends React.Component {
             underlineColorAndroid="transparent"
             autoCapitalize="none"
           />
+          <Text style={styles.inputLabel}>Expiration (optional)</Text>
           <Pressable
             style={[styles.button, styles.buttonClose]}
             onPress={() => {
