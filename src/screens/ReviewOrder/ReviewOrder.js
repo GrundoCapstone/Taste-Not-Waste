@@ -33,6 +33,7 @@ class ReviewOrder extends React.Component {
       noFoodError: false,
       modalVisible: false,
       editModalVisible: false,
+      infoModalVisible: false,
       orderDate: new Date(),
       deleteModalVisible: false,
       itemToDelete: {},
@@ -44,6 +45,8 @@ class ReviewOrder extends React.Component {
     this.onDeleteRow = this.onDeleteRow.bind(this);
     this.onEditOrder = this.onEditOrder.bind(this);
     this.maybeRenderDeleteModal = this.maybeRenderDeleteModal.bind(this);
+    this.onInfoPress = this.onInfoPress.bind(this);
+    this.maybeRenderInfo = this.maybeRenderModal.bind(this);
   }
 
   componentDidUpdate(prevProps) {
@@ -83,6 +86,10 @@ class ReviewOrder extends React.Component {
       deleteModalVisible: true,
       itemToDelete: { name, index },
     });
+  };
+
+  onInfoPress = () => {
+    this.setState({ ...this, infoModalVisible: true });
   };
 
   render() {
@@ -156,6 +163,7 @@ class ReviewOrder extends React.Component {
         {this.maybeRenderModal()}
         {this.maybeRenderEditModal(this.state.itemToEdit)}
         {this.maybeRenderDeleteModal(this.state.itemToDelete)}
+        {this.state.infoModalVisible?this.maybeRenderInfo():<>/</>}
       </View>
     );
   }
@@ -397,6 +405,41 @@ class ReviewOrder extends React.Component {
       </Modal>
     );
   };
+}
+
+maybeRenderInfo = () => {
+  return (
+    <Modal
+      animationType="fade"
+      transparent={true}
+      visible={this.state.infoModalVisible}
+      onRequestClose={() => {
+        Alert.alert('Modal has been closed.');
+        this.setState({
+          ...this.state,
+          infoModalVisible: !visible,
+        });
+      }}
+    >
+      <View style={styles.modalView}>
+        <Text style={styles.modalText}>
+          Are you sure you want to delete {item.name}?
+        </Text>
+        <Pressable
+          style={[styles.button, styles.buttonClose]}
+          onPress={() => {
+            this.setState({
+              ...this.state,
+              infoModalVisible: !this.state.infoModalVisible,
+            });
+          }}
+        >
+          <Text style={styles.textStyle}>Close</Text>
+        </Pressable>
+      </View>
+    </Modal>
+  );
+};
 }
 
 const mapState = (state) => {
