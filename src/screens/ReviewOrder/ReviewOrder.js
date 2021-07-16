@@ -153,7 +153,7 @@ class ReviewOrder extends React.Component {
             <Text style={styles.buttonTitle}>Confirm Order</Text>
           </TouchableOpacity>
         </ScrollView>
-        {this.maybeRenderModal()}
+        <DismissKeyboard>{this.maybeRenderModal()}</DismissKeyboard>
         {this.maybeRenderEditModal(this.state.itemToEdit)}
         {this.maybeRenderDeleteModal(this.state.itemToDelete)}
       </View>
@@ -175,43 +175,61 @@ class ReviewOrder extends React.Component {
           });
         }}
       >
-        <View style={styles.modalView}>
-          <Text style={styles.modalText}>Add an Item</Text>
-          {this.state.noFoodError ? (
-            <Text style={styles.error}>You must enter a food name</Text>
-          ) : (
-            <></>
-          )}
-          <TextInput
-            style={styles.input}
-            placeholder='"apple"'
-            placeholderTextColor="#aaaaaa"
-            onChangeText={(text) => {
-              this.setState({ newFood: text });
-            }}
-            underlineColorAndroid="transparent"
-            autoCapitalize="none"
-          />
-          <Text style={styles.inputLabel}>Food Name</Text>
-          <TextInput
-            style={styles.input}
-            placeholder='"JAN 01 2021"'
-            placeholderTextColor="#aaaaaa"
-            onChangeText={(text) => {
-              this.setState({ newExpiration: text });
-            }}
-            underlineColorAndroid="transparent"
-            autoCapitalize="none"
-          />
-          <Text style={styles.inputLabel}>Expiration (optional)</Text>
-          <Pressable
-            style={[styles.button, styles.buttonClose]}
-            onPress={() => {
-              if (this.state.newFood.length) {
-                this.props.loadSingleFood(
-                  this.state.newFood,
-                  this.state.newExpiration
-                );
+        <DismissKeyboard>
+          <View style={styles.modalView}>
+            <Text style={styles.modalText}>Add an Item</Text>
+            {this.state.noFoodError ? (
+              <Text style={styles.error}>You must enter a food name</Text>
+            ) : (
+              <></>
+            )}
+            <TextInput
+              style={styles.input}
+              placeholder='"apple"'
+              placeholderTextColor="#aaaaaa"
+              onChangeText={(text) => {
+                this.setState({ newFood: text });
+              }}
+              underlineColorAndroid="transparent"
+              autoCapitalize="none"
+            />
+            <Text style={styles.inputLabel}>Food Name</Text>
+            <TextInput
+              style={styles.input}
+              placeholder='"JAN 01 2021"'
+              placeholderTextColor="#aaaaaa"
+              onChangeText={(text) => {
+                this.setState({ newExpiration: text });
+              }}
+              underlineColorAndroid="transparent"
+              autoCapitalize="none"
+            />
+            <Text style={styles.inputLabel}>Expiration (optional)</Text>
+            <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => {
+                if (this.state.newFood.length) {
+                  this.props.loadSingleFood(
+                    this.state.newFood,
+                    this.state.newExpiration
+                  );
+                  this.setState({
+                    ...this.state,
+                    newFood: '',
+                    newExpiration: '',
+                    noFoodError: false,
+                    modalVisible: !this.state.modalVisible,
+                  });
+                } else {
+                  this.setState({ ...this.state, noFoodError: true });
+                }
+              }}
+            >
+              <Text style={styles.textStyle}>Submit</Text>
+            </Pressable>
+            <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => {
                 this.setState({
                   ...this.state,
                   newFood: '',
@@ -219,28 +237,12 @@ class ReviewOrder extends React.Component {
                   noFoodError: false,
                   modalVisible: !this.state.modalVisible,
                 });
-              } else {
-                this.setState({ ...this.state, noFoodError: true });
-              }
-            }}
-          >
-            <Text style={styles.textStyle}>Submit</Text>
-          </Pressable>
-          <Pressable
-            style={[styles.button, styles.buttonClose]}
-            onPress={() => {
-              this.setState({
-                ...this.state,
-                newFood: '',
-                newExpiration: '',
-                noFoodError: false,
-                modalVisible: !this.state.modalVisible,
-              });
-            }}
-          >
-            <Text style={styles.textStyle}>Cancel</Text>
-          </Pressable>
-        </View>
+              }}
+            >
+              <Text style={styles.textStyle}>Cancel</Text>
+            </Pressable>
+          </View>
+        </DismissKeyboard>
       </Modal>
     );
   };
@@ -259,87 +261,89 @@ class ReviewOrder extends React.Component {
           });
         }}
       >
-        <View style={styles.modalView}>
-          <Text style={styles.modalText}>Edit Item</Text>
-          {this.state.noFoodError ? (
-            <Text style={styles.error}>You must enter a food name</Text>
-          ) : (
-            <></>
-          )}
-          <TextInput
-            style={styles.input}
-            placeholder="FOOD ITEM"
-            placeholderTextColor="#aaaaaa"
-            value={this.state.itemToEdit.name}
-            onChangeText={(text) => {
-              this.setState((state) => ({
-                ...state,
-                itemToEdit: {
-                  ...state.itemToEdit,
-                  name: text,
-                },
-              }));
-            }}
-            underlineColorAndroid="transparent"
-            autoCapitalize="none"
-          />
-          <Text style={styles.inputLabel}>Food Name</Text>
-          <TextInput
-            style={styles.input}
-            placeholder='"JAN 01 2021" (optional)'
-            placeholderTextColor="#aaaaaa"
-            value={food.expiration}
-            onChangeText={(text) => {
-              this.setState((state) => ({
-                ...state,
-                itemToEdit: {
-                  ...state.itemToEdit,
-                  expiration: text,
-                },
-              }));
-            }}
-            underlineColorAndroid="transparent"
-            autoCapitalize="none"
-          />
-          <Text style={styles.inputLabel}>Expiration (optional)</Text>
-          <Pressable
-            style={[styles.button, styles.buttonClose]}
-            onPress={() => {
-              if (this.state.itemToEdit.name.length) {
-                let newFood = [...this.state.food];
-                let replacementFood = {
-                  name: this.state.itemToEdit.name,
-                  expiration: this.state.itemToEdit.expiration,
-                };
-                newFood.splice(food.index, 1, replacementFood);
+        <DismissKeyboard>
+          <View style={styles.modalView}>
+            <Text style={styles.modalText}>Edit Item</Text>
+            {this.state.noFoodError ? (
+              <Text style={styles.error}>You must enter a food name</Text>
+            ) : (
+              <></>
+            )}
+            <TextInput
+              style={styles.input}
+              placeholder="FOOD ITEM"
+              placeholderTextColor="#aaaaaa"
+              value={this.state.itemToEdit.name}
+              onChangeText={(text) => {
+                this.setState((state) => ({
+                  ...state,
+                  itemToEdit: {
+                    ...state.itemToEdit,
+                    name: text,
+                  },
+                }));
+              }}
+              underlineColorAndroid="transparent"
+              autoCapitalize="none"
+            />
+            <Text style={styles.inputLabel}>Food Name</Text>
+            <TextInput
+              style={styles.input}
+              placeholder='"JAN 01 2021" (optional)'
+              placeholderTextColor="#aaaaaa"
+              value={food.expiration}
+              onChangeText={(text) => {
+                this.setState((state) => ({
+                  ...state,
+                  itemToEdit: {
+                    ...state.itemToEdit,
+                    expiration: text,
+                  },
+                }));
+              }}
+              underlineColorAndroid="transparent"
+              autoCapitalize="none"
+            />
+            <Text style={styles.inputLabel}>Expiration (optional)</Text>
+            <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => {
+                if (this.state.itemToEdit.name.length) {
+                  let newFood = [...this.state.food];
+                  let replacementFood = {
+                    name: this.state.itemToEdit.name,
+                    expiration: this.state.itemToEdit.expiration,
+                  };
+                  newFood.splice(food.index, 1, replacementFood);
+                  this.setState({
+                    ...this.state,
+                    food: newFood,
+                    noFoodError: false,
+                    editModalVisible: !this.state.editModalVisible,
+                    itemToEdit: {},
+                  });
+                } else {
+                  this.setState({ ...this.state, noFoodError: true });
+                }
+              }}
+            >
+              <Text style={styles.textStyle}>Submit</Text>
+            </Pressable>
+            <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => {
                 this.setState({
                   ...this.state,
-                  food: newFood,
                   noFoodError: false,
                   editModalVisible: !this.state.editModalVisible,
                   itemToEdit: {},
                 });
-              } else {
-                this.setState({ ...this.state, noFoodError: true });
-              }
-            }}
-          >
-            <Text style={styles.textStyle}>Submit</Text>
-          </Pressable>
-          <Pressable
-            style={[styles.button, styles.buttonClose]}
-            onPress={() => {
-              this.setState({
-                ...this.state,
-                noFoodError: false,
-                editModalVisible: !this.state.editModalVisible,
-                itemToEdit: {},
-              });
-            }}
-          >
-            <Text style={styles.textStyle}>Cancel</Text>
-          </Pressable>
-        </View>
+              }}
+            >
+              <Text style={styles.textStyle}>Cancel</Text>
+            </Pressable>
+          </View>
+        </DismissKeyboard>
       </Modal>
     );
   };
