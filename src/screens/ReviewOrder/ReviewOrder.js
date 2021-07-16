@@ -22,6 +22,7 @@ class ReviewOrder extends React.Component {
       food: [],
       newFood: '',
       newExpiration: '',
+      noFoodError: false,
       modalVisible: false,
       editModalVisible: false,
       orderDate: new Date(),
@@ -102,7 +103,10 @@ class ReviewOrder extends React.Component {
           {this.state.food.map((item, index) => {
             if (item.name.length || item.expiration.length) {
               return (
-                <View key={item.name + item.expiration} style={styles.tableRow}>
+                <View
+                  key={item.name + item.expiration + index}
+                  style={styles.tableRow}
+                >
                   <Text style={styles.nameText}>{item.name}</Text>
                   <Text style={styles.expirationText}>{item.expiration}</Text>
                   <View style={styles.icon}>
@@ -165,9 +169,14 @@ class ReviewOrder extends React.Component {
       >
         <View style={styles.modalView}>
           <Text style={styles.modalText}>Add an Item</Text>
+          {this.state.noFoodError ? (
+            <Text style={styles.error}>You must enter a food name</Text>
+          ) : (
+            <></>
+          )}
           <TextInput
             style={styles.input}
-            placeholder="FOOD ITEM"
+            placeholder='"apple"'
             placeholderTextColor="#aaaaaa"
             onChangeText={(text) => {
               this.setState({ newFood: text });
@@ -175,9 +184,10 @@ class ReviewOrder extends React.Component {
             underlineColorAndroid="transparent"
             autoCapitalize="none"
           />
+          <Text style={styles.inputLabel}>Food Name</Text>
           <TextInput
             style={styles.input}
-            placeholder='"JAN 01 2021" (optional)'
+            placeholder='"JAN 01 2021"'
             placeholderTextColor="#aaaaaa"
             onChangeText={(text) => {
               this.setState({ newExpiration: text });
@@ -185,17 +195,25 @@ class ReviewOrder extends React.Component {
             underlineColorAndroid="transparent"
             autoCapitalize="none"
           />
+          <Text style={styles.inputLabel}>Expiration (optional)</Text>
           <Pressable
             style={[styles.button, styles.buttonClose]}
             onPress={() => {
-              this.props.loadSingleFood(
-                this.state.newFood,
-                this.state.newExpiration
-              );
-              this.setState({
-                ...this.state,
-                modalVisible: !this.state.modalVisible,
-              });
+              if (this.state.newFood.length) {
+                this.props.loadSingleFood(
+                  this.state.newFood,
+                  this.state.newExpiration
+                );
+                this.setState({
+                  ...this.state,
+                  newFood: '',
+                  newExpiration: '',
+                  noFoodError: false,
+                  modalVisible: !this.state.modalVisible,
+                });
+              } else {
+                this.setState({ ...this.state, noFoodError: true });
+              }
             }}
           >
             <Text style={styles.textStyle}>Submit</Text>
@@ -205,6 +223,8 @@ class ReviewOrder extends React.Component {
             onPress={() => {
               this.setState({
                 ...this.state,
+                newFood: '',
+                newExpiration: '',
                 modalVisible: !this.state.modalVisible,
               });
             }}
@@ -232,6 +252,11 @@ class ReviewOrder extends React.Component {
       >
         <View style={styles.modalView}>
           <Text style={styles.modalText}>Edit Item</Text>
+          {this.state.noFoodError ? (
+            <Text style={styles.error}>You must enter a food name</Text>
+          ) : (
+            <></>
+          )}
           <TextInput
             style={styles.input}
             placeholder="FOOD ITEM"
@@ -249,6 +274,7 @@ class ReviewOrder extends React.Component {
             underlineColorAndroid="transparent"
             autoCapitalize="none"
           />
+          <Text style={styles.inputLabel}>Food Name</Text>
           <TextInput
             style={styles.input}
             placeholder='"JAN 01 2021" (optional)'
@@ -266,21 +292,27 @@ class ReviewOrder extends React.Component {
             underlineColorAndroid="transparent"
             autoCapitalize="none"
           />
+          <Text style={styles.inputLabel}>Expiration (optional)</Text>
           <Pressable
             style={[styles.button, styles.buttonClose]}
             onPress={() => {
-              let newFood = [...this.state.food];
-              let replacementFood = {
-                name: this.state.itemToEdit.name,
-                expiration: this.state.itemToEdit.expiration,
-              };
-              newFood.splice(food.index, 1, replacementFood);
-              this.setState({
-                ...this.state,
-                food: newFood,
-                editModalVisible: !this.state.editModalVisible,
-                itemToEdit: {},
-              });
+              if (this.state.itemToEdit.name.length) {
+                let newFood = [...this.state.food];
+                let replacementFood = {
+                  name: this.state.itemToEdit.name,
+                  expiration: this.state.itemToEdit.expiration,
+                };
+                newFood.splice(food.index, 1, replacementFood);
+                this.setState({
+                  ...this.state,
+                  food: newFood,
+                  noFoodError: false,
+                  editModalVisible: !this.state.editModalVisible,
+                  itemToEdit: {},
+                });
+              } else {
+                this.setState({ ...this.state, noFoodError: true });
+              }
             }}
           >
             <Text style={styles.textStyle}>Submit</Text>
