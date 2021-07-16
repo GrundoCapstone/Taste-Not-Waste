@@ -153,7 +153,7 @@ class ReviewOrder extends React.Component {
             <Text style={styles.buttonTitle}>Confirm Order</Text>
           </TouchableOpacity>
         </ScrollView>
-        <DismissKeyboard>{this.maybeRenderModal()}</DismissKeyboard>
+        {this.maybeRenderModal()}
         {this.maybeRenderEditModal(this.state.itemToEdit)}
         {this.maybeRenderDeleteModal(this.state.itemToDelete)}
       </View>
