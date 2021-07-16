@@ -33,6 +33,7 @@ class ReviewOrder extends React.Component {
       noFoodError: false,
       modalVisible: false,
       editModalVisible: false,
+      infoModalVisible: false,
       orderDate: new Date(),
       deleteModalVisible: false,
       itemToDelete: {},
@@ -44,6 +45,8 @@ class ReviewOrder extends React.Component {
     this.onDeleteRow = this.onDeleteRow.bind(this);
     this.onEditOrder = this.onEditOrder.bind(this);
     this.maybeRenderDeleteModal = this.maybeRenderDeleteModal.bind(this);
+    this.onInfoPress = this.onInfoPress.bind(this);
+    this.maybeRenderInfo = this.maybeRenderInfo.bind(this);
   }
 
   componentDidUpdate(prevProps) {
@@ -83,6 +86,10 @@ class ReviewOrder extends React.Component {
       deleteModalVisible: true,
       itemToDelete: { name, index },
     });
+  };
+
+  onInfoPress = () => {
+    this.setState({ ...this, infoModalVisible: true });
   };
 
   render() {
@@ -152,10 +159,22 @@ class ReviewOrder extends React.Component {
           <TouchableOpacity style={styles.button} onPress={this.onSubmit}>
             <Text style={styles.buttonTitle}>Confirm Order</Text>
           </TouchableOpacity>
+          <TouchableOpacity onPress={() => this.onInfoPress()}>
+            <Text style={styles.help}>Need Help?</Text>
+          </TouchableOpacity>
         </ScrollView>
-        {this.maybeRenderModal()}
-        {this.maybeRenderEditModal(this.state.itemToEdit)}
-        {this.maybeRenderDeleteModal(this.state.itemToDelete)}
+        {this.state.modalVisible ? this.maybeRenderModal() : <></>}
+        {this.state.editModalVisible ? (
+          this.maybeRenderEditModal(this.state.itemToEdit)
+        ) : (
+          <></>
+        )}
+        {this.state.deleteModalVisible ? (
+          this.maybeRenderDeleteModal(this.state.itemToDelete)
+        ) : (
+          <></>
+        )}
+        {this.state.infoModalVisible ? this.maybeRenderInfo() : <></>}
       </View>
     );
   }
@@ -392,6 +411,42 @@ class ReviewOrder extends React.Component {
             }}
           >
             <Text style={styles.textStyle}>Cancel</Text>
+          </Pressable>
+        </View>
+      </Modal>
+    );
+  };
+  maybeRenderInfo = () => {
+    return (
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={this.state.infoModalVisible}
+        onRequestClose={() => {
+          Alert.alert('Modal has been closed.');
+          this.setState({
+            ...this.state,
+            infoModalVisible: !visible,
+          });
+        }}
+      >
+        <View style={styles.modalView}>
+          <Text style={styles.modalText}>How To Use Review Order</Text>
+          <Text>
+            {
+              'Tap the "Add Item" button to add a food. \n\nYou can either input an expiration date manually or choose to leave that field blank, and we will try to estimate an average expiration date for your food. \n\nTap the pencil icon to edit an item you have uploaded. \n\nTap the trash icon to delete a line, including both item and expiration. \n\nTap the "Confirm Order" button to upload your food to your Fridge when you are done editing your items. \n\n*Note: If you uploaded a receipt from an image, items may take a second to populate on the screen.'
+            }
+          </Text>
+          <Pressable
+            style={[styles.button, styles.buttonClose]}
+            onPress={() => {
+              this.setState({
+                ...this.state,
+                infoModalVisible: !this.state.infoModalVisible,
+              });
+            }}
+          >
+            <Text style={styles.textStyle}>Close</Text>
           </Pressable>
         </View>
       </Modal>
