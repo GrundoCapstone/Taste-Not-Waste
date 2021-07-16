@@ -13,13 +13,12 @@ class SingleFood extends React.Component {
     this.handlePress = this.handlePress.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.handleBackButton = this.handleBackButton.bind(this);
-
   }
   handlePress(item) {
     Linking.openURL(item);
   }
 
-  handleBackButton(){
+  handleBackButton() {
     this.props.navigation.navigate('Fridge');
   }
 
@@ -43,13 +42,21 @@ class SingleFood extends React.Component {
     return (
       <View style={styles.screenContainer}>
         <View style={styles.body}>
-            <TouchableOpacity onPress = {this.handleBackButton} style={styles.backButton}><Text style = {styles.delete}>Back</Text></TouchableOpacity>
+          <TouchableOpacity
+            onPress={this.handleBackButton}
+            style={styles.backButton}
+          >
+            <Text style={styles.delete}>Back</Text>
+          </TouchableOpacity>
           <View style={styles.foodInfo}>
             <Text style={styles.title}>{food.name}</Text>
-            <Text style={styles.date}>Expires on: 
-            {expiration !== 'Dec 31 2098' ? 
-            <Text> {expiration} </Text> : 
-            <Text> Unknown Expiration </Text>}
+            <Text style={styles.date}>
+              Expires on:
+              {expiration !== 'Jan 01 2099' ? (
+                <Text> {expiration} </Text>
+              ) : (
+                <Text> Unknown Expiration </Text>
+              )}
             </Text>
             <TouchableOpacity
               style={styles.deleteButton}
