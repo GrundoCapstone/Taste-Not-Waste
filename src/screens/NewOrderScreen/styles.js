@@ -11,6 +11,7 @@ export default StyleSheet.create({
     textAlign: 'center',
     marginTop: 60,
     fontFamily: 'Kalam',
+    marginBottom: 50
   },
   logo: {
     flex: 1,
@@ -42,10 +43,35 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 8,
+    marginBottom: 20
   },
   buttonTitle: {
     color: 'black',
     fontSize: 16,
     fontFamily: 'Kalam',
+  },
+  help: {
+    flexDirection: 'row',
+    marginTop: 200,
+    marginBottom: 30
+  },
+  helpTitle: {
+    fontSize: 18,
+    fontFamily: 'Kalam',
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 35,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+    marginTop: '50%',
   },
 });
