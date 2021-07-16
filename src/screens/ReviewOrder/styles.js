@@ -9,7 +9,7 @@ export default StyleSheet.create({
   title: {
     fontSize: 30,
     fontFamily: 'Kalam',
-    textAlign: 'center'
+    textAlign: 'center',
   },
   logo: {
     flex: 1,
@@ -94,13 +94,19 @@ export default StyleSheet.create({
   input: {
     height: 48,
     borderRadius: 5,
+    borderWidth: 1,
+    borderColor: 'black',
     overflow: 'hidden',
     backgroundColor: 'white',
     marginTop: 10,
-    marginBottom: 10,
+    marginBottom: 5,
     marginLeft: 30,
     marginRight: 30,
     paddingLeft: 16,
+  },
+  inputLabel: {
+    fontFamily: 'Kalam',
+    textAlign: 'center',
   },
   editName: {
     borderRadius: 5,
@@ -116,12 +122,12 @@ export default StyleSheet.create({
   orderDate: {
     fontSize: 16,
     flexDirection: 'column',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   orderDateText: {
     fontSize: 16,
     fontFamily: 'Kalam',
-    textAlign: 'center'
+    textAlign: 'center',
   },
   totalList: {
     flexDirection: 'column',
@@ -169,7 +175,7 @@ export default StyleSheet.create({
     fontFamily: 'Kalam',
   },
   icon: {
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   trashIcon: {
     marginRight: 10,
@@ -177,7 +183,7 @@ export default StyleSheet.create({
   nameText: {
     fontSize: 16,
     fontFamily: 'Kalam',
-    width: 150
+    width: 150,
   },
   expirationText: {
     fontSize: 16,

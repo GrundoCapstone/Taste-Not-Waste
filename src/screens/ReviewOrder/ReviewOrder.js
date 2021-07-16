@@ -102,7 +102,10 @@ class ReviewOrder extends React.Component {
           {this.state.food.map((item, index) => {
             if (item.name.length || item.expiration.length) {
               return (
-                <View key={item.name + item.expiration} style={styles.tableRow}>
+                <View
+                  key={item.name + item.expiration + index}
+                  style={styles.tableRow}
+                >
                   <Text style={styles.nameText}>{item.name}</Text>
                   <Text style={styles.expirationText}>{item.expiration}</Text>
                   <View style={styles.icon}>
@@ -167,7 +170,7 @@ class ReviewOrder extends React.Component {
           <Text style={styles.modalText}>Add an Item</Text>
           <TextInput
             style={styles.input}
-            placeholder="FOOD ITEM"
+            placeholder='"apple"'
             placeholderTextColor="#aaaaaa"
             onChangeText={(text) => {
               this.setState({ newFood: text });
@@ -175,9 +178,10 @@ class ReviewOrder extends React.Component {
             underlineColorAndroid="transparent"
             autoCapitalize="none"
           />
+          <Text style={styles.inputLabel}>Food Name</Text>
           <TextInput
             style={styles.input}
-            placeholder='"JAN 01 2021" (optional)'
+            placeholder='"JAN 01 2021"'
             placeholderTextColor="#aaaaaa"
             onChangeText={(text) => {
               this.setState({ newExpiration: text });
@@ -185,6 +189,7 @@ class ReviewOrder extends React.Component {
             underlineColorAndroid="transparent"
             autoCapitalize="none"
           />
+          <Text style={styles.inputLabel}>Expiration (optional)</Text>
           <Pressable
             style={[styles.button, styles.buttonClose]}
             onPress={() => {
