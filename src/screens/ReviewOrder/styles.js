@@ -108,6 +108,11 @@ export default StyleSheet.create({
     fontFamily: 'Kalam',
     textAlign: 'center',
   },
+  error: {
+    fontFamily: 'Kalam',
+    color: 'red',
+    textAlign: 'center',
+  },
   editName: {
     borderRadius: 5,
     backgroundColor: 'white',

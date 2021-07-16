@@ -170,7 +170,7 @@ class ReviewOrder extends React.Component {
         <View style={styles.modalView}>
           <Text style={styles.modalText}>Add an Item</Text>
           {this.state.noFoodError ? (
-            <Text>You must enter a food name</Text>
+            <Text style={styles.error}>You must enter a food name</Text>
           ) : (
             <></>
           )}
@@ -179,7 +179,7 @@ class ReviewOrder extends React.Component {
             placeholder='"apple"'
             placeholderTextColor="#aaaaaa"
             onChangeText={(text) => {
-              this.setState({ newFood: text, noFoodError: false });
+              this.setState({ newFood: text });
             }}
             underlineColorAndroid="transparent"
             autoCapitalize="none"
@@ -208,10 +208,10 @@ class ReviewOrder extends React.Component {
                   ...this.state,
                   newFood: '',
                   newExpiration: '',
+                  noFoodError: false,
                   modalVisible: !this.state.modalVisible,
                 });
               } else {
-                console.log('NO FOOD ERROR THROWN');
                 this.setState({ ...this.state, noFoodError: true });
               }
             }}
@@ -252,6 +252,11 @@ class ReviewOrder extends React.Component {
       >
         <View style={styles.modalView}>
           <Text style={styles.modalText}>Edit Item</Text>
+          {this.state.noFoodError ? (
+            <Text style={styles.error}>You must enter a food name</Text>
+          ) : (
+            <></>
+          )}
           <TextInput
             style={styles.input}
             placeholder="FOOD ITEM"
@@ -291,18 +296,23 @@ class ReviewOrder extends React.Component {
           <Pressable
             style={[styles.button, styles.buttonClose]}
             onPress={() => {
-              let newFood = [...this.state.food];
-              let replacementFood = {
-                name: this.state.itemToEdit.name,
-                expiration: this.state.itemToEdit.expiration,
-              };
-              newFood.splice(food.index, 1, replacementFood);
-              this.setState({
-                ...this.state,
-                food: newFood,
-                editModalVisible: !this.state.editModalVisible,
-                itemToEdit: {},
-              });
+              if (this.state.itemToEdit.name.length) {
+                let newFood = [...this.state.food];
+                let replacementFood = {
+                  name: this.state.itemToEdit.name,
+                  expiration: this.state.itemToEdit.expiration,
+                };
+                newFood.splice(food.index, 1, replacementFood);
+                this.setState({
+                  ...this.state,
+                  food: newFood,
+                  noFoodError: false,
+                  editModalVisible: !this.state.editModalVisible,
+                  itemToEdit: {},
+                });
+              } else {
+                this.setState({ ...this.state, noFoodError: true });
+              }
             }}
           >
             <Text style={styles.textStyle}>Submit</Text>
