@@ -87,9 +87,7 @@ export const addAllFoods = (foods) => {
 
       const usersRef = firebase.firestore().collection('users');
       const user = await usersRef.doc(userId).get()
-      const userInfo = user.data()
-      console.log('USER IN ALL FOOD THUNK',userInfo);
-
+      const userInfo = user.data();
       if(!userInfo.pushToken === 'No token available'){
       const body =
         foods.length > 1
