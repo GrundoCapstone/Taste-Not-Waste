@@ -1,6 +1,6 @@
 //action constant
 import axios from 'axios'
-import { EDAMAM_API_KEY } from '../../secrets'
+import { EDAMAM_APP_ID,EDAMAM_APP_KEY } from '../../secrets'
 import firebase from '../firebase/firebase';
 const GET_RECIPES = 'GET_RECIPES'
 const GET_FRIDGE_RECIPES = 'GET_FRIDGE_RECIPES'
@@ -40,34 +40,28 @@ export const fetchRecipes = (ingredient, type) => {
       healthLabels = user.healthLabels;
       console.log('HEALTH LABELS FROM USER', healthLabels);
       if(healthLabels['dairyFree']){
-        healthFilter.push('Dairy-Free')
+        healthFilter.push('dairy-free')
       }
       if(healthLabels['glutenFree']){
-        healthFilter.push('Gluten-Free')
+        healthFilter.push('gluten-free')
       }
       if(healthLabels['vegetarian']){
         console.log('is this logging?')
-        healthFilter.push('Vegetarian')
+        healthFilter.push('vegetarian')
         console.log(healthFilter)
       }
       if(healthLabels['vegan']){
-        healthFilter.push('Vegan')
+        healthFilter.push('vegan')
       }
+      let paramString = ''
+      healthFilter.forEach((label) => paramString+=`health=${label}&`)
+      paramString = paramString.slice(0,-1)
 
-    console.log('FILTER',healthLabels)
-      let options = {
-        method: 'GET',
-        url: 'https://edamam-recipe-search.p.rapidapi.com/search',
-        params: {q: `${ingredient}`, to: 20, Health: healthFilter},
-        headers: {
-          'x-rapidapi-key': `${EDAMAM_API_KEY}`,
-          'x-rapidapi-host': 'edamam-recipe-search.p.rapidapi.com',
-        },
-      };
-      const res = await axios.request(options);
+      const res = await axios.request(`https://api.edamam.com/api/recipes/v2?type=public&q=${ingredient}&app_id=${EDAMAM_APP_ID}&app_key=${EDAMAM_APP_KEY}&${paramString}`);
+
       let resultArr = [];
       res.data.hits.forEach(element => {
-        console.log('RECIPE LOG',element.recipe.label, element.recipe.healthLabels)
+        // console.log('RECIPE LOG',element.recipe.label, element.recipe.healthLabels.length)
         resultArr.push({
           label: element.recipe.label,
           imageUrl: element.recipe.image,

@@ -47,7 +47,7 @@ class UserProfile extends React.Component{
             glutenFree = this.props.userInfo.healthLabels.glutenFree
             dairyFree = this.props.userInfo.healthLabels.dairyFree
         }
-        // console.log(vegan, vegetarian, glutenFree, dairyFree)
+        console.log(vegan, vegetarian, glutenFree, dairyFree)
         return (
             <SafeAreaView style={styles.container}>
                 <Text style={styles.title}>My Profile</Text>
