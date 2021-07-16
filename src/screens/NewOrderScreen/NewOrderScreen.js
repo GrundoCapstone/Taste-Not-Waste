@@ -95,9 +95,11 @@ async function registerForPushNotificationsAsync() {
     }
     if (finalStatus !== 'granted') {
       token = 'No token available'
-    } else {
+    } else{
+
       token = (await Notifications.getExpoPushTokenAsync()).data;
     }
+
   } else {
     alert('Must use physical device for Push Notifications');
   }
