@@ -9,11 +9,19 @@ import {
   Pressable,
   TextInput,
   ScrollView,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { addFoodItem } from '../../store/singleFood';
 import { addAllFoods } from '../../store/allFood';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+
+const DismissKeyboard = ({ children }) => (
+  <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+    {children}
+  </TouchableWithoutFeedback>
+);
 
 class ReviewOrder extends React.Component {
   constructor(props) {
@@ -225,6 +233,7 @@ class ReviewOrder extends React.Component {
                 ...this.state,
                 newFood: '',
                 newExpiration: '',
+                noFoodError: false,
                 modalVisible: !this.state.modalVisible,
               });
             }}
@@ -322,6 +331,7 @@ class ReviewOrder extends React.Component {
             onPress={() => {
               this.setState({
                 ...this.state,
+                noFoodError: false,
                 editModalVisible: !this.state.editModalVisible,
                 itemToEdit: {},
               });
