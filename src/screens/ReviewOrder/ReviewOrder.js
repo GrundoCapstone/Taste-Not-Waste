@@ -22,6 +22,7 @@ class ReviewOrder extends React.Component {
       food: [],
       newFood: '',
       newExpiration: '',
+      noFoodError: false,
       modalVisible: false,
       editModalVisible: false,
       orderDate: new Date(),
@@ -168,12 +169,17 @@ class ReviewOrder extends React.Component {
       >
         <View style={styles.modalView}>
           <Text style={styles.modalText}>Add an Item</Text>
+          {this.state.noFoodError ? (
+            <Text>You must enter a food name</Text>
+          ) : (
+            <></>
+          )}
           <TextInput
             style={styles.input}
             placeholder='"apple"'
             placeholderTextColor="#aaaaaa"
             onChangeText={(text) => {
-              this.setState({ newFood: text });
+              this.setState({ newFood: text, noFoodError: false });
             }}
             underlineColorAndroid="transparent"
             autoCapitalize="none"
@@ -193,14 +199,21 @@ class ReviewOrder extends React.Component {
           <Pressable
             style={[styles.button, styles.buttonClose]}
             onPress={() => {
-              this.props.loadSingleFood(
-                this.state.newFood,
-                this.state.newExpiration
-              );
-              this.setState({
-                ...this.state,
-                modalVisible: !this.state.modalVisible,
-              });
+              if (this.state.newFood.length) {
+                this.props.loadSingleFood(
+                  this.state.newFood,
+                  this.state.newExpiration
+                );
+                this.setState({
+                  ...this.state,
+                  newFood: '',
+                  newExpiration: '',
+                  modalVisible: !this.state.modalVisible,
+                });
+              } else {
+                console.log('NO FOOD ERROR THROWN');
+                this.setState({ ...this.state, noFoodError: true });
+              }
             }}
           >
             <Text style={styles.textStyle}>Submit</Text>
@@ -210,6 +223,8 @@ class ReviewOrder extends React.Component {
             onPress={() => {
               this.setState({
                 ...this.state,
+                newFood: '',
+                newExpiration: '',
                 modalVisible: !this.state.modalVisible,
               });
             }}
