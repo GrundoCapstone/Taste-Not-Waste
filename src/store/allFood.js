@@ -84,6 +84,13 @@ export const addAllFoods = (foods) => {
         fridgeRef.doc().set(food);
         //this is to add the notifications
       });
+
+      const usersRef = firebase.firestore().collection('users');
+      const user = await usersRef.doc(userId).get()
+      const userInfo = user.data()
+      console.log('USER IN ALL FOOD THUNK',userInfo);
+
+      if(!userInfo.pushToken === 'No token available'){
       const body =
         foods.length > 1
           ? `You have ${foods.length} foods expiring!`
@@ -96,6 +103,7 @@ export const addAllFoods = (foods) => {
         },
         trigger: { seconds: 5 },
       });
+    }
       const snapshot = await fridgeRef.get();
 
       const resultArr = [];

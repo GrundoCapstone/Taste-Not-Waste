@@ -94,8 +94,9 @@ async function registerForPushNotificationsAsync() {
       finalStatus = status;
     }
     if (finalStatus !== 'granted') {
-      alert('Failed to get push token for push notification!');
-      return;
+      // alert('Failed to get push token for push notification!');
+      // return;
+      token = 'No token available'
     }
     token = (await Notifications.getExpoPushTokenAsync()).data;
   } else {
