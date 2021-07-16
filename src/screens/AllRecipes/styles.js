@@ -41,7 +41,7 @@ export default StyleSheet.create({
     marginRight: 10,
   },
   text: {
-    fontSize: 25,
+    fontSize: 20,
     fontFamily: 'Kalam',
     color: '#757575',
     flex: 1,
@@ -87,4 +87,18 @@ export default StyleSheet.create({
     textAlign: 'center',
     fontSize: 18,
   },
+  exitIcon: {
+    marginRight: 10,
+    color: '#757575',
+    marginLeft: 5
+  },
+  detailButton: {
+    alignContent: 'center',
+    flexDirection: 'column'
+  },
+  detailText: {
+    fontFamily: 'Kalam',
+    color: '#757575',
+    marginRight: 10
+  }
 });

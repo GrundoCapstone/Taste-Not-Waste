@@ -59,8 +59,8 @@ export default StyleSheet.create({
     backgroundColor: '#B8E0D2',
   },
   recipesScroll: {
-    height: '74%',
-    marginBottom: 10,
+    height: '70%',
+    marginBottom: 100,
   },
   recipesTitle: {
     fontFamily: 'Kalam',
@@ -101,4 +101,18 @@ export default StyleSheet.create({
     marginRight: 700,
     marginTop: 30,
   },
+  exitIcon: {
+    marginRight: 10,
+    color: '#757575',
+    marginLeft: 5
+  },
+  detailButton: {
+    alignContent: 'center',
+    flexDirection: 'column'
+  },
+  detailText: {
+    fontFamily: 'Kalam',
+    color: '#757575',
+    marginRight: 10
+  }
 });
