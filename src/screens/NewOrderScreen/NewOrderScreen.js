@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './styles';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Text, TouchableOpacity, View, Modal, Pressable } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Scanner from '../Scanner/Scanner';
 import ReviewOrder from '../ReviewOrder/ReviewOrder';
@@ -59,6 +59,8 @@ function NewOrderOptions({ navigation }) {
     navigation.navigate('ReviewOrder');
   };
 
+  const [infoModal, setInfoModal] = useState(false)
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Start a New Shopping Trip</Text>
@@ -71,6 +73,38 @@ function NewOrderOptions({ navigation }) {
       <TouchableOpacity style={styles.button} onPress={() => onNewOrderPress()}>
         <Text style={styles.buttonTitle}>Upload Items Manually</Text>
       </TouchableOpacity>
+      <TouchableOpacity style={styles.help} onPress={() => {setInfoModal(true)}}>
+        <Text style={styles.helpTitle}>Need Help?</Text>
+      </TouchableOpacity>
+      {infoModal ? 
+        <Modal
+              animationType="fade"
+              transparent={true}
+              visible={infoModal}
+              onRequestClose={() => {
+                Alert.alert('Modal has been closed.');
+                setInfoModal(!infoModal);
+              }}
+        >
+          <View style={styles.modalView}>
+          <Text>
+            Choose "Upload Receipt Image" to take a picture of your grocery receipt 
+            or upload a receipt from your camera roll to automatically add food 
+            with their expiration dates to your new shopping trip!
+            {"\n"}{"\n"}
+            Choose "Upload Items Manually" to add each food individually to your 
+            new shopping trip!
+          </Text>
+          <Pressable
+              style={styles.button}
+              onPress={() => {
+                setInfoModal(!infoModal);
+              }}
+            >
+              <Text style={styles.buttonTitle}>Close</Text>
+          </Pressable>
+          </View>
+        </Modal> : <></>}
     </View>
   );
 }
