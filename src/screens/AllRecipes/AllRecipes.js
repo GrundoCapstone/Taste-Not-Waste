@@ -16,6 +16,7 @@ import { fetchRecipes } from '../../store/allRecipes';
 import styles from './styles';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import * as Linking from 'expo-linking';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
 const DismissKeyboard = ({ children }) => (
   <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -67,11 +68,7 @@ class AllRecipes extends React.Component {
               <ScrollView>
                 {this.props.recipes.map((recipe) => {
                   return (
-                    <View key={recipe.website}>
-                      <TouchableOpacity
-                        onPress={() => this.handlePress(recipe.website)}
-                        style={styles.container}
-                      >
+                    <View key={recipe.website} style = {styles.container}>
                         <Image
                           style={styles.tinyLogo}
                           source={{
@@ -79,6 +76,12 @@ class AllRecipes extends React.Component {
                           }}
                         />
                         <Text style={styles.text}>{recipe.label}</Text>
+                        <TouchableOpacity
+                        onPress={() => this.handlePress(recipe.website)}
+                        style = {styles.detailButton}
+                      >
+                      <MaterialIcons name = "open-in-new" style = {styles.exitIcon} size = {30}/>
+                      <Text style = {styles.detailText}>Details</Text>
                       </TouchableOpacity>
                     </View>
                   );
@@ -111,3 +114,4 @@ const mapDispatch = (dispatch) => {
 };
 
 export default connect(mapState, mapDispatch)(AllRecipes);
+//open-in-new material icons

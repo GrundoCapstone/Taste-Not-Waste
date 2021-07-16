@@ -87,4 +87,15 @@ export default StyleSheet.create({
     textAlign: 'center',
     fontSize: 18,
   },
+  exitIcon: {
+    marginRight: 10,
+    color: '#757575',
+  },
+  detailButton: {
+    alignItems: 'center',
+  },
+  detailText: {
+    fontFamily: 'Kalam',
+    color: '#757575',
+  }
 });
