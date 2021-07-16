@@ -23,23 +23,26 @@ class UserProfile extends React.Component{
     componentDidMount(){
         this.props.loadUserInfo();
         console.log('USER INFO IN COMPONENT DID MOUNT',this.props.userInfo)
-        this.setState({
-            vegan: this.props.userInfo.healthLabels.vegan,
-            vegetarian: this.props.userInfo.healthLabels.vegetarian,
-            dairyFree: this.props.userInfo.healthLabels.dairyFree,
-            glutenFree: this.props.userInfo.healthLabels.glutenFree
-        })
+        // this.setState({
+        //     vegan: this.props.userInfo.healthLabels.vegan,
+        //     vegetarian: this.props.userInfo.healthLabels.vegetarian,
+        //     dairyFree: this.props.userInfo.healthLabels.dairyFree,
+        //     glutenFree: this.props.userInfo.healthLabels.glutenFree
+        // })
     }
     render(){
         let userName = ""
         let userEmail = ""
+        // let vegan = this.props.userInfo.healthLabels.vegan || '';
+        // let vegetarian = this.props.userInfo.healthLabels.vegetarian || '';
+        // let glutenFree = this.props.userInfo.healthLabels.glutenFree || '';
+        // let dairyFree = this.props.userInfo.healthLabels.dairyFree || '';
         let vegan;
         let vegetarian;
         let glutenFree;
         let dairyFree;
         console.log('OUTSIDE CONTIDIONAL', this.props.userInfo)
         if(this.props.userInfo.id){
-            console.log('IN CONDITIONAL',this.props.userInfo)
             userName = this.props.userInfo.fullName
             userEmail = this.props.userInfo.email
             vegan = this.props.userInfo.healthLabels.vegan
