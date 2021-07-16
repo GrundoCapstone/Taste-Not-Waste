@@ -25,6 +25,9 @@ class FridgeScreen extends React.Component {
       expiration: food.expiration,
     });
   }
+  onAddToFridgeNavigationPress(){
+    this.props.navigation.navigate('NewOrderScreen')
+  }
 
   render() {
     let foods = this.props.allFoodsFridge;
@@ -39,7 +42,15 @@ class FridgeScreen extends React.Component {
       <SafeAreaView style={styles.container}>
         <ScrollView style={styles.scrollView}>
           <Text style={styles.title}>Fridge</Text>
-          <View style={styles.totalList}>
+          {foods.length === 0 ? (
+            <View>
+              <Text style={styles.title}>Your fridge is empty!</Text>
+              <TouchableOpacity onPress={() => this.onAddToFridgeNavigationPress()}>
+                <Text style={styles.button}>Add Items</Text>
+              </TouchableOpacity>
+            </View>
+          ) :
+          (<View style={styles.totalList}>
             {foods.map((food, index) => {
               return (
                 <TouchableOpacity
@@ -66,7 +77,7 @@ class FridgeScreen extends React.Component {
                 </TouchableOpacity>
               );
             })}
-          </View>
+          </View>)}
         </ScrollView>
       </SafeAreaView>
     );
