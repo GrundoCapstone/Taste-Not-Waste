@@ -19,7 +19,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FridgeNavigator from './src/screens/FridgeScreen/FridgeNavigator';
 import { useFonts } from '@use-expo/font';
-import { AppLoading } from 'expo';
+import AppLoading from 'expo-app-loading';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
 if (!global.btoa) {
