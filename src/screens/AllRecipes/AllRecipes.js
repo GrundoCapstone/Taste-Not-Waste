@@ -68,7 +68,8 @@ class AllRecipes extends React.Component {
               <ScrollView>
                 {this.props.recipes.map((recipe) => {
                   return (
-                    <View key={recipe.website} style = {styles.container}>
+                    <TouchableWithoutFeedback key={recipe.website} >
+                      <View style = {styles.container}>
                         <Image
                           style={styles.tinyLogo}
                           source={{
@@ -76,14 +77,15 @@ class AllRecipes extends React.Component {
                           }}
                         />
                         <Text style={styles.text}>{recipe.label}</Text>
-                        <TouchableOpacity
+                         <TouchableOpacity
                         onPress={() => this.handlePress(recipe.website)}
                         style = {styles.detailButton}
                       >
                       <MaterialIcons name = "open-in-new" style = {styles.exitIcon} size = {30}/>
                       <Text style = {styles.detailText}>Details</Text>
                       </TouchableOpacity>
-                    </View>
+                      </View>
+                    </TouchableWithoutFeedback>
                   );
                 })}
               </ScrollView>
