@@ -89,7 +89,6 @@ export const addAllFoods = (foods) => {
       const user = await usersRef.doc(userId).get()
       const userInfo = user.data();
       if(userInfo.pushToken !== 'No token available'){
-        console.log('is this code running?')
       const body =
         foods.length > 1
           ? `You have ${foods.length} foods expiring!`
