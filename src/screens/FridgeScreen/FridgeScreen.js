@@ -45,8 +45,8 @@ class FridgeScreen extends React.Component {
           {foods.length === 0 ? (
             <View>
               <Text style={styles.title}>Your fridge is empty!</Text>
-              <TouchableOpacity onPress={() => this.onAddToFridgeNavigationPress()}>
-                <Text style={styles.button}>Add Items</Text>
+              <TouchableOpacity onPress={() => this.onAddToFridgeNavigationPress()} style = {styles.button}>
+                <Text style={styles.buttonText}>Add Items</Text>
               </TouchableOpacity>
             </View>
           ) :

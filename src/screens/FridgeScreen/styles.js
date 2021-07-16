@@ -88,6 +88,6 @@ export default StyleSheet.create({
   },
   buttonText: {
     fontFamily: 'Kalam',
-    fontSize: 16,
+    fontSize: 20,
   }
 });
