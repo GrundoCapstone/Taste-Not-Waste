@@ -271,7 +271,7 @@ class ReviewOrder extends React.Component {
             )}
             <TextInput
               style={styles.input}
-              placeholder="FOOD ITEM"
+              placeholder='"apple"'
               placeholderTextColor="#aaaaaa"
               value={this.state.itemToEdit.name}
               onChangeText={(text) => {
