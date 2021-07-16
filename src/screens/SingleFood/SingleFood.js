@@ -1,11 +1,12 @@
 //single food component
 import React from 'react';
-import { View, Text, ScrollView, TouchableOpacity, Image } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, Image, TouchableWithoutFeedback } from 'react-native';
 import { connect } from 'react-redux';
 import * as Linking from 'expo-linking';
 import { fetchRecipes } from '../../store/allRecipes';
 import { deleteSingleFood, fetchAllFoods } from '../../store/allFood';
 import styles from './styles';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
 class SingleFood extends React.Component {
   constructor() {
@@ -70,11 +71,8 @@ class SingleFood extends React.Component {
             <ScrollView style={styles.recipesScroll}>
               {this.props.recipes.map((recipe) => {
                 return (
-                  <View key={recipe.website}>
-                    <TouchableOpacity
-                      onPress={() => this.handlePress(recipe.website)}
-                      style={styles.container}
-                    >
+                  <TouchableWithoutFeedback key={recipe.website} >
+                  <View style={styles.container}>
                       <Image
                         style={styles.tinyLogo}
                         source={{
@@ -82,8 +80,14 @@ class SingleFood extends React.Component {
                         }}
                       />
                       <Text style={styles.text}>{recipe.label}</Text>
+                      <TouchableOpacity
+                      onPress={() => this.handlePress(recipe.website)}
+                    >
+                                            <MaterialIcons name = "open-in-new" style = {styles.exitIcon} size = {30}/>
+                      <Text style = {styles.detailText}>Details</Text>
                     </TouchableOpacity>
                   </View>
+                  </TouchableWithoutFeedback>
                 );
               })}
             </ScrollView>
