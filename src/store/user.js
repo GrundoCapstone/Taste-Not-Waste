@@ -1,11 +1,4 @@
 import firebase from '../firebase/firebase';
-/*
-get user info
-
-edit user info
-
-adding recipe favorites
-*/
 
 //action types
 const LOGIN = 'LOGIN';
@@ -14,7 +7,6 @@ const LOGOUT = 'LOGOUT';
 const NOTIFICATION_AUTH = 'NOTIFICATION_AUTH';
 const GET_USER_INFO = 'GET_USER_INFO';
 const EDIT_HEALTH_RESTRICTIONS = 'EDIT_HEALTH_RESTRICTIONS';
-
 
 //{ vegan: false, vegetarian: true , }
 //action creator
@@ -56,9 +48,9 @@ const setNotificationToken = (user) => {
 const _getUserInfo = (user) => {
   return {
     type: GET_USER_INFO,
-    user: user
-  }
-}
+    user: user,
+  };
+};
 
 //thunk creators
 export const login = (email, password) => {
@@ -131,13 +123,13 @@ export const logout = () => {
 
 export const setToken = (token) => {
   return async (dispatch) => {
-    const user = await firebase.auth().currentUser.uid
+    const user = await firebase.auth().currentUser.uid;
     const usersRef = firebase.firestore().collection('users');
     usersRef
-    .doc(user)
-    .update({
-      pushToken: token
-    })
+      .doc(user)
+      .update({
+        pushToken: token,
+      })
       .catch((error) => {
         alert(error);
       });
@@ -145,9 +137,9 @@ export const setToken = (token) => {
 };
 
 export const gettingUserInfo = () => {
-  return async(dispatch) => {
-    const userId = await firebase.auth().currentUser.uid
-    const usersRef = firebase.firestore().collection('users')
+  return async (dispatch) => {
+    const userId = await firebase.auth().currentUser.uid;
+    const usersRef = firebase.firestore().collection('users');
     usersRef
       .doc(userId)
       .get()

@@ -8,12 +8,20 @@ import {
   ScrollView,
   TextInput,
   TouchableOpacity,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { fetchRecipes } from '../../store/allRecipes';
 import styles from './styles';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import * as Linking from 'expo-linking';
+
+const DismissKeyboard = ({ children }) => (
+  <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+    {children}
+  </TouchableWithoutFeedback>
+);
 
 class AllRecipes extends React.Component {
   constructor() {
@@ -28,59 +36,64 @@ class AllRecipes extends React.Component {
   }
   render() {
     return (
-      <View style={styles.body}>
-        <Text style={styles.header}>Discover New Recipes</Text>
-        <KeyboardAwareScrollView
-          style={{ flex: 1, width: '100%' }}
-          keyboardShouldPersistTaps="always"
-        >
-          <View>
-            <TextInput
-              style={styles.input}
-              placeholder="Ingredient(s)"
-              placeholderTextColor="#aaaaaa"
-              onChangeText={(text) => this.setState({ ingredient: text })}
-              value={this.state.ingredient}
-              underlineColorAndroid="transparent"
-              autoCapitalize="none"
-            />
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => this.props.loadRecipes(this.state.ingredient)}
-            >
-              <Text style={styles.searchText}>Search</Text>
-            </TouchableOpacity>
-          </View>
-          {this.props.recipes.length ? (
-            <ScrollView>
-              {this.props.recipes.map((recipe) => {
-                return (
-                  <View key={recipe.website}>
-                    <TouchableOpacity
-                      onPress={() => this.handlePress(recipe.website)}
-                      style={styles.container}
-                    >
-                      <Image
-                        style={styles.tinyLogo}
-                        source={{
-                          uri: recipe.imageUrl,
-                        }}
-                      />
-                      <Text style={styles.text}>{recipe.label}</Text>
-                    </TouchableOpacity>
-                  </View>
-                );
-              })}
-            </ScrollView>
-          ) : (
+      <DismissKeyboard>
+        <View style={styles.body}>
+          <Text style={styles.header}>Discover New Recipes</Text>
+          <KeyboardAwareScrollView
+            style={{ flex: 1, width: '100%' }}
+            keyboardShouldPersistTaps="always"
+          >
             <View>
-              <Text style={styles.instructions}>
-                Search for recipes by ingredient!
-              </Text>
+              <TextInput
+                style={styles.input}
+                placeholder="Ingredient(s)"
+                placeholderTextColor="#aaaaaa"
+                onChangeText={(text) => this.setState({ ingredient: text })}
+                value={this.state.ingredient}
+                underlineColorAndroid="transparent"
+                autoCapitalize="none"
+              />
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => {
+                  this.props.loadRecipes(this.state.ingredient);
+                  Keyboard.dismiss();
+                }}
+              >
+                <Text style={styles.searchText}>Search</Text>
+              </TouchableOpacity>
             </View>
-          )}
-        </KeyboardAwareScrollView>
-      </View>
+            {this.props.recipes.length ? (
+              <ScrollView>
+                {this.props.recipes.map((recipe) => {
+                  return (
+                    <View key={recipe.website}>
+                      <TouchableOpacity
+                        onPress={() => this.handlePress(recipe.website)}
+                        style={styles.container}
+                      >
+                        <Image
+                          style={styles.tinyLogo}
+                          source={{
+                            uri: recipe.imageUrl,
+                          }}
+                        />
+                        <Text style={styles.text}>{recipe.label}</Text>
+                      </TouchableOpacity>
+                    </View>
+                  );
+                })}
+              </ScrollView>
+            ) : (
+              <View>
+                <Text style={styles.instructions}>
+                  Search for recipes by ingredient!
+                </Text>
+              </View>
+            )}
+          </KeyboardAwareScrollView>
+        </View>
+      </DismissKeyboard>
     );
   }
 }

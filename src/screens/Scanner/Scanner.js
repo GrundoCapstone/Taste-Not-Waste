@@ -12,7 +12,12 @@ import * as MediaLibrary from 'expo-media-library';
 import { Camera } from 'expo-camera';
 import styles from './styles';
 
-import { _pickImage, _takePhoto, submitToGoogle } from '../../store/scanner';
+import {
+  _pickImage,
+  _takePhoto,
+  submitToGoogle,
+  resetImage,
+} from '../../store/scanner';
 
 class Scanner extends React.Component {
   state = {
@@ -27,14 +32,17 @@ class Scanner extends React.Component {
   }
 
   render() {
-    let { image } = this.state;
-
     return (
       <ScrollView style={styles.container}>
         <View style={styles.body}>
-          <TouchableOpacity style={styles.backButton} onPress={() => this.props.navigation.goBack()} >
-        <Text style={styles.textStyle} title="Go back">Back</Text>
-        </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.backButton}
+            onPress={() => this.props.navigation.goBack()}
+          >
+            <Text style={styles.textStyle} title="Go back">
+              Back
+            </Text>
+          </TouchableOpacity>
           <Text style={styles.getStartedText}>Upload a Receipt</Text>
           <View style={styles.helpContainer}>
             <TouchableOpacity
@@ -78,11 +86,10 @@ class Scanner extends React.Component {
   };
 
   _maybeRenderImage = () => {
-    let { image, googleResponse } = this.props;
+    let { image } = this.props;
     if (!image) {
       return;
     }
-
     return (
       <View
         style={{
@@ -96,6 +103,7 @@ class Scanner extends React.Component {
           style={styles.analyzeButton}
           onPress={() => {
             this.props.submitToGoogle(this.props.image);
+            this.props.resetImage();
             this.props.navigation.navigate('ReviewOrder');
           }}
           title="Analyze Receipt!"
@@ -140,6 +148,7 @@ const mapDispatch = (dispatch) => {
     pickImage: () => dispatch(_pickImage()),
     takePhoto: () => dispatch(_takePhoto()),
     submitToGoogle: (image) => dispatch(submitToGoogle(image)),
+    resetImage: () => dispatch(resetImage()),
   };
 };
 

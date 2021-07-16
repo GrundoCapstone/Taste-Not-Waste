@@ -8,7 +8,7 @@ export default StyleSheet.create({
   },
   title: {
     fontSize: 30,
-    marginTop: 18,
+    marginTop: 15,
     fontFamily: 'Kalam',
   },
   userName: {
@@ -18,6 +18,7 @@ export default StyleSheet.create({
   userEmail: {
     fontSize: 20,
     fontFamily: 'Kalam',
+    marginBottom: 70
   },
   iconLogo: {
     resizeMode: 'contain',
@@ -75,5 +76,10 @@ export default StyleSheet.create({
   checked: {
     color: 'red',
     fontWeight: 'bold'
+  },
+  appName: {
+    fontSize: 20,
+    fontFamily: 'Kalam',
+    marginTop: 20,
   }
 });

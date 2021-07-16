@@ -1,5 +1,4 @@
 import * as ImagePicker from 'expo-image-picker';
-import Clipboard from 'expo-clipboard';
 import Environment from '../firebase/environment';
 import firebase from '../firebase/firebase';
 import { nanoid } from 'nanoid/non-secure';
@@ -7,6 +6,7 @@ import { nanoid } from 'nanoid/non-secure';
 //action types:
 const HANDLE_PICKED_IMAGE = 'HANDLE_PICKED_IMAGE';
 const SUBMIT_TO_GOOGLE = 'SUBMIT_TO_GOOGLE';
+const RESET_IMAGE = 'RESET_IMAGE';
 
 //action creators
 const handlePickedImage = (image) => {
@@ -23,22 +23,15 @@ const _submitToGoogle = (response) => {
   };
 };
 
+export const resetImage = () => {
+  return {
+    type: RESET_IMAGE,
+  };
+};
+
 export const _renderItem = (item) => {
   <Text>response: {JSON.stringify(item)}</Text>;
 };
-
-// export const _share = () => {
-//   Share.share({
-//     message: JSON.stringify(this.state.googleResponse.responses),
-//     title: 'Check it out',
-//     url: this.state.image,
-//   });
-// };
-
-// export const _copyToClipboard = () => {
-//   Clipboard.setString(this.state.image);
-//   alert('Copied to clipboard');
-// };
 
 //upload new image taken with camera
 export const _takePhoto = () => {
@@ -69,8 +62,6 @@ export const _handleImagePicked = (pickerResult) => {
   2;
   return async (dispatch) => {
     try {
-      // this.setState({ uploading: true });
-
       if (!pickerResult.cancelled) {
         const blob = await new Promise((resolve, reject) => {
           const xhr = new XMLHttpRequest();
@@ -106,10 +97,7 @@ export const submitToGoogle = (image) => {
       let body = JSON.stringify({
         requests: [
           {
-            features: [
-              { type: 'TEXT_DETECTION' },
-              // { type: 'DOCUMENT_TEXT_DETECTION', maxResults: 5 },
-            ],
+            features: [{ type: 'TEXT_DETECTION' }],
             image: {
               source: {
                 imageUri: image,
@@ -205,6 +193,8 @@ export default scannerReducer = (state = initialState, action) => {
       return { ...state, image: action.image };
     case SUBMIT_TO_GOOGLE:
       return { ...state, googleResponse: action.googleResponse };
+    case RESET_IMAGE:
+      return { ...state, image: null };
     default:
       return state;
   }

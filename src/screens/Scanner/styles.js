@@ -6,7 +6,7 @@ export default StyleSheet.create({
     backgroundColor: '#B8E0D2',
   },
   body: {
-    marginTop: 60,
+    marginTop: 35,
     paddingTop: 30,
   },
   developmentModeText: {
@@ -23,7 +23,6 @@ export default StyleSheet.create({
   getStartedText: {
     fontSize: 30,
     fontFamily: 'Kalam',
-    lineHeight: 40,
     textAlign: 'center',
   },
 
@@ -64,11 +63,10 @@ export default StyleSheet.create({
   },
   backButton: {
     backgroundColor: '#EAC4D5',
-    height: 20,
     borderRadius: 5,
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 1,
+    paddingTop: 1,
     width: 65,
     marginLeft: 12,
     borderWidth: 1,
@@ -79,5 +77,5 @@ export default StyleSheet.create({
     color: 'black',
     fontFamily: 'Kalam',
     textAlign: 'center',
-  }
+  },
 });

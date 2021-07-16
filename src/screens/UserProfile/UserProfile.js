@@ -61,6 +61,7 @@ class UserProfile extends React.Component{
                 <TouchableOpacity onPress={() =>this.setState({modalVisible:true})}><Text>Edit Dietary Preferences</Text></TouchableOpacity>
                 <LogoutScreen />
                 {this.maybeRenderModal()}
+                <Text style={styles.appName}>Taste Not Waste</Text>
             </SafeAreaView>
         )
     }

@@ -1,8 +1,3 @@
-/*
-edit food item (quantity and delete)
-
-get food name and expiration
-*/
 import firebase from '../firebase/firebase';
 
 Date.prototype.addDays = function (days) {
@@ -22,21 +17,23 @@ const postSingleFood = (foodItem) => {
 };
 
 //Thunk
-export const addFoodItem = (food) => {
-  //takes in food parameter?
+export const addFoodItem = (food, expiration) => {
   return async (dispatch) => {
     try {
-      const foodResult = { name: food, expiration: '' };
+      let newExpiration = expiration.length ? expiration : '';
+      const foodResult = { name: food, expiration: newExpiration };
       const foodRef = firebase.firestore().collection('/food');
       const snapshot = await foodRef.get();
-      snapshot.forEach((doc) => {
-        if (doc.data().name == food) {
-          let currentDate = new Date();
-          const duration = parseInt(doc.data().duration, 0);
-          const expiration = currentDate.addDays(duration);
-          foodResult['expiration'] = expiration.toString().slice(4, 15);
-        }
-      });
+      if (!foodResult.expiration.length) {
+        snapshot.forEach((doc) => {
+          if (doc.data().name == food) {
+            let currentDate = new Date();
+            const duration = parseInt(doc.data().duration, 0);
+            const expiration = currentDate.addDays(duration);
+            foodResult['expiration'] = expiration.toString().slice(4, 15);
+          }
+        });
+      }
       dispatch(postSingleFood(foodResult));
     } catch (error) {
       console.log(error, "Can't add food item!");

@@ -9,6 +9,7 @@ export default StyleSheet.create({
   title: {
     fontSize: 30,
     fontFamily: 'Kalam',
+    textAlign: 'center',
   },
   logo: {
     flex: 1,
@@ -93,13 +94,24 @@ export default StyleSheet.create({
   input: {
     height: 48,
     borderRadius: 5,
+    borderWidth: 0.5,
+    borderColor: 'black',
     overflow: 'hidden',
     backgroundColor: 'white',
     marginTop: 10,
-    marginBottom: 10,
+    marginBottom: 5,
     marginLeft: 30,
     marginRight: 30,
     paddingLeft: 16,
+  },
+  inputLabel: {
+    fontFamily: 'Kalam',
+    textAlign: 'center',
+  },
+  error: {
+    fontFamily: 'Kalam',
+    color: 'red',
+    textAlign: 'center',
   },
   editName: {
     borderRadius: 5,
@@ -114,7 +126,13 @@ export default StyleSheet.create({
   },
   orderDate: {
     fontSize: 16,
-    flexDirection: 'row',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  orderDateText: {
+    fontSize: 16,
+    fontFamily: 'Kalam',
+    textAlign: 'center',
   },
   totalList: {
     flexDirection: 'column',
@@ -135,11 +153,16 @@ export default StyleSheet.create({
     marginBottom: 5,
   },
   itemColumn: {
+    fontSize: 20,
+    width: 150,
     flexDirection: 'column',
+    fontFamily: 'Kalam',
   },
   expirationColumn: {
+    fontSize: 20,
     flexDirection: 'column',
-    marginRight: 55,
+    marginRight: 90,
+    fontFamily: 'Kalam',
   },
   datePickerStyle: {
     width: 200,
@@ -156,21 +179,31 @@ export default StyleSheet.create({
     alignItems: 'center',
     fontFamily: 'Kalam',
   },
+  icon: {
+    flexDirection: 'row',
+  },
   trashIcon: {
     marginRight: 10,
+  },
+  nameText: {
+    fontSize: 16,
+    fontFamily: 'Kalam',
+    width: 150,
+  },
+  expirationText: {
+    fontSize: 16,
+    fontFamily: 'Kalam',
   },
   backButton: {
     marginTop: 60,
     backgroundColor: '#EAC4D5',
-    height: 20,
     borderRadius: 5,
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 1,
+    paddingTop: 1,
     width: 65,
-    marginLeft: 12,
     borderWidth: 1,
     borderColor: 'black',
-    marginRight: 300,
-  }
+    marginRight: 350,
+  },
 });

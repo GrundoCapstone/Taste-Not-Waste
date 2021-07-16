@@ -1,11 +1,3 @@
-/*
-fridge view
-
-food name and expiration date
-
-add multiple food items, then click confirm to change state
-
-*/
 import * as Notifications from 'expo-notifications';
 import firebase from '../firebase/firebase';
 
@@ -46,14 +38,14 @@ export const fetchAllFoods = () => {
         .collection(`/users/${userId}/fridge`);
       const snapshot = await fridgeRef.get();
       const resultArr = [];
-      const unknownExpiration = new Date('Jan 1 2099').getTime()
+      const unknownExpiration = new Date('Jan 1 2099').getTime();
       snapshot.forEach((doc) => {
         //if food expiration is known
         if (doc.data().expiration !== unknownExpiration) {
           const expiration = new Date(
             doc.data().expiration.seconds * 1000
           ).getTime();
-          const currentDate = new Date().getTime();
+          const currentDate = new Date().setHours(0, 0, 0, 0);
           const difference = Math.round(
             (expiration - currentDate) / (1000 * 3600 * 24)
           );
@@ -92,6 +84,11 @@ export const addAllFoods = (foods) => {
         fridgeRef.doc().set(food);
         //this is to add the notifications
       });
+
+      const usersRef = firebase.firestore().collection('users');
+      const user = await usersRef.doc(userId).get()
+      const userInfo = user.data();
+      if(userInfo.pushToken !== 'No token available'){
       const body =
         foods.length > 1
           ? `You have ${foods.length} foods expiring!`
@@ -104,6 +101,7 @@ export const addAllFoods = (foods) => {
         },
         trigger: { seconds: 5 },
       });
+    }
       const snapshot = await fridgeRef.get();
 
       const resultArr = [];
@@ -118,8 +116,11 @@ export const addAllFoods = (foods) => {
           );
           resultArr.push({ name: doc.data().name, expiration: difference });
         } else {
-          const unknownExpiration = new Date('Jan 1 2099').getTime()
-          resultArr.push({ name: doc.data().name, expiration: unknownExpiration });
+          const unknownExpiration = new Date('Jan 1 2099').getTime();
+          resultArr.push({
+            name: doc.data().name,
+            expiration: unknownExpiration,
+          });
         }
       });
       dispatch(_addAllFoods(resultArr));

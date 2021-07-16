@@ -1,11 +1,9 @@
 import { StyleSheet } from 'react-native';
-import { Kalam_400Regular } from '@expo-google-fonts/kalam';
 
 export default StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',
-    // margin: 5,
     backgroundColor: '#EAC4D5',
   },
   scrollView: {
@@ -72,4 +70,22 @@ export default StyleSheet.create({
     fontStyle: 'italic',
     textAlign: 'center',
   },
+  button: {
+    backgroundColor: '#B8E0D2',
+    borderColor: 'black',
+    borderRadius: 5,
+    borderWidth: 1,
+    marginLeft: 70,
+    marginRight: 70,
+    marginTop: 10,
+    marginBottom: 30,
+    height: 48,
+    borderRadius: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  buttonText: {
+    fontFamily: 'Kalam',
+    fontSize: 20,
+  }
 });
