@@ -430,7 +430,7 @@ class ReviewOrder extends React.Component {
           });
         }}
       >
-        <View style={styles.modalView}>
+        <View style={styles.longModalView}>
           <Text style={styles.modalText}>How To Use Review Order</Text>
           <Text>
             {
