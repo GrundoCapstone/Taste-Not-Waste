@@ -2,7 +2,7 @@ Taste-Not-Waste
 
 Description
 
-Taste Not Waste is a place to keep track of all your perishables and when they will expire in order to help minimize food waste. Users can add items to their "fridge" after a shopping trip and the app can estimate when each item will expire, or a user can input the expiration date on the packaging. The app also sends notifications to remind users about their items that are expiring soon and will suggest recipes using that item.
+Taste Not Waste helps minimize food waste by keeping track of all your perishables and when they will expire. Users can add items to their "fridge" after a shopping trip and the app can estimate when each item will expire, or a user can input the expiration date on the packaging. The app also sends notifications to remind users about their items that are expiring soon and will suggest recipes using that item.
 
 Download
 
