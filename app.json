@@ -4,7 +4,7 @@
     "slug": "TasteNotWaste",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/avoIcon.png",
+    "icon": "./assets/avoIconsquare.png",
     "privacy": "public",
     "splash": {
       "image": "./assets/avoIconsquare.png",
@@ -38,6 +38,7 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "description": ""
+    "description": "1. Download Expo Go on your device\n2. Log in to the taste not waste account\n      username: tastenotwaste\n      password:  tastenotwasteapp\n3. Scan this QR code",
+    "githubUrl": "https://github.com/GrundoCapstone/Taste-Not-Waste"
   }
 }
