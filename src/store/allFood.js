@@ -92,14 +92,14 @@ export const addAllFoods = (foods) => {
       const body =
         foods.length > 1
           ? `You have ${foods.length} foods expiring!`
-          : `Your ${foods[0].name} is expiring!`;
+          : `Your ${foods[0].name} is expiring in two days!`;
       await Notifications.scheduleNotificationAsync({
         content: {
           title: 'Time to eat! 🥑',
           body: body,
           data: { data: 'goes here' },
         },
-        trigger: { seconds: 5 },
+        trigger: { seconds: 10 },
       });
     }
       const snapshot = await fridgeRef.get();
