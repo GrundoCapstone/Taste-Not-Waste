@@ -1,8 +1,7 @@
-<div style="text-align:center"><img src=assets/TNWLogoSmall.png width="250" height="288"></div>
-<div><img src=assets/IMG_2389.GIF width="250" height="400"><img src=assets/IMG_2393.GIF width="250" height="400"><img src=assets/IMG_2396.GIF width="250" height="400"></div>
-
+<!-- <div style="text-align:center"><img src=assets/TNWLogoSmall.png width="250" height="288"></div> -->
 
 # Taste Not Waste
+<div> <img src=assets/IMG_2389.GIF width="250" height="450"> <img src=assets/IMG_2393.GIF width="250" height="450"></div>
 
 ## Description
 
