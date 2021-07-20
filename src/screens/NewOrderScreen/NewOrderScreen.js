@@ -14,7 +14,7 @@ const Stack = createStackNavigator();
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
-    shouldPlaySound: false,
+    shouldPlaySound: true,
     shouldSetBadge: false,
   }),
 });
@@ -76,7 +76,7 @@ function NewOrderOptions({ navigation }) {
       <TouchableOpacity style={styles.help} onPress={() => {setInfoModal(true)}}>
         <Text style={styles.helpTitle}>Need Help?</Text>
       </TouchableOpacity>
-      {infoModal ? 
+      {infoModal ?
         <Modal
               animationType="fade"
               transparent={true}
@@ -88,11 +88,11 @@ function NewOrderOptions({ navigation }) {
         >
           <View style={styles.modalView}>
           <Text>
-            Choose "Upload Receipt Image" to take a picture of your grocery receipt 
-            or upload a receipt from your camera roll to automatically add food 
+            Choose "Upload Receipt Image" to take a picture of your grocery receipt
+            or upload a receipt from your camera roll to automatically add food
             with their expiration dates to your new shopping trip!
             {"\n"}{"\n"}
-            Choose "Upload Items Manually" to add each food individually to your 
+            Choose "Upload Items Manually" to add each food individually to your
             new shopping trip!
           </Text>
           <Pressable
