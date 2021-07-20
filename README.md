@@ -1,41 +1,45 @@
-Taste-Not-Waste
+<div style="text-align:center"><img src=assets/TNWLogoSmall.png width="250" height="288"></div>
 
-Description
+# Taste Not Waste
+
+## Description
 
 Taste Not Waste helps minimize food waste by keeping track of all your perishables and when they will expire. Users can add items to their "fridge" after a shopping trip and the app can estimate when each item will expire, or a user can input the expiration date on the packaging. The app also sends notifications to remind users about their items that are expiring soon and will suggest recipes using that item.
 
-Download
+## Download
 
-cd <directory you want to download to>
+```
+cd <DIRECTORY_YOU_WANT_TO_DOWNLOAD_TO>
 
 git clone https://github.com/GrundoCapstone/Taste-Not-Waste.git
 
 npm install
 
 npm start
+```
 
-on a mobile app/tablet, download Expo Go app
+On a mobile app/tablet, download Expo Go app
 
-visit -  https://expo.io/@daniellaaceves/projects/TasteNotWaste
+Visit: https://expo.io/@daniellaaceves/projects/TasteNotWaste
 
-Team
-------
-Laura Buffington
+## Team
+
+Laura Buffington:<br/>
 https://www.linkedin.com/in/laura-c-buffington/
 https://github.com/laura177
 
-Daniella Aceves
+Daniella Aceves:<br/>
 https://github.com/dani-aceves
 https://www.linkedin.com/in/daniella-aceves/
 
-Clare Sweeny
+Clare Sweeny:<br/>
 https://www.linkedin.com/in/clare-sweeny/
 https://github.com/csweeny
 
-Mabel Lawrence
+Mabel Lawrence:<br/>
 https://www.linkedin.com/in/mabellawrence/
 
-Current Features
+## Current Features
 
 - New users can access the Need Help modal for instructions on how to use the app
 - User have the ability to add items to the fridge manually with or without an expiration date
@@ -48,7 +52,7 @@ Current Features
 - Users can search for recipes by any ingredient
 - Selecting a recipe will redirect the user to the source of the recipe for instructions
 
-Tech Stack
+## Tech Stack
 
 - React-Native
   Used as a framework for a mobile app that can be run on Android and iOS
@@ -65,7 +69,7 @@ Tech Stack
 - Ngrok
   Hosts a tunnel for many users to access the app
 
-Next Steps
+## Next Steps
 
 - Allow users to toggle dietary restrictions such as "gluten free" or "vegetarian" for a more personalized experience
 - Have users be able to maintain a list of favorite recipes
