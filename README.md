@@ -26,7 +26,7 @@ Visit: https://expo.io/@daniellaaceves/projects/TasteNotWaste
 
 Laura Buffington:<br/>
 https://www.linkedin.com/in/laura-c-buffington/ <br />
-https://github.com/laura177
+https://github.com/laura177 
 
 Daniella Aceves:<br/>
 https://www.linkedin.com/in/daniella-aceves/ <br />
