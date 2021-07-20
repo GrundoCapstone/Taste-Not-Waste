@@ -21,13 +21,14 @@ export const addFoodItem = (food, expiration) => {
   return async (dispatch) => {
     try {
       food = food.toLowerCase().trim()
-      let regex = new RegExp(`${food}e?s?`)
       let newExpiration = expiration.length ? expiration : '';
       const foodResult = { name: food, expiration: newExpiration };
       const foodRef = firebase.firestore().collection('/food');
       const snapshot = await foodRef.get();
       if (!foodResult.expiration.length) {
         snapshot.forEach((doc) => {
+          let foodName = doc.data().name;
+          let regex = new RegExp('\\b' + foodName + '(?:es|s)?\\b')
           if (regex.test(food)) {
             let currentDate = new Date();
             const duration = parseInt(doc.data().duration, 0);
