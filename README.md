@@ -13,8 +13,8 @@ Taste Not Waste helps minimize food waste by keeping track of all your perishabl
 1. Download Expo Go on your mobile device or tablet
 
 2. Log into the taste not waste account
-    <br />  username: tastenotwaste
-    <br /> password: tastenotwasteapp
+    <br /> <span style='font-weight:bold'> username: </span> tastenotwaste
+    <br /> <span style='font-weight:bold'> password: </span>  tastenotwasteapp
 3. Go to this url and scan the QR code https://exp.host/@tastenotwaste/TasteNotWaste
     <br />    OR  <br />
    Tap on Profile, open up Recent Projects, and tap TasteNotWaste
