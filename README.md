@@ -1,6 +1,7 @@
-<div style="text-align:center"><img src=assets/title.png></div>
+<div style="text-align:center"><img src=assets/title.png width="300"></div>
 
-# Taste Not Waste
+<br/>
+
 <div> <img src=assets/IMG_2389.GIF width="250" height="500"> <img src=assets/IMG_2393.GIF width="250" height="500"></div>
 
 ## Description
