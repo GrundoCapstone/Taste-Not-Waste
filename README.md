@@ -10,7 +10,7 @@ Taste Not Waste helps minimize food waste by keeping track of all your perishabl
 
 ## Use App On Our Expo Account
 
-1. Download Expo Go on your mobile device or tablet
+1. Download <a href="https://expo.dev/client">Expo Go</a> on your mobile device or tablet
 
 2. Log into the taste not waste account
     <br /> <strong > username: </strong> tastenotwaste
