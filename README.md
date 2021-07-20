@@ -33,6 +33,8 @@ npm start
 
 On a mobile app/tablet, download Expo Go app
 
+On your local machine create a Firbase account and an Edamam API account
+
 Visit: https://expo.io/@daniellaaceves/projects/TasteNotWaste
 
 ## Team
