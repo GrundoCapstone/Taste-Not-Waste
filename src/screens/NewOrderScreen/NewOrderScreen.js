@@ -87,6 +87,7 @@ function NewOrderOptions({ navigation }) {
               }}
         >
           <View style={styles.modalView}>
+          <Text style={styles.modalText}>How To Start a New Shopping Trip</Text>
           <Text>
             Choose "Upload Receipt Image" to take a picture of your grocery receipt 
             or upload a receipt from your camera roll to automatically add food 

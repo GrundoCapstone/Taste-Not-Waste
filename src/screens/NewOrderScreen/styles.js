@@ -74,4 +74,10 @@ export default StyleSheet.create({
     elevation: 5,
     marginTop: '50%',
   },
+  modalText: {
+    marginBottom: 15,
+    fontSize: 18,
+    textAlign: 'center',
+    fontFamily: 'Kalam',
+  },
 });
