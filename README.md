@@ -25,19 +25,20 @@ Visit: https://expo.io/@daniellaaceves/projects/TasteNotWaste
 ## Team
 
 Laura Buffington:<br/>
-https://www.linkedin.com/in/laura-c-buffington/
+https://www.linkedin.com/in/laura-c-buffington/ <br />
 https://github.com/laura177
 
 Daniella Aceves:<br/>
+https://www.linkedin.com/in/daniella-aceves/ <br />
 https://github.com/dani-aceves
-https://www.linkedin.com/in/daniella-aceves/
 
 Clare Sweeny:<br/>
-https://www.linkedin.com/in/clare-sweeny/
+https://www.linkedin.com/in/clare-sweeny/ <br />
 https://github.com/csweeny
 
 Mabel Lawrence:<br/>
-https://www.linkedin.com/in/mabellawrence/
+https://www.linkedin.com/in/mabellawrence/ <br />
+https://github.com/mlawrence103
 
 ## Current Features
 
