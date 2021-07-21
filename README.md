@@ -8,6 +8,9 @@
 
 Taste Not Waste helps minimize food waste by keeping track of all your perishables and when they will expire. Users can add items to their "fridge" after a shopping trip and the app can estimate when each item will expire, or a user can input the expiration date on the packaging. The app also sends notifications to remind users about their items that are expiring soon and will suggest recipes using that item.
 
+Vist <a href="http://www.tastenotwasteapp.com/">www.tastenotwasteapp.com</a> <br />
+Checkout our walkthrough video of Taste Not Waste <a href="https://www.youtube.com/watch?v=zAaoZnrvJPU&list=PLx0iOsdUOUmnxvdRhz1frAMDEiERKJ9-v&index=6">here</a>
+
 ## Use App On Our Expo Account
 
 1. Download <a href="https://expo.dev/client">Expo Go</a> on your mobile device or tablet
@@ -33,7 +36,7 @@ npm start
 
 On a mobile app/tablet, download Expo Go app
 
-On your local machine create a Firbase account and an Edamam API account
+On your local machine create a <a href="https://firebase.google.com/">Firebase</a> account and an <a href="https://developer.edamam.com/">Edamam API</a> account
 
 Visit: https://expo.io/@daniellaaceves/projects/TasteNotWaste
 
