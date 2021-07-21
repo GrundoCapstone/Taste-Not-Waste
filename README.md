@@ -35,7 +35,7 @@ npm start
 
 On a mobile app/tablet, download Expo Go app
 
-On your local machine create a Firbase account and an Edamam API account
+On your local machine create a <a href="https://firebase.google.com/">Firebase</a> account and an <a href="https://developer.edamam.com/">Edamam API</a> account
 
 Visit: https://expo.io/@daniellaaceves/projects/TasteNotWaste
 
